@@ -1,0 +1,118 @@
+# Cursor Rules for Astro + Vue + TypeScript Portfolio Project
+
+## Project Overview
+This is a portfolio website built with Astro, Vue.js, and TypeScript. The project uses modern tooling including ESLint, Prettier, and follows strict TypeScript configuration.
+
+## Technology Stack
+- **Framework**: Astro 5.x with Vue integration
+- **Language**: TypeScript (strict mode)
+- **Styling**: CSS/SCSS (component-based)
+- **Linting**: ESLint with Astro, Vue, and TypeScript plugins
+- **Formatting**: Prettier with Astro plugin
+- **Build Tool**: Vite (via Astro)
+
+## File Structure Conventions
+- `/src/pages/` - Astro pages and routes
+- `/src/components/` - Reusable components (Vue and Astro)
+- `/src/layouts/` - Page layouts
+- `/src/assets/` - Static assets (images, icons, etc.)
+- `/src/styles/` - Global styles and CSS modules
+- `/src/types/` - TypeScript type definitions
+- `/public/` - Public static files
+
+## Coding Standards
+
+### TypeScript
+- Use strict TypeScript configuration (extends `astro/tsconfigs/strict`)
+- Prefer explicit typing over `any`
+- Use interfaces for object shapes, types for unions/primitives
+- Export types from `/src/types/` directory
+- Use proper type imports: `import type { ComponentType } from 'vue'`
+
+### Vue Components
+- Use Vue 3 Composition API
+- Component names should be PascalCase
+- Props should be typed with `defineProps<T>()`
+- Emits should be typed with `defineEmits<T>()`
+- Use `<script setup lang="ts">` for component logic
+- Keep components focused and single-responsibility
+
+### Astro Components
+- Use `.astro` extension for Astro components
+- Prefer Vue components for interactive elements
+- Use Astro components for static content and layouts
+- Leverage Astro's built-in optimizations (partial hydration)
+
+### Styling
+- Use component-scoped styles when possible
+- Follow BEM methodology for CSS class naming
+- Use CSS custom properties for theming
+- Optimize for mobile-first responsive design
+- Use semantic HTML elements
+
+### Code Quality
+- Follow ESLint rules (no-console warnings, prettier formatting)
+- Use Prettier for consistent code formatting
+- Write meaningful commit messages
+- Add JSDoc comments for complex functions
+- Use descriptive variable and function names
+
+## Development Workflow
+- Run `npm run dev` for development server
+- Run `npm run build` for production build
+- Run `npm run lint` to check code quality
+- Use TypeScript strict mode for better type safety
+- Test components in isolation when possible
+
+## Performance Considerations
+- Use Astro's partial hydration for better performance
+- Optimize images and assets
+- Minimize JavaScript bundle size
+- Use lazy loading for non-critical components
+- Leverage Astro's static site generation capabilities
+
+## Accessibility
+- Use semantic HTML elements
+- Include proper ARIA attributes
+- Ensure keyboard navigation works
+- Maintain proper color contrast ratios
+- Test with screen readers
+
+## SEO Best Practices
+- Use proper meta tags in Astro layouts
+- Implement structured data where appropriate
+- Optimize for Core Web Vitals
+- Use descriptive page titles and descriptions
+- Ensure proper heading hierarchy
+
+## Security
+- Sanitize user inputs
+- Use environment variables for sensitive data
+- Follow OWASP guidelines
+- Keep dependencies updated
+- Validate data on both client and server
+
+## File Naming Conventions
+- Components: PascalCase (e.g., `Header.vue`, `Footer.vue`)
+- Pages: PascalCase (e.g., `About.astro`, `Contact.astro`)
+- Utilities: camelCase (e.g., `formatDate.ts`, `apiClient.ts`)
+- Types: PascalCase (e.g., `Portfolio.ts`, `User.ts`)
+
+## Import/Export Patterns
+- Use named exports for utilities and types
+- Use default exports for components
+- Group imports: external libraries, internal modules, types
+- Use absolute imports when possible (configure in tsconfig)
+
+## Error Handling
+- Use try-catch blocks for async operations
+- Provide meaningful error messages
+- Implement proper fallbacks for failed operations
+- Log errors appropriately (avoid console.log in production)
+
+## Testing Strategy
+- Write unit tests for utility functions
+- Test component behavior and interactions
+- Use accessibility testing tools
+- Perform cross-browser testing
+- Test responsive design on various screen sizes
