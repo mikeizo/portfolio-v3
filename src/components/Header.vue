@@ -1,10 +1,8 @@
-<script lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <header>
-    <div class="logo"></div>
+    <div>Header</div>
     <nav>
       <ul>
         <li>Home</li>
