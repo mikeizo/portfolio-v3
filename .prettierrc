@@ -4,8 +4,7 @@
   "singleQuote": true,
   "trailingComma": "none",
   "vueIndentScriptAndStyle": true,
-  "lineWidth": 120,
-  "singleAttributePerLine": true,
+  "lineWidth": 100,
   "plugins": ["prettier-plugin-astro"],
   "overrides": [
     {
