@@ -44,7 +44,6 @@ This is a portfolio website built with Astro, Vue.js, and TypeScript. The projec
 - Leverage Astro's built-in optimizations (partial hydration)
 
 ### Styling
-- Use component-scoped styles when possible
 - Follow BEM methodology for CSS class naming
 - Use CSS custom properties for theming
 - Optimize for mobile-first responsive design
@@ -97,6 +96,7 @@ This is a portfolio website built with Astro, Vue.js, and TypeScript. The projec
 - Pages: PascalCase (e.g., `About.astro`, `Contact.astro`)
 - Utilities: camelCase (e.g., `formatDate.ts`, `apiClient.ts`)
 - Types: PascalCase (e.g., `Portfolio.ts`, `User.ts`)
+- Composables: camelCase (g.g., `useTest`)
 
 ## Import/Export Patterns
 - Use named exports for utilities and types
