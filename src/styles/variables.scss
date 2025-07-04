@@ -1,0 +1,11 @@
+// Dark theme
+[data-theme="dark"] {
+  --background-color: black;
+  --text-color: white;
+}
+
+// Light theme
+[data-theme="light"] {
+  --background-color: white;
+  --text-color: black;
+}
