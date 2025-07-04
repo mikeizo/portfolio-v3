@@ -9,5 +9,12 @@ export default defineConfig({
   server: {
     port: parseInt(env.PORT)
   },
-  integrations: [vue()]
+  integrations: [vue()],
+  vite: {
+    resolve: {
+      alias: {
+        '@': '/src'
+      }
+    }
+  }
 })
