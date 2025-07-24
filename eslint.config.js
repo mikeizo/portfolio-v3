@@ -20,10 +20,7 @@ export default [
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 'latest',
-      sourceType: 'module',
-      parserOptions: {
-        parser: tsParser
-      }
+      sourceType: 'module'
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
