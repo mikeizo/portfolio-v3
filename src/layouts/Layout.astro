@@ -22,8 +22,10 @@ import Footer from '@/components/Footer.vue'
     <link rel="stylesheet" href="/src/styles/styles.scss" />
   </head>
   <body>
-    <Header />
-    <slot />
-    <Footer />
+    <main id="main-content">
+      <Header client:load />
+      <slot />
+      <Footer />
+    </main>
   </body>
 </html>

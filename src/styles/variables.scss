@@ -1,11 +1,22 @@
+:root {
+  --nav-height: 50px;
+  --wrapper-width: 1200px;
+}
+
 // Dark theme
 [data-theme="dark"] {
-  --background-color: black;
-  --text-color: white;
+  --primary-color: #fff;
+  --background-color: #222;
+  --text-color: var(--primary-color);
+  --text-primary: var(--background-color);
+  --shadow-color: hsl(0, 0%, 90%);
 }
 
 // Light theme
 [data-theme="light"] {
-  --background-color: white;
-  --text-color: black;
+  --primary-color: #222;
+  --background-color: #fff;
+  --text-color: var(--primary-color);
+  --text-primary: var(--background-color);
+  --shadow-color: hsl(0, 0%, 10%);
 }
