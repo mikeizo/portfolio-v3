@@ -1,6 +1,12 @@
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
-  import logoUrl from '@/assets/images/logo.svg'
+  import type { MenuType } from '@/types/portfolio'
+  import { ref } from 'vue'
+  import logoUrl from '/public/images/logo.svg'
+  import menuItems from '@/assets/api/menu.json'
+
+  const props = defineProps<{
+    path: string
+  }>()
 
   const isOpen = ref(false)
 
@@ -8,19 +14,11 @@
     isOpen.value = !isOpen.value
   }
 
-  const showMenu = () => {
-    if (window.innerWidth >= 768) {
-      isOpen.value = true
-    } else {
-      isOpen.value = false
-    }
+  const isActive = (url: string) => {
+    return props.path === url
   }
 
-  onMounted(() => {
-    showMenu()
-    // Add a resize event listener to update isOpen based on window width
-    window.addEventListener('resize', () => showMenu())
-  })
+  defineOptions({ name: 'Header' })
 </script>
 
 <template>
@@ -28,17 +26,16 @@
     <div class="header__logo">
       <img :src="logoUrl.src" alt="Mike Tropea Logo" height="32" width="150" />
     </div>
-    <div v-show="isOpen" class="header__nav">
+    <div :class="{ 'header__nav--is-open': isOpen }" class="header__nav">
       <nav class="header__nav-menu">
         <ul class="nav__menu">
-          <li class="nav__link nav__link--active">
-            <a href="/">Home</a>
-          </li>
-          <li class="nav__link">
-            <a href="/work">Work</a>
-          </li>
-          <li class="nav__link">
-            <a href="/about">About</a>
+          <li
+            v-for="(item, index) in menuItems"
+            :key="item.title"
+            class="nav__link"
+            :class="{ 'nav__link--active': isActive(item.url) }"
+          >
+            <a :href="item.url">{{ item.title }}</a>
           </li>
         </ul>
       </nav>

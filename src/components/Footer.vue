@@ -1,5 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  const year = new Date().getFullYear()
+
+  defineOptions({ name: 'Footer' })
+</script>
 
 <template>
-  <footer>Footer</footer>
+  <div class="wrapper">
+    <div class="footer">
+      © {{ year }} All Rights Reserved. Created by Mike Tropea
+    </div>
+  </div>
 </template>
