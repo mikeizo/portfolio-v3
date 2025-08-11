@@ -1,0 +1,23 @@
+---
+import type { SettingsType } from '@/types/portfolio'
+import Layout from '@/layouts/Layout.astro'
+import AboutContent from '@/components/about/AboutContent.vue'
+import AboutList from '@/components/about/AboutList.vue'
+
+import aboutSettings from '@/assets/api/settings.json'
+import aboutData from '@/assets/api/about.json'
+
+const [settings]: SettingsType = aboutSettings
+---
+
+<Layout>
+  <div class="wrapper">
+    <div class="page">
+      <h1 class="page__title">About Me</h1>
+      <div class="page__content page__about about">
+        <AboutContent data={settings.about} />
+        <AboutList data={aboutData} />
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,6 +1,8 @@
 ---
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
+
+const { pathname } = Astro.url
 ---
 
 <!doctype html>
@@ -8,7 +10,7 @@ import Footer from '@/components/Footer.vue'
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>Astro Basics</title>
 
@@ -23,7 +25,7 @@ import Footer from '@/components/Footer.vue'
   </head>
   <body>
     <main id="main-content">
-      <Header client:load />
+      <Header client:load path={pathname} />
       <slot />
       <Footer />
     </main>

@@ -1,12 +1,16 @@
 :root {
   --nav-height: 50px;
   --wrapper-width: 1200px;
+  --footer-height: 68px;
+  --border-radius: 10px;
+  --font-size: 16px;
 }
 
 // Dark theme
 [data-theme="dark"] {
   --primary-color: #fff;
   --background-color: #222;
+  --background-color-rgba: rgba(34, 34, 34, 0.25);
   --text-color: var(--primary-color);
   --text-primary: var(--background-color);
   --shadow-color: hsl(0, 0%, 90%);
@@ -16,6 +20,7 @@
 [data-theme="light"] {
   --primary-color: #222;
   --background-color: #fff;
+  --background-color-rgba: rgba(255, 255, 255, 0.25);
   --text-color: var(--primary-color);
   --text-primary: var(--background-color);
   --shadow-color: hsl(0, 0%, 10%);

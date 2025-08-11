@@ -1,4 +1,6 @@
 @media (width >= 768px) {
+
+  // Header
   .header {
 
     &__burger {
@@ -19,6 +21,7 @@
     }
   }
 
+  // Navigation
   .nav {
     &__menu,
     &__contact {
@@ -58,6 +61,32 @@
       background-color: var(--primary-color);
       color: var(--text-primary);
       width: auto;
+    }
+  }
+
+  // Footer
+  .footer {
+    font-size: 0.7rem;
+  }
+
+  // Pages
+  .page {
+
+    // Home
+    &__home {
+
+      h1 {
+        font-size: 3.5rem;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    // About
+    &__about {
+      grid-template-columns: 1fr 1fr;
     }
   }
 }
