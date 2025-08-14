@@ -1,8 +1,9 @@
 <script setup lang="ts">
-  import type { MenuType } from '@/types/portfolio'
+  // import type { MenuType } from '@/types/portfolio'
   import { ref } from 'vue'
-  import logoUrl from '/public/images/logo.svg'
   import menuItems from '@/assets/api/menu.json'
+  import Logo from '@/components/Logo.vue'
+
 
   const props = defineProps<{
     path: string
@@ -24,7 +25,7 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <img :src="logoUrl.src" alt="Mike Tropea Logo" height="32" width="150" />
+      <Logo />
     </div>
     <div :class="{ 'header__nav--is-open': isOpen }" class="header__nav">
       <nav class="header__nav-menu">
