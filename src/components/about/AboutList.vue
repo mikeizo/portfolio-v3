@@ -12,8 +12,11 @@
   <div class="about__list">
     <div v-for="(item, index) in data" class="about__list-item">
       <div class="about__list-year">
-        <span>{{ item.yearFrom }}</span>
-        <span>{{ item.yearTo }}</span>
+        <div class="about__list-year-from">{{ item.yearFrom }}</div>
+        <div v-if="item.yearTo" class="about__list-year-dash">&ndash;</div>
+        <div v-if="item.yearTo" class="about__list-year-to">
+          {{ item.yearTo }}
+        </div>
       </div>
       <div class="about_list-description">
         {{ item.description }}
