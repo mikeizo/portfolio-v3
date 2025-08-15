@@ -15,7 +15,7 @@ p {
 }
 
 #main-content {
-  margin-top: calc(var(--nav-height) + var(--margin));
+  margin-top: calc(var(--nav-height) + var(--margin) + 1rem);
 }
 
 .wrapper {
@@ -36,7 +36,7 @@ p {
   width: calc(100% - 4rem);
   max-width: calc(var(--wrapper-width) - 4rem);
   margin-top: var(--margin);
-  padding: 0.5rem;
+  padding: 1rem;
   border: var(--border);
   border-radius: var(--border-radius);
   background-color: var(--background-color-hsl);
@@ -80,7 +80,7 @@ p {
     top: var(--nav-height);
     left: 0;
     width: 100%;
-    padding: 16px;
+    padding: 1rem;
     background-color: var(--primary-color);
     color: var(--background-color);
     border-radius: var(--border-radius);
@@ -151,7 +151,7 @@ p {
   flex-direction: column;
   justify-content: center;
   min-height: calc(
-    100svh - var(--footer-height) - var(--nav-height) - (var(--margin) * 2)
+    100svh - 1rem - var(--footer-height) - var(--nav-height) - (var(--margin) * 2)
   );
   text-align: center;
 
@@ -186,6 +186,10 @@ p {
     text-align: center;
     border: var(--border);
     border-radius: var(--border-radius);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__list-year {

@@ -4,7 +4,6 @@
   import menuItems from '@/assets/api/menu.json'
   import Logo from '@/components/Logo.vue'
 
-
   const props = defineProps<{
     path: string
   }>()
@@ -24,9 +23,9 @@
 
 <template>
   <header class="header">
-    <div class="header__logo">
+    <a class="header__logo" href="/" aria-label="Home Page">
       <Logo />
-    </div>
+    </a>
     <div :class="{ 'header__nav--is-open': isOpen }" class="header__nav">
       <nav class="header__nav-menu">
         <ul class="nav__menu">
@@ -35,12 +34,13 @@
             :key="item.title"
             class="nav__link"
             :class="{ 'nav__link--active': isActive(item.url) }"
+            :aria-label="item.title"
           >
             <a :href="item.url">{{ item.title }}</a>
           </li>
         </ul>
       </nav>
-      <button class="nav__contact">Contact</button>
+      <button class="nav__contact" aria-label="Contact">Contact</button>
     </div>
     <button
       class="header__burger"
