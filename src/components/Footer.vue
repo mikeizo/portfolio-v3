@@ -6,8 +6,8 @@
 
 <template>
   <div class="wrapper">
-    <div class="footer">
+    <footer class="footer">
       © {{ year }} All Rights Reserved. Created by Mike Tropea
-    </div>
+    </footer>
   </div>
 </template>
