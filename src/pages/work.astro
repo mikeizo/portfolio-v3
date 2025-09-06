@@ -1,11 +1,16 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import WorkList from '@/components/work/WorkList.vue'
+
+const env = import.meta.env
+const assetsPath = env.PUBLIC_ASSETS_PATH
 ---
 
 <Layout>
-  <div class="wrapper">
-    <div class="page page__work">
-      <h1 class="page__title">Work</h1>
+  <div class="page">
+    <h1 class="page__title">Work</h1>
+    <div class="page__content page__work work">
+      <WorkList path={assetsPath} client:load />
     </div>
   </div>
 </Layout>

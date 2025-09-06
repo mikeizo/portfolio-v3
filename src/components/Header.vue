@@ -28,7 +28,7 @@
 </script>
 
 <template>
-  <div ref="header" class="wrapper header" :class="{ sticky: isSticky }">
+  <div ref="header" class="header" :class="{ sticky: isSticky }">
     <header class="header__content">
       <a class="header__logo" href="/" aria-label="Home Page">
         <Logo />

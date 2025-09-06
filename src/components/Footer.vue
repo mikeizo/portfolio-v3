@@ -5,9 +5,7 @@
 </script>
 
 <template>
-  <div class="wrapper">
-    <footer class="footer">
-      © {{ year }} All Rights Reserved. Created by Mike Tropea
-    </footer>
-  </div>
+  <footer class="footer">
+    &copy; {{ year }} All Rights Reserved. Created by Mike Tropea
+  </footer>
 </template>

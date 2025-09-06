@@ -1,0 +1,16 @@
+[{
+  "name": "HTML/CSS",
+  "percent": 100
+},
+{
+  "name": "Javascript",
+  "percent": 90
+},
+{
+  "name": "PHP",
+  "percent": 90
+},
+{
+  "name": "MySql",
+  "percent": 85
+}]

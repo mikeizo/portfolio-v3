@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { AboutType } from '@/types/portfolio'
 
-  const props = defineProps<{
+  defineProps<{
     data: AboutType
   }>()
 

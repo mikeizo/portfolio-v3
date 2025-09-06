@@ -12,5 +12,20 @@ export type AboutType = {
   yearFrom: string
   yearTo?: string
   description: string
-  image: string
+  image?: string
+  updated?: string
 }[]
+
+export type WorkType = {
+  name: string
+  description: string
+  resources: string[]
+  url?: string
+  logo: string
+  images: string[]
+  slug: string
+  weight: number
+  git?: string
+  created: string
+  updated?: string
+}
