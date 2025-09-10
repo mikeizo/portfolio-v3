@@ -24,6 +24,7 @@ const { pathname } = Astro.url
     <link rel="stylesheet" href="/src/styles/styles.scss" />
   </head>
   <body>
+    <modal></modal>
     <Header client:load path={pathname} />
     <main id="main-content">
       <slot />

@@ -21,7 +21,7 @@ p {
 
 // Header
 .header {
-  z-index: 100;
+  z-index: 50;
   padding-inline: var(--padding);
 
   &__content {
@@ -221,6 +221,7 @@ p {
     background-color: var(--shadow-color);
     border: var(--border);
     border-radius: var(--border-radius);
+    cursor: pointer;
   }
 
   &__list-content {
@@ -248,11 +249,30 @@ p {
       text-decoration: none;
     }
   }
+}
 
-  &__modal {
-    position: fixed;
-    top: 0;
+// Modal Component
+.modal,
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+}
+
+.modal {
+
+  &__overlay {
+    background-color: rgba(0,0,0, 0.5);
+  }
+
+  &__content {
+    position: relative;
+    padding: var(--padding);
     margin-top: calc(var(--header-height) + (var(--margin) * 2));
+    margin-inline: auto;
     width: calc(100% - 4rem);
     max-width: var(--page-width);
     max-height: calc(100svh - var(--header-height) - (var(--margin) * 2));
@@ -260,10 +280,6 @@ p {
     background-color: var(--primary-color);
     color: var(--background-color);
     overflow-wrap: break-word;
-    z-index: 10;
-  }
-
-  &__modal-content {
-    padding: var(--padding);
+    z-index: 100;
   }
 }
