@@ -19,16 +19,21 @@ p {
   top: .5rem;
 }
 
+.wrapper {
+  max-width: var(--page-width);
+  padding-inline: var(--padding);
+  margin-inline: auto;
+  box-sizing: content-box;
+}
+
 // Header
 .header {
   z-index: 50;
-  padding-inline: var(--padding);
 
   &__content {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    max-width: var(--page-width);
+    align-items: center;
     margin: var(--margin) auto;
     padding: 1rem;
     border: var(--border);
@@ -125,26 +130,17 @@ p {
   padding-inline: var(--padding);
 
   &__content {
-    position: relative;
     margin-top: var(--margin);
-    margin-inline: auto;
-    padding: 25px var(--padding);
-    max-width: var(--page-width);
+    padding: 1rem var(--padding);
     height: var(--footer-height);
     border-top: .5px solid var(--shadow-color);
-    font-size: .5rem;
+    font-size: .65rem;
     text-align: center;
   }
 }
 
-#main-content {
-  padding-inline: var(--padding);
-}
-
 // Pages
 .page {
-  max-width: var(--page-width);
-  margin-inline: auto;
 
   &__title {
     text-align: center;
@@ -176,8 +172,11 @@ p {
 
 // About
 .about {
-  display: grid;
-  gap: var(--margin);
+
+  .page__content {
+    display: grid;
+    gap: var(--margin);
+  }
 
   &__image {
     margin-top: var(--margin);
@@ -215,7 +214,7 @@ p {
 
   &__list {
     display: grid;
-    gap: 2rem;
+    gap: 3rem;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 

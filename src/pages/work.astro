@@ -7,10 +7,12 @@ const assetsPath = env.PUBLIC_ASSETS_PATH
 ---
 
 <Layout>
-  <div class="page">
-    <h1 class="page__title">Work</h1>
-    <div class="page__content page__work work">
-      <WorkList path={assetsPath} client:load />
+  <div class="page work">
+    <div class="wrapper">
+      <h1 class="page__title">Work</h1>
+      <div class="page__content">
+        <WorkList path={assetsPath} client:load />
+      </div>
     </div>
   </div>
 </Layout>

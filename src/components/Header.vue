@@ -1,6 +1,6 @@
 <script setup lang="ts">
   // import type { MenuType } from '@/types/portfolio'
-  import { ref, onMounted, useTemplateRef } from 'vue'
+  import { ref, onMounted } from 'vue'
   import menuItems from '@/assets/api/menu.json'
   import Logo from '@/components/Logo.vue'
 
@@ -10,7 +10,6 @@
 
   const isOpen = ref(false)
   const isSticky = ref(true)
-  const header = useTemplateRef('header')
 
   const openNav = () => {
     isOpen.value = !isOpen.value
@@ -28,7 +27,7 @@
 </script>
 
 <template>
-  <header ref="header" class="header" :class="{ sticky: isSticky }">
+  <header class="header wrapper" :class="{ sticky: isSticky }">
     <div class="header__content">
       <a class="header__logo" href="/" aria-label="Home Page">
         <Logo />

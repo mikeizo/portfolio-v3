@@ -65,7 +65,10 @@
 
   // Footer
   .footer {
-    font-size: 0.7rem;
+
+    &__content {
+      font-size: 0.75rem;
+    }
   }
 
   // Home
@@ -82,9 +85,12 @@
 
   // About
   .about {
-    grid-template-columns: 300px 1fr;
-    gap: 4rem;
-    grid-template-rows: auto;
+
+    .page__content {
+      grid-template-columns: 300px 1fr;
+      gap: 4rem;
+      grid-template-rows: auto;
+    }
 
     &__image {
       max-width: 316px;
