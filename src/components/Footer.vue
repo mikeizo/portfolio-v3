@@ -6,6 +6,8 @@
 
 <template>
   <footer class="footer">
-    &copy; {{ year }} All Rights Reserved. Created by Mike Tropea
+    <div class="footer__content">
+      <p>&copy; {{ year }} All Rights Reserved. Created by Mike Tropea</p>
+    </div>
   </footer>
 </template>

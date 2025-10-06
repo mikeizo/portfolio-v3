@@ -29,10 +29,14 @@
     >
       <div class="work__list-content">
         <div class="work__image-logo">
-          <img :src="`${path}/logos/${work.logo}`" />
+          <img
+            :src="`${path}/logos/${work.logo}`"
+            class="work__image-logo-img"
+            alt="Logo for {{ work.name }}"
+          />
         </div>
-        <div class="work__name">{{ work.name }}</div>
       </div>
+      <div class="work__name">{{ work.name }}</div>
     </div>
   </div>
   <WorkItem :data="workItem" />

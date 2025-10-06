@@ -27,7 +27,6 @@ p {
   &__content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
     max-width: var(--page-width);
     margin: var(--margin) auto;
@@ -123,19 +122,29 @@ p {
 
 // Footer
 .footer {
-  position: relative;
-  margin-top: var(--margin);
-  margin-inline: var(--margin);
-  padding: 25px var(--padding);
-  max-width: var(--page-width);
-  height: var(--footer-height);
-  border-top: .5px solid var(--shadow-color);
-  font-size: .5rem;
-  text-align: center;
+  padding-inline: var(--padding);
+
+  &__content {
+    position: relative;
+    margin-top: var(--margin);
+    margin-inline: auto;
+    padding: 25px var(--padding);
+    max-width: var(--page-width);
+    height: var(--footer-height);
+    border-top: .5px solid var(--shadow-color);
+    font-size: .5rem;
+    text-align: center;
+  }
+}
+
+#main-content {
+  padding-inline: var(--padding);
 }
 
 // Pages
 .page {
+  max-width: var(--page-width);
+  margin-inline: auto;
 
   &__title {
     text-align: center;
@@ -143,9 +152,6 @@ p {
   }
 
   &__content {
-    max-width: var(--page-width);
-    margin-inline: auto;
-    padding-inline: var(--padding);
     position: relative;
   }
 }
@@ -209,26 +215,25 @@ p {
 
   &__list {
     display: grid;
-    justify-content: center;
     gap: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    position: relative;
   }
 
   &__list-item {
-    text-align: center;
-    color: var(--text-color);
-    background-color: var(--shadow-color);
-    border: var(--border);
-    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
     cursor: pointer;
   }
 
   &__list-content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
+    color: var(--text-color);
+    background-color: var(--shadow-color);
+    border-radius: var(--border-radius);
+    justify-content: space-between;
     height: 100%;
     padding: 2rem;
   }
@@ -236,15 +241,17 @@ p {
   &__image-logo {
     display: flex;
     margin: auto 0;
+    max-height: 300px;
+  }
 
-    img {
-      max-height: 100px;
-    }
+  &__image-logo-img {
+    max-height: 225px;
   }
 
   &__name {
     font-size: 1rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+
     a {
       text-decoration: none;
     }
@@ -252,6 +259,10 @@ p {
 }
 
 // Modal Component
+body:has(.modal) {
+  overflow: hidden;
+}
+
 .modal,
 .modal__overlay {
   position: fixed;
@@ -280,6 +291,7 @@ p {
     background-color: var(--primary-color);
     color: var(--background-color);
     overflow-wrap: break-word;
+    overflow-y: auto;
     z-index: 100;
   }
 }

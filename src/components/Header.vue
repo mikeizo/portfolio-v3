@@ -28,8 +28,8 @@
 </script>
 
 <template>
-  <div ref="header" class="header" :class="{ sticky: isSticky }">
-    <header class="header__content">
+  <header ref="header" class="header" :class="{ sticky: isSticky }">
+    <div class="header__content">
       <a class="header__logo" href="/" aria-label="Home Page">
         <Logo />
       </a>
@@ -58,6 +58,6 @@
         <span />
         <span />
       </button>
-    </header>
-  </div>
+    </div>
+  </header>
 </template>
