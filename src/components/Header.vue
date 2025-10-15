@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  // import type { MenuType } from '@/types/portfolio'
   import { ref, onMounted } from 'vue'
   import menuItems from '@/assets/api/menu.json'
   import Logo from '@/components/Logo.vue'

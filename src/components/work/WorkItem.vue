@@ -1,9 +1,11 @@
 <script setup lang="ts">
   import type { WorkType } from '@/types/portfolio'
   import Modal from '@/components/Modal.vue'
+  import Slideshow from '@/components/Slideshow.vue'
 
   defineProps<{
     data: WorkType | null
+    path: string
   }>()
 
   defineOptions({ name: 'WorkItem' })
@@ -11,21 +13,38 @@
 
 <template>
   <Modal :is-open="Boolean(data)">
-    <div v-if="data" class="work__item">
-      <div class="work__item-content">
+    <div v-if="data" class="work-item">
+      <div class="work-item__content">
         <h2>{{ data?.name }}</h2>
-        <p class="work__item-description">{{ data?.description }}</p>
-        <ul class="work__item-resources">
-          <li
-            v-for="resource in data?.resources"
-            :key="resource"
-            class="work__item-resource"
-          >
-            {{ resource }}
-          </li>
-        </ul>
-        <a :href="data?.url" target="_blank">{{ data?.url }}</a>
-        <a :href="data?.git" target="_blank">{{ data?.git }}</a>
+        <p class="work-item__description">{{ data?.description }}</p>
+        <div class="work-item__images">
+          <Slideshow :images="data.images" />
+        </div>
+        <div class="work-item__assets">
+          <div v-if="data?.resources" class="work-item__resources">
+            <h3>Resources</h3>
+            <ul>
+              <li
+                v-for="resource in data.resources"
+                :key="resource"
+                class="work-item__resource"
+              >
+                {{ resource }}
+              </li>
+            </ul>
+          </div>
+          <div v-if="data?.url || data?.git" class="work-item__links">
+            <h3>Links</h3>
+            <p v-if="data?.url">
+              <strong>Site:&nbsp;</strong><br />
+              <a :href="data?.url" target="_blank">{{ data?.url }}</a>
+            </p>
+            <p v-if="data?.git">
+              <strong>Git:&nbsp;</strong><br />
+              <a :href="data?.git" target="_blank">{{ data?.git }}</a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </Modal>
