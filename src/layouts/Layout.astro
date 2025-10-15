@@ -1,6 +1,7 @@
 ---
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
+import sprite from '/images/icons.svg?raw'
 
 const { pathname } = Astro.url
 ---
@@ -24,6 +25,7 @@ const { pathname } = Astro.url
     <link rel="stylesheet" href="/src/styles/styles.scss" />
   </head>
   <body>
+    <Fragment set:html={sprite} />
     <modal></modal>
     <Header client:load path={pathname} />
     <main id="main-content">
