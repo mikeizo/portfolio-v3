@@ -16,6 +16,6 @@
     :class="`icon icon--${name}`"
     :aria-label="name"
   >
-    <use xlink:href="#close" />
+    <use :xlink:href="`#${name}`" />
   </svg>
 </template>
