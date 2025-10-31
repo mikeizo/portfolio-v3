@@ -15,14 +15,14 @@
   <Modal :is-open="Boolean(data)">
     <div v-if="data" class="work-item">
       <div class="work-item__content">
-        <h2>{{ data?.name }}</h2>
+        <h2 class="work-item__name">{{ data?.name }}</h2>
         <p class="work-item__description">{{ data?.description }}</p>
         <div class="work-item__images">
           <Slideshow :images="data.images" />
         </div>
         <div class="work-item__assets">
           <div v-if="data?.resources" class="work-item__resources">
-            <h3>Resources</h3>
+            <h3>Tech Stack</h3>
             <ul>
               <li
                 v-for="resource in data.resources"

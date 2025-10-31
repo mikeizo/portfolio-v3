@@ -1,16 +1,14 @@
 :root {
-  --page-width: 1280px;
-  --header-height: 62px;
-  --footer-height: 68px;
-  --home-height: calc(100svh - var(--header-height) - var(--footer-height) - (var(--margin) * 3));
-  --border-radius: 10px;
   --font-size: 16px;
-  --margin: 32px;
-  --padding: 32px;
-}
+  --border-radius: 1rem;
+  --margin: 2rem;
+  --padding: 2rem;
+  --page-width: 1280px;
+  --header-height: 64px;
+  --footer-height: 64px;
+  --home-height: calc(100svh - var(--header-height) - var(--footer-height) - (var(--margin) * 3));
 
-// Dark theme
-[data-theme="dark"] {
+  // Default Dark theme
   --primary-color: #fff;
   --background-color: #222;
   --background-color-hsl: hsla(0, 0%, 13%, 0.25);

@@ -96,8 +96,8 @@ p {
 .nav {
   &__menu,
   &__contact {
-    font-size: 1.5rem;
-    font-weight: 300;
+    font-size: 2rem;
+    font-weight: 200;
     text-align: center;
   }
 
@@ -262,7 +262,13 @@ p {
     }
   }
 
+  &__name {
+    text-align: center;
+  }
+
   &__assets {
+    overflow-wrap: break-word;
+    word-break: break-word;
 
     & > * {
       margin-top: 1rem;
