@@ -1,12 +1,16 @@
 <script setup lang="ts">
-  import { ref, computed, onMounted, onUnmounted } from 'vue'
+  import { ref, computed, shallowRef } from 'vue'
   import Icon from '@/components/Icon.vue'
+  import type { UseSwipeDirection } from '@vueuse/core'
+  import { useSwipe } from '@vueuse/core'
 
   const props = defineProps<{
     images: string[]
   }>()
 
   const path = import.meta.env.PUBLIC_ASSETS_PATH
+
+  const swipeTarget = shallowRef<HTMLElement | null>(null)
 
   const currentIndex = ref(0)
 
@@ -40,40 +44,55 @@
       currentIndex.value === 0 ? totalImages.value - 1 : currentIndex.value - 1
     goToSlide(prevIndex)
   }
+
+  useSwipe(swipeTarget, {
+    passive: false,
+    onSwipeEnd(e: TouchEvent, direction: UseSwipeDirection) {
+      if (direction === 'left') {
+        nextSlide()
+      }
+
+      if (direction === 'right') {
+        prevSlide()
+      }
+    }
+  })
 </script>
 
 <template>
   <div class="slideshow">
-    <div class="slideshow__image-container">
-      <div class="slideshow__images" :style="sliderStyle">
-        <div
-          v-for="(image, index) in imageUrls"
-          :key="`slide-${index}`"
-          class="slideshow__image"
-          :class="{ 'slideshow__image--active': index === currentIndex }"
-        >
-          <img :src="image" :alt="`Slide ${index + 1}`" />
+    <div class="slideshow__container">
+      <div class="slideshow__image-container">
+        <div ref="swipeTarget" class="slideshow__images" :style="sliderStyle">
+          <div
+            v-for="(image, index) in imageUrls"
+            :key="`slide-${index}`"
+            class="slideshow__image"
+            :class="{ 'slideshow__image--active': index === currentIndex }"
+          >
+            <img :src="image" :alt="`Slide ${index + 1}`" />
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Buttons -->
-    <button
-      v-if="multipleImage"
-      class="slideshow__button slideshow__button--prev"
-      aria-label="Previous image"
-      @click="prevSlide"
-    >
-      <Icon name="chevron-left" />
-    </button>
-    <button
-      v-if="multipleImage"
-      class="slideshow__button slideshow__button--next"
-      aria-label="Next image"
-      @click="nextSlide"
-    >
-      <Icon name="chevron-right" />
-    </button>
+      <!-- Buttons -->
+      <button
+        v-if="multipleImage"
+        class="slideshow__button slideshow__button--prev"
+        aria-label="Previous image"
+        @click="prevSlide"
+      >
+        <Icon name="chevron-left" />
+      </button>
+      <button
+        v-if="multipleImage"
+        class="slideshow__button slideshow__button--next"
+        aria-label="Next image"
+        @click="nextSlide"
+      >
+        <Icon name="chevron-right" />
+      </button>
+    </div>
 
     <!-- Dots indicator -->
     <div v-if="multipleImage" class="slideshow__dots">
@@ -88,24 +107,18 @@
         @click="goToSlide(index)"
       />
     </div>
-
-    <!-- Image counter -->
-    <!-- <div v-if="multipleImage" class="slideshow__counter">
-      {{ currentIndex + 1 }} / {{ totalImages }}
-    </div> -->
   </div>
 </template>
 
 <style lang="scss">
   .slideshow {
     position: relative;
-    max-width: 700px;
-    margin-inline: auto;
+    max-width: 100%;
 
     // Images
     &__image-container {
       position: relative;
-      padding: 0.5rem;
+      padding: 1rem;
       box-shadow: 0 0px 16px rgba(0, 0, 0, 0.1);
       border-radius: var(--border-radius);
       background-color: var(--accent-color);
@@ -129,6 +142,7 @@
 
     // Buttons
     &__button {
+      display: none;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -137,15 +151,14 @@
       border-radius: 50%;
       width: 20px;
       height: 20px;
-      display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: all 0.3s ease;
 
       svg {
-        width: 10px;
-        height: 10px;
+        width: 1rem;
+        height: 1rem;
         fill: var(--primary-color);
       }
 
@@ -189,12 +202,12 @@
         transform: scale(1.2);
       }
     }
-
-    // &__counter {
-    //   position: absolute;
-    //   bottom: 1rem;
-    //   right: 0;
-    //   font-size: 0.75rem;
-    // }
+  }
+  @media (width >= 768px) {
+    .slideshow {
+      &__button {
+        display: flex;
+      }
+    }
   }
 </style>

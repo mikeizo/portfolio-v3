@@ -21,7 +21,7 @@
     <div class="modal">
       <div class="modal__content" @click.stop>
         <div class="modal__close">
-          <Icon name="close" :height="25" :width="25" @click="close" />
+          <Icon name="close" :height="20" :width="20" @click="close" />
         </div>
         <slot />
       </div>

@@ -1,3 +1,31 @@
 @media (width >= 1024px) {
-  //
+  // Work item
+  .work-item {
+
+    &__group {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+    }
+
+    &__assets {
+      display: block;
+
+      & > * {
+        margin-bottom: 1rem;
+        padding-top: 1rem;
+        border-top: 0.5px solid var(--background-color-hsl);
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        &:last-child {
+          border-left: 0;
+          padding-left: 0;
+        }
+      }
+    }
+
+  }
 }

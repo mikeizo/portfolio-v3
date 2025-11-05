@@ -106,7 +106,7 @@
   "name": "Steve L. Photography",
   "description": "Dedicated to my friend, Stephen LePorisz, who took up photography as a hobby. I set up this website in memory of him to share some of his best photos.",
   "resources": [
-    "Vue",
+    "Vue.js",
     "Nuxt",
     "Vuetify",
     "Sass",
@@ -154,7 +154,6 @@
   "resources": [
     "Magento"
   ],
-  "url": "http://www.nu-garde.com",
   "logo": "nu-garde.png",
   "images": [
     "nugarde1.jpg",
