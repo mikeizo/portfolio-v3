@@ -8,20 +8,39 @@
 
     &__nav {
       position: unset;
-      display: flex;
-      justify-content: center;
+      display: block;
       padding: 0;
       color: var(--text-color);
       background-color: transparent;
+    }
 
-      &-menu {
-        margin-left: auto;
+    &__mobile {
+      display: none;
+    }
+
+    &__desktop {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 150px;
+    }
+
+    &__desktop-nav {
+      display: block;
+
+      .nav-link {
+        margin: 1rem;
       }
     }
   }
 
   // Navigation
   .nav {
+
+    &__desktop {
+      display: inline-block;
+    }
+
     &__menu,
     &__contact {
       font-size: 1rem;
@@ -36,7 +55,7 @@
     &__link {
       border: none;
       margin: 0;
-      padding: 0;
+      padding: 1.2rem 0;
 
       &--active {
         position: relative;
@@ -44,7 +63,7 @@
         &:after {
           content: "";
           position: absolute;
-          bottom: -10px;
+          bottom: 0;
           left: 50%;
           transform: translateX(-50%);
           width: 10px;
@@ -56,7 +75,7 @@
     }
 
     &__contact {
-      margin-left: auto;
+      margin-left: 1rem;
       background-color: var(--primary-color);
       color: var(--background-color);
       width: auto;

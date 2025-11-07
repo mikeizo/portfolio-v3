@@ -22,6 +22,20 @@ const { pathname } = Astro.url
       rel="stylesheet"
     />
 
+    <script is:inline>
+      // Prevent flash of wrong theme
+      ;(() => {
+        const savedTheme = localStorage.getItem('theme')
+        const theme = savedTheme || 'dark'
+
+        if (!savedTheme) {
+          localStorage.setItem('theme', theme)
+        }
+
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script>
+
     <link rel="stylesheet" href="/src/styles/styles.scss" />
   </head>
   <body>

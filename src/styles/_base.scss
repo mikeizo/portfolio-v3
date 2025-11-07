@@ -33,10 +33,10 @@ p {
 
   &__content {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin: var(--margin) auto;
-    padding: 1rem;
+    justify-content: space-between;
+    margin: var(--margin) 0;
+    padding-inline: 1rem;
     border: var(--border);
     border-radius: var(--border-radius);
     background-color: var(--background-color-hsl);
@@ -44,17 +44,31 @@ p {
   }
 
   &__logo {
-    display: inherit;
     width: 150px;
     height: 28px;
+    margin: 1rem 0;
+
+    .logo-a {
+      fill: var(--logo-color);
+    }
+
+    .logo-b {
+      fill: var(--accent-color);
+    }
   }
 
-  .logo-a {
-    fill: var(--logo-color);
+  &__mobile {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
   }
 
-  .logo-b {
-    fill: var(--accent-color);
+  &__desktop {
+    display: none;
+  }
+
+  &__theme {
+    line-height: 0;
   }
 
   &__burger {
@@ -75,7 +89,7 @@ p {
     }
   }
 
-  &__nav {
+  &__mobile-nav {
     display: none;
     position: fixed;
     top: calc(var(--header-height) + 0.5rem) ;
@@ -94,6 +108,21 @@ p {
 
 // Navigation
 .nav {
+
+  &__desktop {
+    display: none;
+  }
+
+  &__mobile-backdrop {
+    position: fixed;
+    width: 100svh;
+    height: 100svh;
+    top: 0;
+    left: 0;
+    background-color: var(--background-color-hsl);
+    z-index: 10;
+  }
+
   &__menu,
   &__contact {
     font-size: 2rem;
