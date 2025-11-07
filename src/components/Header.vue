@@ -37,7 +37,7 @@
 </script>
 
 <template>
-  <div v-show="isOpen" class="nav__mobile-backdrop" @click="openNav"></div>
+  <div v-if="isOpen" class="nav__mobile-backdrop" @click="openNav"></div>
   <header class="header wrapper" :class="{ sticky: isSticky }">
     <div class="header__content">
       <div class="header__logo">
