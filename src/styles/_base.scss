@@ -1,5 +1,11 @@
 body {
   background-color: var(--background-color);
+  scroll-behavior: smooth;
+}
+
+body:has(.modal),
+body:has(.nav__mobile-backdrop) {
+  overflow: hidden;
 }
 
 a {
@@ -69,6 +75,7 @@ p {
 
   &__theme {
     line-height: 0;
+    animation: fade-in 0.5s ease-in forwards;
   }
 
   &__burger {
@@ -265,17 +272,26 @@ p {
   &__image-logo {
     display: flex;
     margin: auto 0;
-    max-height: 300px;
+    max-height: 200px;
+    max-width: 250px;
   }
 
   &__image-logo-img {
-    max-height: 225px;
+    width: 100%;
+    height: 100%;
   }
 
   &__name {
     font-size: 1rem;
     margin-top: 0.5rem;
     text-align: center;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      margin-left: 0.5rem;
+      fill: var(--accent-color);
+    }
   }
 }
 
@@ -321,10 +337,6 @@ p {
 }
 
 // Modal
-body:has(.modal) {
-  overflow: hidden;
-}
-
 .modal,
 .modal__overlay {
   position: fixed;

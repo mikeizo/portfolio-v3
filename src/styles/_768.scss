@@ -116,12 +116,20 @@
     }
 
     &__list {
-      max-height: 675px;
+      max-height: 700px;
       padding-right: 0.5rem;
       overflow-y: scroll;
       scroll-behavior: smooth;
       scrollbar-width: thin;
       scrollbar-color: var(--primary-color) transparent;
+      background:
+        linear-gradient(var(--background-color) 30%, var(--background-color)) center top,
+        linear-gradient(var(--background-color), var(--background-color) 70%) center bottom,
+        radial-gradient(farthest-side at 50% 0, var(--shadow-color), var(--background-color-hsl)) center top,
+        radial-gradient(farthest-side at 50% 100%,  var(--shadow-color), var(--background-color-hsl)) center bottom;
+      background-repeat: no-repeat;
+      background-size: 100% 40px, 100% 40px, 100% 16px, 100% 16px;
+      background-attachment: local, local, scroll, scroll;
     }
 
     &__list-item {
