@@ -11,13 +11,11 @@ const [settings]: SettingsType = aboutSettings
 ---
 
 <Layout>
-  <div class="page about">
-    <div class="wrapper">
-      <h1 class="page__title">About Me</h1>
-      <div class="page__content">
-        <AboutContent data={settings.about} />
-        <AboutList data={aboutData} />
-      </div>
+  <div class="page wrapper about">
+    <h1 class="page__title">About Me</h1>
+    <div class="page__content">
+      <AboutContent data={settings.about} />
+      <AboutList data={aboutData} />
     </div>
   </div>
 </Layout>
