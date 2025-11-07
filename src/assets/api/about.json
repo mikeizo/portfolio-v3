@@ -46,5 +46,10 @@
   {
     "yearFrom": "2006",
     "description": "Received my bachelors in Computer Science from Mt. St. Vincent's College"
+  },
+  {
+    "yearFrom": "2021",
+    "yearTo": "Now",
+    "description": "Worked at Fox as a Web Developer"
   }
 ]
