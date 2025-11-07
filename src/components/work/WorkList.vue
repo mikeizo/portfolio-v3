@@ -2,6 +2,7 @@
   import { ref, provide } from 'vue'
   import type { WorkType } from '@/types/portfolio'
   import WorkItem from '@/components/work/WorkItem.vue'
+  import Icon from '@/components/Icon.vue'
   import workData from '@/assets/api/work.json'
 
   defineProps<{
@@ -31,10 +32,13 @@
         <img
           :src="`${path}/logos/${work.logo}`"
           class="work__image-logo-img"
-          alt="Logo for {{ work.name }}"
+          :alt="`Logo for ${work.name}`"
         />
       </div>
-      <div class="work__name">{{ work.name }}</div>
+      <div class="work__name">
+        <span>{{ work.name }}</span>
+        <Icon class="icon" name="arrow-up-right" :height="16" :width="16" />
+      </div>
     </div>
   </div>
   <WorkItem :data="workItem" :path="path" />
