@@ -1,32 +1,45 @@
 :root {
   --font-size: 16px;
-  --border-radius: 1rem;
   --margin: 2rem;
   --padding: 2rem;
-  --page-width: 1280px;
+  --border: 0.5px solid var(--border-color);
+  --border-radius: 1rem;
+  --page-width: 1200px;
   --header-height: 64px;
   --footer-height: 64px;
   --home-height: calc(100svh - var(--header-height) - var(--footer-height) - (var(--margin) * 3));
 
-  // Default Dark theme
-  --primary-color: #fff;
-  --background-color: #222;
-  --background-color-hsl: hsla(0, 0%, 13%, 0.5);
-  --text-color: var(--primary-color);
-  --shadow-color: hsla(0, 0%, 75%, 0.25);
-  --logo-color: var(--primary-color);
-  --accent-color: hsl(0, 0%, 70%);
-  --border: 0.5px solid var(--shadow-color);
+  // Colors
+  --black: hsl(0, 0%, 10%);
+  --black-1: hsl(0, 0%, 15%);
+  --black-2: hsl(0, 0%, 25%);
+  --white: hsl(0, 0%, 100%);
+  --white-1: hsl(0, 0%, 95%);
+  --white-2: hsl(0, 0%, 75%);
+  --blue-light: hsl(200, 57%, 67%);
+  --blue-dark: hsl(213 53% 35%);
+}
+
+// Dark theme
+[data-theme="dark"] {
+  --primary-color: var(--white);
+  --secondary-color: var(--white-1);
+  --accent-color: var(--blue-light);
+  --text-color: var(--white-1);
+  --background-color: var(--black);
+  --background-color-alpha: hsla(from var(--black) h s l / 0.5);
+  --border-color: hsla(from var(--white-2) h s l / 0.25);
+  --logo-color: var(--white-1);
 }
 
 // Light theme
 [data-theme="light"] {
-  --primary-color: #222;
-  --background-color: #fff;
-  --background-color-hsl: hsla(0, 0%, 100%, 0.5);
-  --text-color: var(--primary-color);
-  --shadow-color: hsla(0, 0%, 25%, 0.25);
-  --logo-color: hsl(200, 61%, 28%);
-  --accent-color: hsl(200, 57%, 67%);
-  --border: 0.5px solid var(--shadow-color);
+  --primary-color: var(--black);
+  --secondary-color: var(--black-1);
+  --accent-color: var(--blue-dark);
+  --text-color: var(--black-1);
+  --background-color: var(--white);
+  --background-color-alpha: hsla(from var(--white) h s l / 0.5);
+  --border-color: hsla(from var(--black-2) h s l / 0.25);
+  --logo-color: var(--black-1);
 }

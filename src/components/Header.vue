@@ -40,7 +40,7 @@
   <div v-if="isOpen" class="nav__mobile-backdrop" @click="openNav"></div>
   <header class="header wrapper" :class="{ sticky: isSticky }">
     <div class="header__content">
-      <div class="header__logo">
+      <div class="header__logo logo">
         <a class="" href="/" aria-label="Home Page">
           <Logo />
         </a>

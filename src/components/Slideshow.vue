@@ -119,9 +119,8 @@
     &__image-container {
       position: relative;
       padding: 1rem;
-      box-shadow: 0 0px 16px rgba(0, 0, 0, 0.1);
       border-radius: var(--border-radius);
-      background-color: var(--accent-color);
+      background-color: var(--secondary-color);
       overflow: hidden;
     }
 
@@ -146,7 +145,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: var(--background-color-hsl);
+      background: var(--background-color-alpha);
       border: none;
       border-radius: 50%;
       width: 20px;

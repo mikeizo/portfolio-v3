@@ -125,8 +125,8 @@
       background:
         linear-gradient(var(--background-color) 30%, var(--background-color)) center top,
         linear-gradient(var(--background-color), var(--background-color) 70%) center bottom,
-        radial-gradient(farthest-side at 50% 0, var(--shadow-color), var(--background-color-hsl)) center top,
-        radial-gradient(farthest-side at 50% 100%,  var(--shadow-color), var(--background-color-hsl)) center bottom;
+        radial-gradient(farthest-side at 50% 0, var(--border-color), var(--background-color-alpha)) center top,
+        radial-gradient(farthest-side at 50% 100%,  var(--border-color), var(--background-color-alpha)) center bottom;
       background-repeat: no-repeat;
       background-size: 100% 40px, 100% 40px, 100% 16px, 100% 16px;
       background-attachment: local, local, scroll, scroll;
