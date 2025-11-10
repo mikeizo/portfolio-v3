@@ -146,7 +146,7 @@
       align-items: center;
       gap: 0;
       height: 100%;
-      border-right: 0.5px solid var(--shadow-color);
+      border-right: 0.5px solid var(--border-color);
       text-align: center;
     }
 
@@ -168,7 +168,7 @@
 
       & > * {
         padding-left: var(--padding);
-        border-left: 0.5px solid var(--background-color-hsl);
+        border-left: 0.5px solid var(--background-color-alpha);
         border-bottom: none;
 
         &:first-child {
