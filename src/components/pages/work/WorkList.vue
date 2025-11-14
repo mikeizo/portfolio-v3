@@ -1,15 +1,17 @@
 <script setup lang="ts">
-  import { ref, provide } from 'vue'
+  import { ref, provide, computed } from 'vue'
   import type { WorkType } from '@/types/portfolio'
-  import WorkItem from '@/components/work/WorkItem.vue'
+  import WorkItem from '@/components/pages/work/WorkItem.vue'
   import Icon from '@/components/Icon.vue'
   import workData from '@/assets/api/work.json'
 
-  defineProps<{
+  const props = defineProps<{
     path: string
   }>()
 
   const workItem = ref<WorkType | null>(null)
+
+  const logoPath = `${props.path}/logos`
 
   const closeModal = () => {
     workItem.value = null
@@ -30,8 +32,13 @@
     >
       <div class="work__image-logo">
         <img
-          :src="`${path}/logos/${work.logo}`"
-          class="work__image-logo-img"
+          :src="`${logoPath}/${work.logo}`"
+          class="work__image-logo-img work__image--light"
+          :alt="`Logo for ${work.name}`"
+        />
+        <img
+          :src="`${logoPath}/dark/${work.logo}`"
+          class="work__image-logo-img work__image--dark"
           :alt="`Logo for ${work.name}`"
         />
       </div>

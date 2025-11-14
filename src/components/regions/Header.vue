@@ -1,8 +1,9 @@
 <script setup lang="ts">
-  import { ref, computed, onMounted } from 'vue'
+  import { ref } from 'vue'
+  import Nav from '@/components/regions/Nav.vue'
   import Logo from '@/components/Logo.vue'
-  import Nav from '@/components/Nav.vue'
   import Icon from '@/components/Icon.vue'
+  import { useTheme } from '@/composables/useTheme.ts'
 
   defineProps<{
     path: string
@@ -15,23 +16,7 @@
     isOpen.value = !isOpen.value
   }
 
-  const toggleTheme = () => {
-    document.documentElement.setAttribute('data-theme', theme.value)
-    localStorage.setItem('theme', theme.value)
-
-    toggleMode.value = !toggleMode.value
-  }
-
-  const toggleMode = ref(true)
-  const theme = computed(() => (toggleMode.value ? 'light' : 'dark'))
-
-  onMounted(() => {
-    const savedValue = localStorage.getItem('theme')
-
-    if (savedValue === 'light') {
-      toggleTheme()
-    }
-  })
+  const { toggleTheme, theme } = useTheme()
 
   defineOptions({ name: 'Header' })
 </script>
