@@ -187,4 +187,11 @@
       padding: var(--padding);
     }
   }
+
+  // Slideshow
+  .slideshow {
+    &__button {
+      display: flex;
+    }
+  }
 }
