@@ -1,9 +1,9 @@
 import { ref, computed, onMounted } from 'vue'
 
-const toggleMode = ref(true)
+const isLightTheme = ref(true)
 
 export function useTheme() {
-  const theme = computed(() => (toggleMode.value ? 'light' : 'dark'))
+  const theme = computed(() => (isLightTheme.value ? 'light' : 'dark'))
 
   const toggleTheme = () => {
     if (typeof document !== 'undefined') {
@@ -11,20 +11,20 @@ export function useTheme() {
       localStorage.setItem('theme', theme.value)
     }
 
-    toggleMode.value = !toggleMode.value
+    isLightTheme.value = !isLightTheme.value
   }
 
   onMounted(() => {
     const savedValue = localStorage.getItem('theme')
 
     if (savedValue === 'light') {
-      toggleMode.value = false
+      isLightTheme.value = false
     }
   })
 
   return {
     theme,
     toggleTheme,
-    toggleMode
+    isLightTheme
   }
 }
