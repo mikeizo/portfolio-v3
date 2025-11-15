@@ -2,11 +2,15 @@
   import type { WorkType } from '@/types/portfolio'
   import Modal from '@/components/Modal.vue'
   import Slideshow from '@/components/Slideshow.vue'
+  import { useTheme } from '@/composables/useTheme'
+  import 'devicon'
 
   defineProps<{
     data: WorkType | null
     path: string
   }>()
+
+  const { isLightTheme } = useTheme()
 
   defineOptions({ name: 'WorkItem' })
 </script>
@@ -26,12 +30,23 @@
               <h3>Tech Stack</h3>
               <ul>
                 <li
-                  v-for="resource in data.resources"
-                  :key="resource"
-                  class="work-item__resource"
+                  v-for="(resource, index) in data.resources"
+                  :key="`${resource}-${index}`"
                 >
-                  <!-- <i :class="`devicon-${formatIcon(resource)}-plain colored`" /> -->
-                  {{ resource }}
+                  <div class="work-item__resource text-center">
+                    <i
+                      v-if="resource.icon"
+                      :class="[
+                        'work-item__resource-icon',
+                        `devicon-${resource.icon.toLowerCase()}`,
+                        isLightTheme ? 'colored' : ''
+                      ]"
+                    />
+                    <br />
+                    <small class="work-item__resource-name">
+                      {{ resource.name }}
+                    </small>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -39,7 +54,9 @@
               <h3>Links</h3>
               <p v-if="data?.url">
                 <strong>Site:&nbsp;</strong><br />
-                <a :href="data?.url" target="_blank">{{ data?.url }}</a>
+                <a :href="data?.url" target="_blank" rel="nofollow">{{
+                  data?.url
+                }}</a>
               </p>
               <p v-if="data?.git">
                 <strong>Git:&nbsp;</strong><br />

@@ -1,7 +1,8 @@
 /*
  * Base Styles
  */
- body {
+
+body {
   background-color: var(--background-color);
   scroll-behavior: smooth;
 }
@@ -40,6 +41,16 @@ img {
   padding-inline: var(--padding);
   margin-inline: auto;
   box-sizing: content-box;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// Icons
+.sprites {
+  position: absolute;
+  visibility: hidden;
 }
 
 /*
@@ -332,12 +343,6 @@ img {
   }
 }
 
-// Icons
-.sprites {
-  position: absolute;
-  visibility: hidden;
-}
-
 /*
  * Pages
  */
@@ -503,9 +508,25 @@ img {
   &__resources {
 
     ul {
-      list-style: disc;
-      margin-left: 1rem;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      list-style: none;
+      margin: 0;
     }
+  }
+
+  &__resource {
+
+    &-icon {
+      font-size: 3rem;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  }
+
+  &__links {
+    font-size: clamp(0.5rem, 3vw, 0.75rem);
   }
 }
 

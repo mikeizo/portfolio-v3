@@ -2,9 +2,9 @@
   "name": "Collado Engineering",
   "description": "Collado Engineering is an engineering firm based in White Plains New York. I redesigned and developed their website from the ground up moving their basic .html site to WordPress",
   "resources": [
-    "Wordpress",
-    "SASS",
-    "Gulp"
+    {"name": "Wordpress", "icon": "wordpress-plain"},
+    {"name": "SASS", "icon": "sass-plain"},
+    {"name": "Gulp", "icon": "gulp-plain"}
   ],
   "url": "http://dev.collado-eng.com",
   "logo": "collado.png",
@@ -24,12 +24,13 @@
   "name": "Mike Tropea",
   "description": "My personal portfolio I created using Next.js to showcase the projects I have worked on over the years. I even created an admin section to manage my work, experience and skills.",
   "resources": [
-    "React",
-    "Next.js",
-    "Material-UI",
-    "MongoDB",
-    "Sass",
-    "Typescript"
+    {"name": "React", "icon": "react-original"},
+    {"name": "Next.js", "icon": "nextjs-plain"},
+    {"name": "Material-UI", "icon": "materialui-plain"},
+    {"name": "MongoDB", "icon": "mongodb-plain"},
+    {"name": "SASS", "icon": "sass-plain"},
+    {"name": "Typescript", "icon": "typescript-plain"},
+    {"name": "NPM", "icon": "npm-original"}
   ],
   "url": "https://miketropea.com",
   "logo": "mtropea.png",
@@ -49,8 +50,8 @@
   "name": "Mario's Restaurant",
   "description": "An Italian restaurant on Arthur Avenue in the Bronx. I was hired to redesign the existing website. I designed and developed a custom Wordpress site for customers to book reservations, view the menu, and browse photos.",
   "resources": [
-    "Wordpress",
-    "Bootstrap"
+    {"name": "Wordpress", "icon": "wordpress-plain"},
+    {"name": "Bootstrap", "icon": "bootstrap-plain"}
   ],
   "logo": "marios.png",
   "images": [
@@ -64,9 +65,10 @@
   "name": "Ashrae Bi-State Chapter",
   "description": "The local chapter of ASHRAE (American Society of Heating and Air-Conditioning Engineers) in New York. I designed and developed the site using Drupal to create custom pages and views for the members to add events, upload photos and newsletters",
   "resources": [
-    "Drupal",
-    "SASS",
-    "jQuery"
+    {"name": "Drupal", "icon": "drupal-plain"},
+    {"name": "Composer", "icon": "composer-plain"},
+    {"name": "SASS", "icon": "sass-plain"},
+    {"name": "jQuery", "icon": "jquery-plain"}
   ],
   "url": "https://www.ashraebistate.org",
   "logo": "ashrae.png",
@@ -84,9 +86,10 @@
   "name": "Balticare",
   "slug": "balticare",
   "resources": [
-    "Drupal",
-    "Gulp",
-    "Bootstrap 5"
+    {"name": "Drupal", "icon": "drupal-plain"},
+    {"name": "Composer", "icon": "composer-plain"},
+    {"name": "Gulp", "icon": "gulp-plain"},
+    {"name": "Bootstrap", "icon": "bootstrap-plain"}
   ],
   "weight": -2,
   "url": "https://balticare.net",
@@ -106,12 +109,13 @@
   "name": "Steve L. Photography",
   "description": "Dedicated to my friend, Stephen LePorisz, who took up photography as a hobby. I set up this website in memory of him to share some of his best photos.",
   "resources": [
-    "Vue.js",
-    "Nuxt",
-    "Vuetify",
-    "Sass",
-    "MongoDB",
-    "Express"
+    {"name": "Vue.js", "icon": "vuejs-plain"},
+    {"name": "Nuxt", "icon": "nuxtjs-plain"},
+    {"name": "Vuetify", "icon": "vuetify-plain"},
+    {"name": "SASS", "icon": "sass-plain"},
+    {"name": "MongoDB", "icon": "mongodb-plain"},
+    {"name": "Express", "icon": "express-original"},
+    {"name": "NPM", "icon": "npm-original"}
   ],
   "url": "https://stevelphotography.com",
   "logo": "stevel.png",
@@ -130,10 +134,10 @@
   "name": "Zeppieri Motor Sports",
   "description": "Joe Zeppieri is a freelance mechanic that specializes in custom BMW maintenance, parts, restoration and detailing. For this project I designed the site and marketing materials including his logo, business cards, flyers and even t-shirts. This is my 3rd redesign to the website since originally creating it in 2010.",
   "resources": [
-    "Wordpress",
-    "Webpack",
-    "Bootstrap",
-    "Sass"
+    {"name": "Wordpress", "icon": "wordpress-plain"},
+    {"name": "Webpack", "icon": "webpack-plain"},
+    {"name": "Bootstrap", "icon": "bootstrap-plain"},
+    {"name": "SASS", "icon": "sass-plain"}
   ],
   "url": "http://zeppierimotorsport.com",
   "logo": "zeppieri.png",
@@ -152,7 +156,7 @@
   "name": "Nu-Garde",
   "description": "Originally starting out as an art gallery for emerging artists to sell their artwork, the site was changed over to a list museum tour guides and lectures. Now customers can book guided tours of NYC's art galleries, museums, and auction houses.",
   "resources": [
-    "Magento"
+    {"name": "Magento", "icon": "magento-plain"}
   ],
   "logo": "nu-garde.png",
   "images": [
@@ -170,9 +174,9 @@
   "name": "Full Moon Pizza",
   "description": "A corner pizzeria restaurant on Arthur Avenue in the Bronx. I helped design and develop a custom mobile WordPress website for their customers to view photos and read their menu.",
   "resources": [
-    "Wordpress",
-    "Sass",
-    "Bootstrap"
+    {"name": "Wordpress", "icon": "wordpress-plain"},
+    {"name": "SASS", "icon": "sass-plain"},
+    {"name": "Bootstrap", "icon": "bootstrap-plain"}
   ],
   "url": "http://www.fullmoonpizza.com",
   "logo": "fullmoon.png",

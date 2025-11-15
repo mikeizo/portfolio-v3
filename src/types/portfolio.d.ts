@@ -19,7 +19,10 @@ export type AboutType = {
 export type WorkType = {
   name: string
   description: string
-  resources: string[]
+  resources: {
+    name: string
+    icon: string
+  }[]
   url?: string
   logo: string
   images: string[]

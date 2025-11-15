@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, provide, computed } from 'vue'
+  import { ref, provide } from 'vue'
   import type { WorkType } from '@/types/portfolio'
   import WorkItem from '@/components/pages/work/WorkItem.vue'
   import Icon from '@/components/Icon.vue'
@@ -40,6 +40,7 @@
           :src="`${logoPath}/dark/${work.logo}`"
           class="work__image-logo-img work__image--dark"
           :alt="`Logo for ${work.name}`"
+          loading="lazy"
         />
       </div>
       <div class="work__name">
