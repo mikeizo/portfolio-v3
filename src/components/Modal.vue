@@ -20,9 +20,9 @@
   <Teleport v-if="isOpen" to="modal">
     <div class="modal">
       <div class="modal__content" @click.stop>
-        <div class="modal__close">
-          <Icon name="close" :height="20" :width="20" @click="close" />
-        </div>
+        <button class="modal__close-btn" aria-label="Close">
+          <Icon class="modal__close-icon" name="close" @click="close" />
+        </button>
         <slot />
       </div>
       <div class="modal__overlay" @click="close"></div>
