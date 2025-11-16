@@ -462,6 +462,10 @@ img {
 }
 
 [data-theme="dark"] {
+  .work__image-logo-img {
+    filter: grayscale(100%);
+  }
+
   .work__image--light {
     display: none;
   }
