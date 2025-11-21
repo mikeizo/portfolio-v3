@@ -27,7 +27,7 @@
   --accent-color: var(--white-2);
   --text-color: var(--white-1);
   --background-color: var(--black);
-  --background-color-alpha: hsla(from var(--black) h s l / 0.5);
+  --background-color-alpha: hsla(from var(--black) h s l / 0.25);
   --border-color: hsla(from var(--white-2) h s l / 0.25);
   --logo-color: var(--white-1);
 }
@@ -39,7 +39,7 @@
   --accent-color: var(--blue-dark);
   --text-color: var(--black-1);
   --background-color: var(--white);
-  --background-color-alpha: hsla(from var(--white) h s l / 0.5);
+  --background-color-alpha: hsla(from var(--white) h s l / 0.25);
   --border-color: hsla(from var(--black-2) h s l / 0.25);
   --logo-color: var(--black-1);
 }

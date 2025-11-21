@@ -19,7 +19,7 @@
   <Modal :is-open="Boolean(data)">
     <div v-if="data" class="work-item">
       <div class="work-item__content">
-        <h2 class="work-item__name">{{ data?.name }}</h2>
+        <h2 class="work-item__name text-center">{{ data?.name }}</h2>
         <p class="work-item__description">{{ data?.description }}</p>
         <div class="work-item__group">
           <div class="work-item__images">

@@ -31,6 +31,14 @@ img {
   object-fit: contain;
 }
 
+button {
+  &:active,
+  &:focus-visible {
+    transform: translateY(1px) scale(0.98);
+    outline: none;
+  }
+}
+
 .sticky {
   position: sticky;
   top: 0.5rem;
@@ -38,7 +46,7 @@ img {
 
 .wrapper {
   max-width: var(--page-width);
-  padding-inline: var(--padding);
+  padding-inline: 1rem;
   margin-inline: auto;
   box-sizing: content-box;
 }
@@ -69,7 +77,7 @@ img {
     padding-inline: 1rem;
     border: var(--border);
     border-radius: var(--border-radius);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(10px);
   }
 
   &__mobile {
@@ -86,6 +94,10 @@ img {
     line-height: 0;
     animation: fade-in 0.5s ease-in forwards;
     cursor: pointer;
+
+    .icon {
+      fill: var(--primary-color);
+    }
   }
 
   &__burger {
@@ -151,7 +163,7 @@ img {
     height: 100svh;
     top: 0;
     left: 0;
-    background-color: var(--background-color-alpha);
+    background-color: hsla(from var(--background-color) h s l / 0.75);;
     z-index: 10;
   }
 
@@ -190,7 +202,7 @@ img {
 
 // Footer
 .footer {
-  padding-inline: var(--padding);
+  padding-inline: 1rem;
 
   &__content {
     margin-top: var(--margin);
@@ -325,7 +337,7 @@ img {
   &__dots {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 1rem;
     padding: 1rem;
   }
 
@@ -351,8 +363,54 @@ img {
 
 // Contact
 .contact {
+  display: flex;
+  align-items: center;
 
+  .modal__content {
+    max-width: 500px;
+  }
 
+  &__form {
+    display: grid;
+    gap: 1rem;
+  }
+
+  &__input {
+    border: 1px solid var(--background-color-alpha);
+    border-radius: calc(var(--border-radius) / 2);
+    width: 100%;
+    padding: 0.5rem;
+
+    &::placeholder {
+      opacity: 0.5;
+    }
+  }
+
+  &__label {
+    margin-right: 1rem;
+  }
+
+  &__submit {
+    display: flex;
+    align-items: center;
+    margin-inline: auto;
+    color: var(--primary-color);
+    background-color: var(--background-color);
+    border-radius: calc(var(--border-radius) / 2);
+    padding: 0.5rem var(--padding);
+
+    &-icon {
+      height: 1rem;
+      width: 1rem;
+      margin-left: 0.5rem;
+      fill: var(--primary-color);
+    }
+
+    &:active {
+      background-color: var(--background-color-alpha);
+    }
+
+  }
 }
 
 /*

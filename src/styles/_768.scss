@@ -200,6 +200,9 @@
 
   // Slideshow
   .slideshow {
+    max-width: 95%;
+    margin-inline: auto;
+
     &__button {
       display: flex;
     }
