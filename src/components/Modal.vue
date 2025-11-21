@@ -2,12 +2,14 @@
   import { inject } from 'vue'
   import Icon from '@/components/Icon.vue'
 
-  defineProps<{
+  const props = defineProps<{
     isOpen: boolean
-    width?: number
+    classNames?: string[]
   }>()
 
   const closeModal = inject<() => void>('closeModal')
+
+  const classes = props.classNames?.join(' ') ?? ''
 
   const close = () => {
     closeModal?.()
@@ -18,7 +20,7 @@
 
 <template>
   <Teleport v-if="isOpen" to="modal">
-    <div class="modal">
+    <div :class="['modal', classes]">
       <div class="modal__content" @click.stop>
         <button class="modal__close-btn" aria-label="Close">
           <Icon class="modal__close-icon" name="close" @click="close" />
