@@ -48,7 +48,11 @@
         <button class="header__theme">
           <Icon :name="theme" :height="20" :width="20" @click="toggleTheme" />
         </button>
-        <button class="nav__contact" aria-label="Contact" @click="openContact">
+        <button
+          class="nav__contact btn"
+          aria-label="Contact"
+          @click="openContact"
+        >
           Contact
         </button>
       </div>
@@ -60,7 +64,7 @@
         >
           <Nav :path="path" class="nav__mobile" />
           <button
-            class="nav__contact"
+            class="nav__contact btn btn--inverted"
             aria-label="Contact Me"
             @click="openContact"
           >

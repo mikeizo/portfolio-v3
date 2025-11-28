@@ -1,7 +1,6 @@
 /*
  * Base Styles
  */
-
 body {
   background-color: var(--background-color);
   scroll-behavior: smooth;
@@ -31,11 +30,27 @@ img {
   object-fit: contain;
 }
 
-button {
-  &:active,
-  &:focus-visible {
-    transform: translateY(1px) scale(0.98);
-    outline: none;
+.btn {
+  color: var(--primary-color);
+  background-color: var(--background-color);
+  border-radius: var(--border-radius-half);
+  cursor: pointer;
+
+  &:active:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    transform: translateY(1px) scale(0.97);
+    background-color: var(--background-color-200);
+  }
+
+  &--inverted {
+    color: var(--primary-color);
+    background-color: var(--background-color);
+
+    &:active:not(:disabled),
+    &:focus-visible:not(:disabled),
+    &:disabled {
+      background-color: var(--background-color-alpha);
+    }
   }
 }
 
@@ -194,9 +209,6 @@ button {
   &__contact {
     width: 100%;
     padding: 2px 1rem;
-    background-color: var(--background-color);
-    color: var(--primary-color);
-    border-radius: calc(var(--border-radius) / 2);
   }
 }
 
@@ -280,7 +292,7 @@ button {
     position: relative;
     padding: 1rem;
     border-radius: var(--border-radius);
-    background-color: var(--secondary-color);
+    background-color: var(--background-color-100);
     overflow: hidden;
   }
 
@@ -375,29 +387,43 @@ button {
     gap: 1rem;
   }
 
-  &__input {
-    border: 1px solid var(--background-color-alpha);
-    border-radius: calc(var(--border-radius) / 2);
-    width: 100%;
-    padding: 0.5rem;
-
-    &::placeholder {
-      opacity: 0.5;
-    }
+  &__form-group {
+    position: relative;
   }
 
   &__label {
     margin-right: 1rem;
   }
 
+  &__input {
+    border: 1px solid var(--background-color-alpha);
+    border-radius: var(--border-radius-half);
+    width: 100%;
+    padding: 0.5rem;
+
+    &::placeholder {
+      opacity: 0.5;
+    }
+
+    &--error {
+      border-color: var(--error);
+    }
+  }
+
+  &__error-message {
+    position: absolute;
+    bottom: -1.1rem;
+    left: 0;
+    color: var(--error);
+    font-size: 0.65rem;
+  }
+
   &__submit {
     display: flex;
     align-items: center;
     margin-inline: auto;
-    color: var(--primary-color);
-    background-color: var(--background-color);
-    border-radius: calc(var(--border-radius) / 2);
     padding: 0.5rem var(--padding);
+    margin-top: 0.5rem;
 
     &-icon {
       height: 1rem;
@@ -405,12 +431,19 @@ button {
       margin-left: 0.5rem;
       fill: var(--primary-color);
     }
-
-    &:active {
-      background-color: var(--background-color-alpha);
-    }
-
   }
+
+  &__response {
+    text-align: center;
+    margin-top: 1rem;
+  }
+}
+
+#contact-message {
+  field-sizing: content;
+  min-height: 100px;
+  resize: none;
+  box-sizing: border-box;
 }
 
 /*
@@ -601,4 +634,3 @@ button {
     font-size: clamp(0.5rem, 3vw, 0.75rem);
   }
 }
-

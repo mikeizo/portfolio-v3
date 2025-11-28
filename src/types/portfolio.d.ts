@@ -32,3 +32,15 @@ export type WorkType = {
   created: string
   updated?: string
 }
+
+export type ContactType = {
+  name: string
+  email: string
+  phone: string
+  message: string
+}
+
+export type ContactErrorType = {
+  isValid: boolean
+  message: string | b
+}
