@@ -20,15 +20,21 @@
 </script>
 
 <template>
-  <Teleport v-if="isOpen" to="modal">
-    <div :class="['modal', classes]">
-      <div class="modal__content" @click.stop>
-        <button class="modal__close-btn btn" aria-label="Close" @click="close">
-          <Icon class="modal__close-icon" name="close" />
-        </button>
-        <slot />
+  <Teleport to="modal">
+    <Transition name="modal">
+      <div v-if="isOpen" :class="['modal', classes]">
+        <div class="modal__content" @click.stop>
+          <button
+            class="modal__close-btn btn"
+            aria-label="Close"
+            @click="close"
+          >
+            <Icon class="modal__close-icon" name="close" />
+          </button>
+          <slot />
+        </div>
+        <div class="modal__overlay" @click="close"></div>
       </div>
-      <div class="modal__overlay" @click="close"></div>
-    </div>
+    </Transition>
   </Teleport>
 </template>
