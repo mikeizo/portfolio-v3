@@ -1,9 +1,11 @@
 <script setup lang="ts">
-  import { ref, provide } from 'vue'
   import type { WorkType } from '@/types/portfolio'
-  import WorkItem from '@/components/pages/work/WorkItem.vue'
+
+  import { provide, ref } from 'vue'
+
   import Icon from '@/components/Icon.vue'
   import workData from '@/assets/api/work.json'
+  import WorkItem from '@/components/pages/work/WorkItem.vue'
 
   const props = defineProps<{
     path: string

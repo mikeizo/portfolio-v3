@@ -3,8 +3,9 @@ export const prerender = false
 
 import type { APIRoute } from 'astro'
 import type { ContactType } from '@/types/portfolio'
-import { validateForm } from '@/utils/validation'
+
 import sanitizeHtml from 'sanitize-html'
+import { validateForm } from '@/utils/validation'
 
 /**
  * Sends a contact form message via Mailgun API using environment credentials.

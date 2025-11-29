@@ -1,10 +1,11 @@
 <script setup lang="ts">
-  import { ref, provide } from 'vue'
-  import Nav from '@/components/regions/Nav.vue'
-  import Logo from '@/components/Logo.vue'
-  import Icon from '@/components/Icon.vue'
+  import { provide, ref } from 'vue'
   import { useTheme } from '@/composables/useTheme.ts'
+
   import Contact from '@/components/Contact.vue'
+  import Icon from '@/components/Icon.vue'
+  import Logo from '@/components/Logo.vue'
+  import Nav from '@/components/regions/Nav.vue'
 
   defineProps<{
     path: string

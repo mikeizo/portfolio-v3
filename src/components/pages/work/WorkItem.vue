@@ -1,9 +1,11 @@
 <script setup lang="ts">
   import type { WorkType } from '@/types/portfolio'
+
+  import 'devicon'
+  import { useTheme } from '@/composables/useTheme'
+
   import Modal from '@/components/Modal.vue'
   import Slideshow from '@/components/Slideshow.vue'
-  import { useTheme } from '@/composables/useTheme'
-  import 'devicon'
 
   defineProps<{
     data: WorkType | null

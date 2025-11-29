@@ -1,4 +1,4 @@
-import type { ContactType, ContactErrorType } from '@/types/portfolio'
+import type { ContactErrorType, ContactType } from '@/types/portfolio'
 
 const response = (isValid: boolean, message: string): ContactErrorType => {
   return {

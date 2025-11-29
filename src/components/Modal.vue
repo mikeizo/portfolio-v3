@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { inject } from 'vue'
+
   import Icon from '@/components/Icon.vue'
 
   const props = defineProps<{
@@ -22,7 +23,7 @@
   <Teleport v-if="isOpen" to="modal">
     <div :class="['modal', classes]">
       <div class="modal__content" @click.stop>
-        <button class="modal__close-btn" aria-label="Close" @click="close">
+        <button class="modal__close-btn btn" aria-label="Close" @click="close">
           <Icon class="modal__close-icon" name="close" />
         </button>
         <slot />

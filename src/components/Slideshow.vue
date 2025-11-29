@@ -1,8 +1,10 @@
 <script setup lang="ts">
-  import { ref, computed, shallowRef } from 'vue'
-  import Icon from '@/components/Icon.vue'
   import type { UseSwipeDirection } from '@vueuse/core'
+
+  import { computed, ref, shallowRef } from 'vue'
   import { useSwipe } from '@vueuse/core'
+
+  import Icon from '@/components/Icon.vue'
 
   const props = defineProps<{
     images: string[]

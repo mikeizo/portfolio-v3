@@ -1,8 +1,9 @@
 <script setup lang="ts">
   import { ref } from 'vue'
+  import { validateForm } from '@/utils/validation'
+
   import Icon from '@/components/Icon.vue'
   import Modal from '@/components/Modal.vue'
-  import { validateForm } from '@/utils/validation'
 
   defineProps<{
     isOpen: boolean

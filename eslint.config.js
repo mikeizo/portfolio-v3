@@ -1,11 +1,11 @@
-import tsPlugin from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
-import vuePlugin from 'eslint-plugin-vue'
-import vueParser from 'vue-eslint-parser'
-import astroPlugin from 'eslint-plugin-astro'
 import astroParser from 'astro-eslint-parser'
-import prettierPlugin from 'eslint-plugin-prettier'
+import astroPlugin from 'eslint-plugin-astro'
 import prettierConfig from 'eslint-config-prettier'
+import prettierPlugin from 'eslint-plugin-prettier'
+import tsParser from '@typescript-eslint/parser'
+import tsPlugin from '@typescript-eslint/eslint-plugin'
+import vueParser from 'vue-eslint-parser'
+import vuePlugin from 'eslint-plugin-vue'
 
 export default [
   {
@@ -25,7 +25,14 @@ export default [
     rules: {
       ...tsPlugin.configs.recommended.rules,
       'prettier/prettier': 'error',
-      'no-console': 'warn'
+      'no-console': 'warn',
+      'sort-imports': [
+        'error',
+        {
+          ignoreCase: true,
+          allowSeparatedGroups: true
+        }
+      ]
     }
   },
   // TypeScript
