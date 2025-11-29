@@ -13,13 +13,11 @@
   const isNavOpen = ref(false)
   const isContactOpen = ref(false)
 
-  const openNav = () => (isNavOpen.value = !isNavOpen.value)
-
-  const closeNav = () => (isNavOpen.value = false)
+  const toggleNav = () => (isNavOpen.value = !isNavOpen.value)
 
   const openContact = () => {
     isContactOpen.value = true
-    closeNav()
+    isNavOpen.value = false
   }
 
   const closeContact = () => (isContactOpen.value = false)
@@ -33,7 +31,7 @@
 
 <template>
   <Contact :isOpen="isContactOpen" />
-  <div v-if="isNavOpen" class="nav__mobile-backdrop" @click="openNav"></div>
+  <div v-if="isNavOpen" class="nav__mobile-backdrop" @click="toggleNav"></div>
   <header class="header wrapper sticky">
     <div class="header__content">
       <div class="header__logo logo">
@@ -79,10 +77,11 @@
           <Icon :name="theme" :height="20" :width="20" @click="toggleTheme" />
         </button>
         <button
+          :class="{ 'header__burger--is-open': isNavOpen }"
           class="header__burger"
           :aria-label="isNavOpen ? 'Close menu' : 'Open menu'"
           :aria-expanded="isNavOpen"
-          @click="openNav"
+          @click="toggleNav"
         >
           <span />
           <span />

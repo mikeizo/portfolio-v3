@@ -119,6 +119,7 @@ img {
     all: unset;
     display: grid;
     gap: 4px;
+    align-items: center;
     height: 20px;
     width: 20px;
 
@@ -126,26 +127,59 @@ img {
       background-color: var(--text-color);
       height: 2px;
       border-radius: 4px;
+      transform-origin: 0% 0px;
+      opacity: 1;
+      -webkit-transition: 0.3s cubic-bezier(0.35, 1.6, 0.65, 1);
+      transition: 0.3s cubic-bezier(0.35, 1.6, 0.65, 1);
+
+      &:nth-child(2) {
+        width: 75%;
+      }
     }
 
-    span:nth-child(2) {
-      width: 60%;
+    &--is-open > * {
+
+      &:nth-child(1) {
+        -webkit-transform: rotate(45deg) translate(0px, -2px);
+        transform: rotate(45deg) translate(0px, -2px);
+      }
+
+      &:nth-child(2) {
+        width: 0;
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        -webkit-transform: rotate(-45deg) translate(0, 0);
+        transform: rotate(-45deg) translate(0, 0);
+      }
+
+      &:nth-child(1),
+      &:nth-child(3) {
+        width: 125%
+      }
     }
   }
 
   &__mobile-nav {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
     position: fixed;
-    top: calc(var(--header-height) + 0.5rem) ;
+    top: calc(var(--header-height) + 1rem) ;
     left: 0;
     width: 100%;
     padding: 1rem;
     background-color: var(--primary-color);
     color: var(--background-color);
     border-radius: var(--border-radius);
+    transform: translateY(-100%);
+    -webkit-transition: opacity 0.35s ease-in-out, visibility 0.35s ease-in-out, transform 0.35s ease-in-out;
+    transition: opacity 0.35s ease-in-out, visibility 0.35s ease-in-out, transform 0.35s ease-in-out;
 
     &--is-open {
-      display: block;
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }
