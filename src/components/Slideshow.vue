@@ -72,7 +72,11 @@
             class="slideshow__image"
             :class="{ 'slideshow__image--active': index === currentIndex }"
           >
-            <img :src="image" :alt="`Slide ${index + 1}`" />
+            <img
+              :src="image"
+              :alt="`Slide ${index + 1}`"
+              :loading="index === 0 ? 'eager' : 'lazy'"
+            />
           </div>
         </div>
       </div>

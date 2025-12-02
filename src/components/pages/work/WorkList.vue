@@ -37,6 +37,7 @@
           :src="`${logoPath}/${work.logo}`"
           class="work__image-logo-img work__image--light"
           :alt="`Logo for ${work.name}`"
+          loading="lazy"
         />
         <img
           :src="`${logoPath}/dark/${work.logo}`"
