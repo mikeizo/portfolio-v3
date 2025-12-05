@@ -1,16 +1,38 @@
 <script setup lang="ts">
+  import { ref, type Ref } from 'vue'
+
   import type { AboutType } from '@/types/portfolio'
+  import useObserver from '@/composables/useObserver'
 
   defineProps<{
     data: AboutType
   }>()
 
-  defineOptions({ name: 'AboutContent' })
+  const listContainer: Ref<HTMLElement | null> = ref(null)
+
+  const observerConfig = {
+    root: listContainer.value
+  }
+
+  useObserver(
+    listContainer,
+    '.about__list-item',
+    'swipe-in-right',
+    observerConfig
+  )
+
+  defineOptions({
+    name: 'AboutList'
+  })
 </script>
 
 <template>
-  <div class="about__list">
-    <div v-for="(item, index) in data" class="about__list-item">
+  <div ref="listContainer" class="about__list">
+    <div
+      v-for="(item, index) in data"
+      :key="`${item.yearFrom}-${index}`"
+      class="about__list-item"
+    >
       <div class="about__list-year">
         <div class="about__list-year-from">{{ item.yearFrom }}</div>
         <div v-if="item.yearTo" class="about__list-year-dash">&ndash;</div>

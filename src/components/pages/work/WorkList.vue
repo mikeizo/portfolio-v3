@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import type { WorkType } from '@/types/portfolio'
 
-  import { provide, ref } from 'vue'
-
+  import { provide, ref, type Ref } from 'vue'
   import Icon from '@/components/Icon.vue'
+  import useObserver from '@/composables/useObserver'
   import workData from '@/assets/api/work.json'
   import WorkItem from '@/components/pages/work/WorkItem.vue'
 
@@ -11,7 +11,8 @@
     path: string
   }>()
 
-  const workItem = ref<WorkType | null>(null)
+  const workItem: Ref<WorkType | null> = ref(null)
+  const listContainer: Ref<HTMLElement | null> = ref(null)
 
   const logoPath = `${props.path}/logos`
 
@@ -19,13 +20,24 @@
     workItem.value = null
   }
 
+  const observerConfig = {
+    root: listContainer.value
+  }
+
+  useObserver(
+    listContainer,
+    '.work__list-item',
+    'swipe-in-bottom',
+    observerConfig
+  )
+
   provide('closeModal', closeModal)
 
   defineOptions({ name: 'WorkList' })
 </script>
 
 <template>
-  <div class="work__list">
+  <div ref="listContainer" class="work__list">
     <div
       v-for="(work, index) in workData"
       :key="`${work.slug}-${index}`"

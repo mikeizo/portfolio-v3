@@ -561,12 +561,17 @@ img {
     object-fit: contain;
   }
 
+  &__list {
+    overflow-x: hidden;
+  }
+
   &__list-item {
     padding: 1rem;
     margin-bottom: 1rem;
     text-align: center;
     border: var(--border);
     border-radius: var(--border-radius);
+    opacity: 0;
 
     &:last-child {
       margin-bottom: 0;
@@ -602,6 +607,7 @@ img {
     border-bottom: 0.5px solid var(--border-color);
     min-height: 300px;
     cursor: pointer;
+    opacity: 0;
   }
 
   &__image-logo {

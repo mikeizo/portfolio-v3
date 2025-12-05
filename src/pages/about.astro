@@ -15,7 +15,7 @@ const [settings]: SettingsType = aboutSettings
     <h1 class="page__title">About Me</h1>
     <div class="page__content">
       <AboutContent data={settings.about} />
-      <AboutList data={aboutData} />
+      <AboutList data={aboutData} client:load />
     </div>
   </div>
 </Layout>
