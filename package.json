@@ -11,6 +11,7 @@
     "lint:fix": "eslint . --ext .js,.ts,.vue,.astro --fix"
   },
   "dependencies": {
+    "@astrojs/vercel": "^9.0.2",
     "@astrojs/vue": "^5.1.0",
     "@vueuse/core": "^14.0.0",
     "astro": "^5.10.1",
