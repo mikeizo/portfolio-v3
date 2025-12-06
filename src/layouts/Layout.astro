@@ -3,6 +3,8 @@ import Footer from '@/components/regions/Footer.vue'
 import Header from '@/components/regions/Header.vue'
 import sprite from '/images/icons.svg?raw'
 
+import '@/styles/styles.scss'
+
 const { pathname } = Astro.url
 ---
 
@@ -35,8 +37,6 @@ const { pathname } = Astro.url
         document.documentElement.setAttribute('data-theme', theme)
       })()
     </script>
-
-    <link rel="stylesheet" href="/src/styles/styles.scss" />
   </head>
   <body>
     <Fragment set:html={sprite} />
