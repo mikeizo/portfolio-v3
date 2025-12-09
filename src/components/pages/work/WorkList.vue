@@ -27,7 +27,7 @@
   useObserver(
     listContainer,
     '.work__list-item',
-    'swipe-in-bottom',
+    'slide-in-bottom',
     observerConfig
   )
 

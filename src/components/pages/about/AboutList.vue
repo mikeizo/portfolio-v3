@@ -17,7 +17,7 @@
   useObserver(
     listContainer,
     '.about__list-item',
-    'swipe-in-right',
+    'slide-in-right',
     observerConfig
   )
 

@@ -1,12 +1,16 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import { splitText } from '@/utils/animation'
+
+const title = splitText("Hi, I'm Mike Tropea")
+const subtitle = splitText('Web Developer & Designer', 0.5)
 ---
 
 <Layout>
   <div class="page wrapper home">
     <div class="page_content">
-      <h1>Hi, I'm Mike Tropea</h1>
-      <h2>Web Developer & Designer</h2>
+      <h1 set:html={title} />
+      <h2 set:html={subtitle} />
     </div>
   </div>
 </Layout>
