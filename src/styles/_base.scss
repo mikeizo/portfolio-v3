@@ -418,17 +418,20 @@ img {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--accent-color);
+    background: var(--background-color-200);
     cursor: pointer;
     transition: all 0.3s ease;
 
+    &:hover,
+    &--active {
+      background: var(--accent-color);
+    }
+
     &:hover {
-      background: rgba(0, 0, 0, 0.6);
       transform: scale(1.2);
     }
 
     &--active {
-      background: var(--background-color);
       transform: scale(1.2);
     }
   }
@@ -572,6 +575,7 @@ img {
     border: var(--border);
     border-radius: var(--border-radius);
     opacity: 0;
+    background-color: var(--background-color-100);
 
     &:last-child {
       margin-bottom: 0;
@@ -600,7 +604,7 @@ img {
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: var(--padding);
+    padding: 2rem 2rem 2rem 0;
     margin-right: calc(var(--margin) * -1);
     margin-bottom: calc(var(--margin) * -1);
     border-right: 0.5px solid var(--border-color);
@@ -700,4 +704,10 @@ img {
   &__links {
     font-size: clamp(0.5rem, 3vw, 0.75rem);
   }
+}
+
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }

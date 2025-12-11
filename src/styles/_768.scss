@@ -164,6 +164,14 @@
     }
   }
 
+  // Work
+  .work {
+
+    &__list-item {
+      padding-inline: 0;
+    }
+  }
+
   // Work item
   .work-item {
 
