@@ -8,7 +8,6 @@
   import Nav from '@/components/regions/Nav.vue'
 
   defineProps<{
-    siteUrl: string
     path: string
   }>()
 
@@ -41,7 +40,7 @@
           <Logo />
         </a>
       </div>
-      <Nav :siteUrl="siteUrl" :path="path" class="nav__desktop" />
+      <Nav :path="path" class="nav__desktop" />
       <div class="header__desktop">
         <button class="header__theme">
           <Icon :name="theme" :height="20" :width="20" @click="toggleTheme" />

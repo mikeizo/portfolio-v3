@@ -2,21 +2,12 @@
   import menuItems from '@/assets/api/menu.json'
 
   const props = defineProps<{
-    siteUrl: string
     path: string
   }>()
 
-  console.log('test path', props.path)
+  const siteUrl = import.meta.env.SITE_URL ?? ''
 
-  const isActive = (url: string) => {
-    console.log('test url', url)
-
-    if (props.path === '/' && url === '') {
-      return true
-    }
-
-    return props.path.includes(url) && url !== ''
-  }
+  const isActive = (url: string) => props.path.replace('/', '') === url
 
   defineOptions({ name: 'Nav' })
 </script>

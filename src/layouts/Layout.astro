@@ -6,7 +6,6 @@ import sprite from '/images/icons.svg?raw'
 import '@/styles/styles.scss'
 
 const { pathname } = Astro.url
-const siteURL = import.meta.env.SITE_URL
 ---
 
 <!doctype html>
@@ -42,7 +41,7 @@ const siteURL = import.meta.env.SITE_URL
   <body>
     <Fragment set:html={sprite} />
     <modal></modal>
-    <Header siteUrl={siteURL} path={pathname} client:load />
+    <Header path={pathname} client:load />
     <main id="main-content">
       <slot />
     </main>
