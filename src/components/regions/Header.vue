@@ -8,6 +8,7 @@
   import Nav from '@/components/regions/Nav.vue'
 
   defineProps<{
+    siteUrl: string
     path: string
   }>()
 
@@ -40,9 +41,7 @@
           <Logo />
         </a>
       </div>
-
-      <Nav :path="path" class="nav__desktop" />
-
+      <Nav :siteUrl="siteUrl" :path="path" class="nav__desktop" />
       <div class="header__desktop">
         <button class="header__theme">
           <Icon :name="theme" :height="20" :width="20" @click="toggleTheme" />
@@ -55,13 +54,12 @@
           Contact
         </button>
       </div>
-
       <div class="header__mobile">
         <div
           :class="{ 'header__mobile-nav--is-open': isNavOpen }"
           class="header__mobile-nav"
         >
-          <Nav :path="path" class="nav__mobile" />
+          <Nav :siteUrl="siteUrl" :path="path" class="nav__mobile" />
           <button
             class="nav__contact btn btn--inverted"
             aria-label="Contact Me"
@@ -70,7 +68,6 @@
             Contact
           </button>
         </div>
-
         <button
           class="header__theme"
           :aria-label="`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`"
