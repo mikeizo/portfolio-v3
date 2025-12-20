@@ -1,12 +1,15 @@
 ---
-import Layout from '@/layouts/Layout.astro'
 import { splitText } from '@/utils/animation'
+
+import Background from '@/components/pages/home/Background.vue'
+import Layout from '@/layouts/Layout.astro'
 
 const title = splitText("Hi, I'm Mike Tropea")
 const subtitle = splitText('Web Developer & Designer', 0.5)
 ---
 
 <Layout>
+  <Background client:load />
   <div class="page wrapper home">
     <div class="page_content">
       <h1 set:html={title} />
