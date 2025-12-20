@@ -2,14 +2,12 @@
   import menuItems from '@/assets/api/menu.json'
 
   const props = defineProps<{
-    url: URL
+    site: string
+    path: string
   }>()
 
-  const { origin, pathname: pathName } = props.url
-
-  console.log('test url', props.url)
-
-  const isActive = (path: string) => pathName.replace('/', '') === path
+  const isActive = (pathName: string) =>
+    props.path.replace('/', '') === pathName
 
   defineOptions({
     name: 'Nav'
@@ -26,7 +24,7 @@
         :class="{ 'nav__link--active': isActive(item.url) }"
         :aria-label="item.title"
       >
-        <a :href="`${origin}/${item.url}`">{{ item.title }}</a>
+        <a :href="`${site}/${item.url}`">{{ item.title }}</a>
       </li>
     </ul>
   </nav>

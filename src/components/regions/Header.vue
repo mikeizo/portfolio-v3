@@ -9,7 +9,8 @@
   import Nav from '@/components/regions/Nav.vue'
 
   defineProps<{
-    url: URL
+    site: string
+    path: string
   }>()
 
   const isNavOpen = ref(false)
@@ -47,7 +48,7 @@
           <Logo />
         </a>
       </div>
-      <Nav :url="url" class="nav__desktop" />
+      <Nav :site="site" :path="path" class="nav__desktop" />
       <div class="header__desktop">
         <button class="header__theme">
           <Icon
@@ -70,7 +71,7 @@
           :class="{ 'header__mobile-nav--is-open': isNavOpen }"
           class="header__mobile-nav"
         >
-          <Nav :url="url" class="nav__mobile" />
+          <Nav :site="site" :path="path" class="nav__mobile" />
           <button
             class="nav__contact btn btn--inverted"
             aria-label="Contact Me"
