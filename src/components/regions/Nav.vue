@@ -7,6 +7,8 @@
 
   const { origin, pathname: pathName } = props.url
 
+  console.log('test url', props.url)
+
   const isActive = (path: string) => pathName.replace('/', '') === path
 
   defineOptions({
