@@ -5,7 +5,7 @@ import sprite from '/images/icons.svg?raw'
 
 import '@/styles/styles.scss'
 
-const { pathname } = Astro.url
+const astroUrl = Astro.url
 ---
 
 <!doctype html>
@@ -41,7 +41,7 @@ const { pathname } = Astro.url
   <body>
     <Fragment set:html={sprite} />
     <modal></modal>
-    <Header path={pathname} client:load />
+    <Header url={astroUrl} client:load />
     <main id="main-content">
       <slot />
     </main>
