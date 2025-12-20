@@ -1,24 +1,27 @@
 import { computed, onMounted, ref } from 'vue'
+import { ThemeType } from '@/types/portfolio.d'
 
-const isLightTheme = ref(true)
+const isLightTheme = ref(false)
 
 export function useTheme() {
-  const theme = computed(() => (isLightTheme.value ? 'light' : 'dark'))
+  const theme = computed(() => {
+    return isLightTheme.value ? ThemeType.Light : ThemeType.Dark
+  })
 
   const toggleTheme = () => {
+    isLightTheme.value = !isLightTheme.value
+
     if (typeof document !== 'undefined') {
       document.documentElement.setAttribute('data-theme', theme.value)
       localStorage.setItem('theme', theme.value)
     }
-
-    isLightTheme.value = !isLightTheme.value
   }
 
   onMounted(() => {
     const savedValue = localStorage.getItem('theme')
 
-    if (savedValue === 'light') {
-      isLightTheme.value = false
+    if (savedValue === ThemeType.Light) {
+      isLightTheme.value = true
     }
   })
 

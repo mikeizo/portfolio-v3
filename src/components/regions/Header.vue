@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { provide, ref } from 'vue'
+  import { computed, provide, ref } from 'vue'
+  import { ThemeType } from '@/types/portfolio.d'
   import { useTheme } from '@/composables/useTheme.ts'
 
   import Contact from '@/components/Contact.vue'
@@ -8,11 +9,17 @@
   import Nav from '@/components/regions/Nav.vue'
 
   defineProps<{
-    path: string
+    url: URL
   }>()
 
   const isNavOpen = ref(false)
   const isContactOpen = ref(false)
+
+  const { toggleTheme, isLightTheme } = useTheme()
+
+  const iconTheme = computed(() => {
+    return isLightTheme.value ? ThemeType.Dark : ThemeType.Light
+  })
 
   const toggleNav = () => (isNavOpen.value = !isNavOpen.value)
 
@@ -25,9 +32,9 @@
 
   provide('closeModal', closeContact)
 
-  const { toggleTheme, theme } = useTheme()
-
-  defineOptions({ name: 'Header' })
+  defineOptions({
+    name: 'Header'
+  })
 </script>
 
 <template>
@@ -40,10 +47,15 @@
           <Logo />
         </a>
       </div>
-      <Nav :path="path" class="nav__desktop" />
+      <Nav :url="url" class="nav__desktop" />
       <div class="header__desktop">
         <button class="header__theme">
-          <Icon :name="theme" :height="20" :width="20" @click="toggleTheme" />
+          <Icon
+            :name="iconTheme"
+            :height="20"
+            :width="20"
+            @click="toggleTheme"
+          />
         </button>
         <button
           class="nav__contact btn"
@@ -58,7 +70,7 @@
           :class="{ 'header__mobile-nav--is-open': isNavOpen }"
           class="header__mobile-nav"
         >
-          <Nav :siteUrl="siteUrl" :path="path" class="nav__mobile" />
+          <Nav :url="url" class="nav__mobile" />
           <button
             class="nav__contact btn btn--inverted"
             aria-label="Contact Me"
@@ -69,9 +81,14 @@
         </div>
         <button
           class="header__theme"
-          :aria-label="`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`"
+          :aria-label="`Switch to ${iconTheme} theme`"
         >
-          <Icon :name="theme" :height="20" :width="20" @click="toggleTheme" />
+          <Icon
+            :name="iconTheme"
+            :height="20"
+            :width="20"
+            @click="toggleTheme"
+          />
         </button>
         <button
           :class="{ 'header__burger--is-open': isNavOpen }"

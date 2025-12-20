@@ -44,3 +44,8 @@ export type ContactErrorType = {
   isValid: boolean
   message: string | b
 }
+
+export enum ThemeType {
+  Light = 'light',
+  Dark = 'dark'
+}
