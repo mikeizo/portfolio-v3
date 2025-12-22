@@ -35,10 +35,12 @@
     >
       <div class="about__list-year">
         <div class="about__list-year-from">{{ item.yearFrom }}</div>
-        <div v-if="item.yearTo" class="about__list-year-dash">&ndash;</div>
-        <div v-if="item.yearTo" class="about__list-year-to">
-          {{ item.yearTo }}
-        </div>
+        <template v-if="item.yearTo">
+          <div class="about__list-year-dash">&ndash;</div>
+          <div v-if="item.yearTo" class="about__list-year-to">
+            {{ item.yearTo }}
+          </div>
+        </template>
       </div>
       <div class="about_list-description">
         {{ item.description }}

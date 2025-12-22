@@ -294,7 +294,7 @@ img {
 
   &__container {
     position: relative;
-    padding: 3rem 2rem 2rem;
+    padding-top: 3rem;
     margin-top: var(--margin);
     margin-inline: auto;
     width: calc(100% - 2rem);
@@ -309,6 +309,7 @@ img {
     max-height: calc(100svh - var(--margin) * 2);
     overflow-wrap: break-word;
     overflow-y: auto;
+    padding: var(--padding);
   }
 
   &__overlay {
@@ -590,10 +591,6 @@ img {
     height: auto;
     aspect-ratio: inherit;
     object-fit: contain;
-  }
-
-  &__list {
-    overflow-x: hidden;
   }
 
   &__list-item {
