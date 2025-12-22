@@ -43,7 +43,6 @@
                       :class="[
                         'work-item__resource-icon',
                         `devicon-${resource.icon.toLowerCase()}`,
-                        isLightTheme ? 'colored' : ''
                       ]"
                     />
                     <br />
