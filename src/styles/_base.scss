@@ -292,32 +292,35 @@ img {
 
 .modal {
 
-  &__overlay {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-
-  &__content {
+  &__container {
     position: relative;
-    padding: 3rem 1rem 1rem;
+    padding: 3rem 2rem 2rem;
     margin-top: var(--margin);
     margin-inline: auto;
     width: calc(100% - 2rem);
     max-width: var(--page-width);
-    max-height: calc(100svh - var(--margin) * 2);
     border-radius: var(--border-radius);
     background-color: var(--primary-color);
     color: var(--background-color);
+    z-index: 100;
+  }
+
+  &__content {
+    max-height: calc(100svh - var(--margin) * 2);
     overflow-wrap: break-word;
     overflow-y: auto;
-    z-index: 100;
+  }
+
+  &__overlay {
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
   &__close-btn {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    height: 20px;
-    width: 20px;
+    height: 30px;
+    width: 30px;
     padding: 0.2rem;
     fill: var(--primary-color);
     background-color: var(--background-color);
@@ -446,10 +449,6 @@ img {
 .contact {
   display: flex;
   align-items: center;
-
-  .modal__content {
-    max-width: 500px;
-  }
 
   &__form {
     display: grid;

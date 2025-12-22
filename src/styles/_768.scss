@@ -95,7 +95,6 @@
     }
   }
 
-
   /*
    * Pages
    */
@@ -198,18 +197,9 @@
     }
   }
 
-  // Modal
-  .modal {
-
-    &__content {
-      width: calc(100% - 4rem);
-      padding: var(--padding);
-    }
-  }
-
   // Slideshow
   .slideshow {
-    max-width: 95%;
+    max-width: 92%;
     margin-inline: auto;
 
     &__button {
