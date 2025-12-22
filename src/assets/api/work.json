@@ -21,32 +21,6 @@
   "updated": "2021-1-7 21:52:58"
 },
 {
-  "name": "Mike Tropea 2020",
-  "description": "My personal portfolio I created using Next.js to showcase the projects I have worked on over the years. I even created an admin section to manage my work, experience and skills.",
-  "resources": [
-    {"name": "React", "icon": "react-original"},
-    {"name": "Next.js", "icon": "nextjs-plain"},
-    {"name": "Material-UI", "icon": "materialui-plain"},
-    {"name": "MongoDB", "icon": "mongodb-plain"},
-    {"name": "SASS", "icon": "sass-plain"},
-    {"name": "Typescript", "icon": "typescript-plain"},
-    {"name": "NPM", "icon": "npm-original-wordmark"}
-  ],
-  "url": "https://miketropea.com",
-  "logo": "mtropea.png",
-  "slug": "mtropea",
-  "weight": 1,
-  "git": "https://github.com/mikeizo/portfolio-v2",
-  "created": "2020-11-24 12:00:00",
-  "images": [
-    "miketropea1.png",
-    "miketropea2.png",
-    "miketropea3.png",
-    "miketropea4.png"
-  ],
-  "updated": "2023-3-20 23:43:46"
-},
-{
   "name": "Mario's Restaurant",
   "description": "An Italian restaurant on Arthur Avenue in the Bronx. I was hired to redesign the existing website. I designed and developed a custom Wordpress site for customers to book reservations, view the menu, and browse photos.",
   "resources": [
@@ -70,7 +44,7 @@
     {"name": "SASS", "icon": "sass-plain"},
     {"name": "jQuery", "icon": "jquery-plain"}
   ],
-  "url": "https://www.ashraebistate.org",
+  "url": "https://ashrae.vercel.app",
   "logo": "ashrae.png",
   "images": [
     "ashrae1.jpg",
@@ -193,7 +167,7 @@
   "updated": "2021-1-6 19:40:4"
 },
 {
-  "name": "Mike Tropea 2025",
+  "name": "Mike Tropea",
   "description": "This is my personal portfolio site, crafted with Astro, Vue, and TypeScript to highlight my work in web development. It features a selection of recent projects, showcases my technical skills and experience, and offers an inside look at my approach to building modern, performant websites.",
   "resources": [
     {"name": "Astro", "icon": "astro-plain"},
