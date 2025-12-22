@@ -33,7 +33,9 @@
 
   provide('closeModal', closeModal)
 
-  defineOptions({ name: 'WorkList' })
+  defineOptions({
+    name: 'WorkList'
+  })
 </script>
 
 <template>

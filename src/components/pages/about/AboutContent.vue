@@ -3,7 +3,9 @@
     data: string
   }>()
 
-  defineOptions({ name: 'AboutContent' })
+  defineOptions({
+    name: 'AboutContent'
+  })
 </script>
 
 <template>

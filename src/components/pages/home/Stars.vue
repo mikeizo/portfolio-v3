@@ -254,6 +254,10 @@
   onUnmounted(() => {
     cleanup()
   })
+
+  defineOptions({
+    name: 'Stars'
+  })
 </script>
 
 <template>

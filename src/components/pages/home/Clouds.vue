@@ -343,6 +343,10 @@
   onUnmounted(() => {
     cleanup()
   })
+
+  defineOptions({
+    name: 'Clouds'
+  })
 </script>
 
 <template>

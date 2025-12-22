@@ -60,7 +60,9 @@
     responseMessage.value = data.message
   }
 
-  defineOptions({ name: 'Contact' })
+  defineOptions({
+    name: 'Contact'
+  })
 </script>
 
 <template>

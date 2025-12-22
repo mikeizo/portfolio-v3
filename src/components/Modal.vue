@@ -16,7 +16,9 @@
     closeModal?.()
   }
 
-  defineOptions({ name: 'Modal' })
+  defineOptions({
+    name: 'Modal'
+  })
 </script>
 
 <template>

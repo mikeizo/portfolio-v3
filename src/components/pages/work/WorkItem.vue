@@ -14,7 +14,9 @@
 
   const { isLightTheme } = useTheme()
 
-  defineOptions({ name: 'WorkItem' })
+  defineOptions({
+    name: 'WorkItem'
+  })
 </script>
 
 <template>

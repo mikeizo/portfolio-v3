@@ -6,7 +6,9 @@
     alt?: string
   }>()
 
-  defineOptions({ name: 'Icon' })
+  defineOptions({
+    name: 'Icon'
+  })
 </script>
 
 <template>

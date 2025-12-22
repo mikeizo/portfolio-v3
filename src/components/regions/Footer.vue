@@ -1,7 +1,9 @@
 <script setup lang="ts">
   const year = new Date().getFullYear()
 
-  defineOptions({ name: 'Footer' })
+  defineOptions({
+    name: 'Footer'
+  })
 </script>
 
 <template>
