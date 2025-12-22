@@ -557,6 +557,11 @@ img {
     vertical-align: middle;
   }
 
+  &__git {
+    opacity: 0;
+    animation-delay: 1s;
+  }
+
   &__background {
     position: fixed;
     top: 0;
