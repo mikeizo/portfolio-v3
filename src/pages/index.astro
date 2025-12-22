@@ -2,6 +2,7 @@
 import { splitText } from '@/utils/animation'
 
 import Background from '@/components/pages/home/Background.vue'
+import Icon from '@/components/Icon.vue'
 import Layout from '@/layouts/Layout.astro'
 
 const title = splitText("Hi, I'm Mike Tropea")
@@ -14,6 +15,23 @@ const subtitle = splitText('Web Developer & Designer', 0.5)
     <div class="page_content">
       <h1 set:html={title} />
       <h2 set:html={subtitle} />
+      <p>
+        <Icon
+          name="github"
+          height={28}
+          width={28}
+          client:load
+          alt="GitHub icon"
+        />
+        <a
+          class="git-link"
+          href="https://github.com/mikeizo"
+          target="_blank"
+          rel="nofollow"
+        >
+          <span>View my github profile</span>
+        </a>
+      </p>
     </div>
   </div>
 </Layout>

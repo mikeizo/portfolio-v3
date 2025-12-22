@@ -548,6 +548,15 @@ img {
     font-size: 1.2rem;
   }
 
+  p {
+    fill: var(--text-color);
+  }
+
+  .icon,
+  .git-link {
+    vertical-align: middle;
+  }
+
   &__background {
     position: fixed;
     top: 0;
