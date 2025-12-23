@@ -28,22 +28,24 @@
 
 <template>
   <div ref="listContainer" class="about__list">
-    <div
-      v-for="(item, index) in data"
-      :key="`${item.yearFrom}-${index}`"
-      class="about__list-item"
-    >
-      <div class="about__list-year">
-        <div class="about__list-year-from">{{ item.yearFrom }}</div>
-        <template v-if="item.yearTo">
-          <div class="about__list-year-dash">&ndash;</div>
-          <div v-if="item.yearTo" class="about__list-year-to">
-            {{ item.yearTo }}
-          </div>
-        </template>
-      </div>
-      <div class="about_list-description">
-        {{ item.description }}
+    <div class="about__list-inner">
+      <div
+        v-for="(item, index) in data"
+        :key="`${item.yearFrom}-${index}`"
+        class="about__list-item"
+      >
+        <div class="about__list-year">
+          <div class="about__list-year-from">{{ item.yearFrom }}</div>
+          <template v-if="item.yearTo">
+            <div class="about__list-year-dash">&ndash;</div>
+            <div v-if="item.yearTo" class="about__list-year-to">
+              {{ item.yearTo }}
+            </div>
+          </template>
+        </div>
+        <div class="about_list-description">
+          {{ item.description }}
+        </div>
       </div>
     </div>
   </div>

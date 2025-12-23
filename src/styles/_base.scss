@@ -72,7 +72,7 @@ img {
 
 .wrapper {
   max-width: var(--page-width);
-  padding-inline: 1rem;
+  padding-inline: 2rem;
   margin-inline: auto;
   box-sizing: content-box;
 }
@@ -583,12 +583,13 @@ img {
   }
 
   &__image {
+    display: block;
     margin-top: var(--margin);
+    margin-inline: auto;
+    height: auto;
+    width: min(100%, 300px);
     border-radius: var(--border-radius);
     overflow: hidden;
-    display: block;
-    width: 100%;
-    height: auto;
     aspect-ratio: inherit;
     object-fit: contain;
   }
