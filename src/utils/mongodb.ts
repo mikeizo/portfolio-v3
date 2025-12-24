@@ -8,7 +8,7 @@ const options = {
 let isConnected = false
 
 if (!MONGODB_URI || !MONGODB_DB) {
-  throw new Error('Missing required MongoDB env variables')
+  console.error('Missing required MongoDB env variables')
 }
 
 /**
