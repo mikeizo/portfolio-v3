@@ -8,6 +8,9 @@ const env = loadEnv(process.env, process.cwd(), '')
 // https://astro.build/config
 export default defineConfig({
   adapter: vercel(),
+  devToolbar: {
+    enabled: false
+  },
   integrations: [vue()],
   server: {
     port: parseInt(env.PORT)
