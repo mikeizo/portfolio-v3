@@ -1,9 +1,10 @@
 <script setup lang="ts">
-  import menuItems from '@/assets/api/menu.json'
+  import type { MenuItemsType } from '@/types/portfolio.d'
 
   const props = defineProps<{
     site: string
     path: string
+    menuItems: MenuItemsType
   }>()
 
   const isActive = (pathName: string) =>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import type { MenuItemsType } from '@/types/portfolio.d'
+
   import { computed, provide, ref } from 'vue'
   import { ThemeType } from '@/types/portfolio.d'
   import { useTheme } from '@/composables/useTheme.ts'
@@ -9,6 +11,7 @@
   import Nav from '@/components/regions/Nav.vue'
 
   defineProps<{
+    menuItems: MenuItemsType
     site: string
     path: string
   }>()
@@ -48,7 +51,12 @@
           <Logo />
         </a>
       </div>
-      <Nav :site="site" :path="path" class="nav__desktop" />
+      <Nav
+        :menuItems="menuItems"
+        :site="site"
+        :path="path"
+        class="nav__desktop"
+      />
       <div class="header__desktop">
         <button class="header__theme">
           <Icon
@@ -71,7 +79,12 @@
           :class="{ 'header__mobile-nav--is-open': isNavOpen }"
           class="header__mobile-nav"
         >
-          <Nav :site="site" :path="path" class="nav__mobile" />
+          <Nav
+            :menuItems="menuItems"
+            :site="site"
+            :path="path"
+            class="nav__mobile"
+          />
           <button
             class="nav__contact btn btn--inverted"
             aria-label="Contact Me"

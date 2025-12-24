@@ -2,7 +2,6 @@
   import type { WorkType } from '@/types/portfolio'
 
   import 'devicon'
-  import { useTheme } from '@/composables/useTheme'
 
   import Modal from '@/components/Modal.vue'
   import Slideshow from '@/components/Slideshow.vue'
@@ -11,8 +10,6 @@
     data: WorkType | null
     path: string
   }>()
-
-  const { isLightTheme } = useTheme()
 
   defineOptions({
     name: 'WorkItem'
@@ -42,7 +39,7 @@
                       v-if="resource.icon"
                       :class="[
                         'work-item__resource-icon',
-                        `devicon-${resource.icon.toLowerCase()}`,
+                        `devicon-${resource.icon.toLowerCase()}`
                       ]"
                     />
                     <br />

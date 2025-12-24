@@ -1,21 +1,20 @@
 ---
-import type { SettingsType } from '@/types/portfolio'
+import { getDataFeed } from '@/utils/apiFeed'
 
 import AboutContent from '@/components/pages/about/AboutContent.vue'
-import aboutData from '@/assets/api/about.json'
 import AboutList from '@/components/pages/about/AboutList.vue'
-import aboutSettings from '@/assets/api/settings.json'
 import Layout from '@/layouts/Layout.astro'
 
-const [settings]: SettingsType = aboutSettings
+const [settingsData] = await getDataFeed('settings')
+const aboutData = await getDataFeed('about')
 ---
 
 <Layout>
   <div class="page wrapper about">
     <h1 class="page__title">About Me</h1>
     <div class="page__content">
-      <AboutContent data={settings.about} />
-      <AboutList data={aboutData} client:load />
+      <AboutContent data={settingsData?.about || ''} />
+      <AboutList data={aboutData || []} client:load />
     </div>
   </div>
 </Layout>

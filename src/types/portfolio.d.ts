@@ -25,6 +25,7 @@ export type WorkType = {
   }[]
   url?: string
   logo: string
+  grayscale?: boolean
   images: string[]
   slug: string
   weight: number
@@ -49,3 +50,8 @@ export enum ThemeType {
   Light = 'light',
   Dark = 'dark'
 }
+
+export type MenuItemsType = {
+  title: string
+  url: string
+}[]

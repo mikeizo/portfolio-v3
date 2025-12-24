@@ -1,20 +1,27 @@
 <script setup lang="ts">
   import type { WorkType } from '@/types/portfolio'
 
-  import { provide, ref, type Ref } from 'vue'
+  import { computed, provide, ref, type Ref } from 'vue'
+  import { useTheme } from '@/composables/useTheme'
+
   import Icon from '@/components/Icon.vue'
   import useObserver from '@/composables/useObserver'
-  import workData from '@/assets/api/work.json'
   import WorkItem from '@/components/pages/work/WorkItem.vue'
 
   const props = defineProps<{
     path: string
+    data: WorkType[]
   }>()
 
   const workItem: Ref<WorkType | null> = ref(null)
   const listContainer: Ref<HTMLElement | null> = ref(null)
 
   const logoPath = `${props.path}/logos`
+  const { theme } = useTheme()
+
+  const imageClass = computed(() => {
+    return theme.value === 'dark' ? 'work__image--dark' : ''
+  })
 
   const closeModal = () => {
     workItem.value = null
@@ -41,21 +48,16 @@
 <template>
   <div ref="listContainer" class="work__list">
     <div
-      v-for="(work, index) in workData"
+      v-for="(work, index) in data"
       :key="`${work.slug}-${index}`"
       class="work__list-item"
       @click="workItem = work"
     >
       <div class="work__image-logo">
         <img
-          :src="`${logoPath}/${work.logo}`"
+          :src="`${logoPath}/webp/${work.logo}`"
           class="work__image-logo-img work__image--light"
-          :alt="`Logo for ${work.name}`"
-          loading="lazy"
-        />
-        <img
-          :src="`${logoPath}/dark/${work.logo}`"
-          class="work__image-logo-img work__image--dark"
+          :class="[work.grayscale ? 'work__image--grayscale' : imageClass]"
           :alt="`Logo for ${work.name}`"
           loading="lazy"
         />

@@ -1,4 +1,6 @@
 ---
+import { getDataFeed } from '@/utils/apiFeed'
+
 import Footer from '@/components/regions/Footer.vue'
 import Header from '@/components/regions/Header.vue'
 import sprite from '/images/icons.svg?raw'
@@ -7,6 +9,7 @@ import '@/styles/styles.scss'
 
 const astroSite = import.meta.env.SITE_URL
 const astroPath = Astro.url.pathname
+const menuItems = await getDataFeed('menu')
 ---
 
 <!doctype html>
@@ -42,7 +45,12 @@ const astroPath = Astro.url.pathname
   <body>
     <Fragment set:html={sprite} />
     <modal></modal>
-    <Header site={astroSite} path={astroPath} client:load />
+    <Header
+      menuItems={menuItems}
+      site={astroSite}
+      path={astroPath}
+      client:load
+    />
     <main id="main-content">
       <slot />
     </main>

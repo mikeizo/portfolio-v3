@@ -4,6 +4,7 @@ export const prerender = false
 import type { APIRoute } from 'astro'
 import type { ContactType } from '@/types/portfolio'
 
+import { getDataFeed } from '@/utils/apiFeed'
 import sanitizeHtml from 'sanitize-html'
 import { validateForm } from '@/utils/validation'
 
@@ -56,21 +57,23 @@ export const POST: APIRoute = async ({ request }) => {
  * @returns Promise<Response> resolving to the full fetch response from Mailgun
  */
 async function sendMessage(data: ContactType) {
-  const form = new FormData()
+  const [settings] = await getDataFeed('settings')
   const env = import.meta.env
-  const sendTo = env.MY_EMAIL
+  const sendTo = settings.email
   const apiUrl = env.MAILGUN_URL
   const apiKey = env.MAILGUN_KEY
   const { name, email, phone, message } = data
 
-  const html = `<strong>Name:</strong> ${sanitizeHtml(name)}<br>
-    <strong>Email:</strong> ${sanitizeHtml(email)}<br>
-    <strong>Phone:</strong> ${sanitizeHtml(phone)}<br>
-    <strong>Message:</strong> ${sanitizeHtml(message)}`
+  const html = `
+  <strong>Name:</strong> ${sanitizeHtml(name)}<br>
+  <strong>Email:</strong> ${sanitizeHtml(email)}<br>
+  <strong>Phone:</strong> ${sanitizeHtml(phone)}<br>
+  <strong>Message:</strong> ${sanitizeHtml(message)}`
 
+  const form = new FormData()
   form.append('from', 'no-reply@miketropea.com')
   form.append('to', sendTo)
-  form.append('subject', 'Website Contact Form')
+  form.append('subject', 'Website Contact Form - MikeTropea.com')
   form.append('html', html)
 
   const responseCode = await fetch(apiUrl, {

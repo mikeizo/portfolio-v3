@@ -1,16 +1,20 @@
 ---
+import { getDataFeed } from '@/utils/apiFeed'
+
 import Layout from '@/layouts/Layout.astro'
 import WorkList from '@/components/pages/work/WorkList.vue'
 
 const env = import.meta.env
 const assetsPath = env.PUBLIC_ASSETS_PATH
+
+const workData = await getDataFeed('work')
 ---
 
 <Layout>
   <div class="page wrapper work">
     <h1 class="page__title">Work</h1>
     <div class="page__content">
-      <WorkList path={assetsPath} client:load />
+      <WorkList path={assetsPath} data={workData || []} client:load />
     </div>
   </div>
 </Layout>
