@@ -652,12 +652,14 @@ img {
       fill: var(--accent-color);
     }
   }
+}
 
-  &__image--dark {
+[data-theme='dark'] {
+  .work__image-logo-img {
     filter: brightness(0) invert(1);
   }
 
-  &__image--grayscale {
+  .work__image--grayscale {
     filter: grayscale(100%);
   }
 }

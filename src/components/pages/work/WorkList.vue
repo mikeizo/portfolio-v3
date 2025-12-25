@@ -1,8 +1,7 @@
 <script setup lang="ts">
   import type { WorkType } from '@/types/portfolio'
 
-  import { computed, provide, ref, type Ref } from 'vue'
-  import { useTheme } from '@/composables/useTheme'
+  import { provide, ref, type Ref } from 'vue'
 
   import Icon from '@/components/Icon.vue'
   import useObserver from '@/composables/useObserver'
@@ -17,11 +16,6 @@
   const listContainer: Ref<HTMLElement | null> = ref(null)
 
   const logoPath = `${props.path}/logos`
-  const { theme } = useTheme()
-
-  const imageClass = computed(() => {
-    return theme.value === 'dark' ? 'work__image--dark' : ''
-  })
 
   const closeModal = () => {
     workItem.value = null
@@ -56,8 +50,8 @@
       <div class="work__image-logo">
         <img
           :src="`${logoPath}/webp/${work.logo}`"
-          class="work__image-logo-img work__image--light"
-          :class="[work.grayscale ? 'work__image--grayscale' : imageClass]"
+          class="work__image-logo-img"
+          :class="{ 'work__image--grayscale': work.grayscale }"
           :alt="`Logo for ${work.name}`"
           loading="lazy"
         />
