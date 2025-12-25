@@ -1,10 +1,7 @@
-// NOTE: This must remain 'false' for dynamic endpoints.
-export const prerender = false
-
 import type { APIRoute } from 'astro'
 import type { ContactType } from '@/types/portfolio'
 
-import { getDataFeed } from '@/utils/apiFeed'
+import { getDataFeed } from '@/utils/api'
 import sanitizeHtml from 'sanitize-html'
 import { validateForm } from '@/utils/validation'
 

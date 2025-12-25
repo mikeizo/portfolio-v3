@@ -6,7 +6,7 @@ export const getDataFeed = async (feed: string) => {
 
     if (!response.ok) {
       console.error(`Failed to fetch data from the ${feed} feed.`)
-      return null
+      return []
     }
 
     const data = await response.json()
@@ -15,9 +15,8 @@ export const getDataFeed = async (feed: string) => {
       return data
     }
   } catch (error) {
-    console.error('test error', error)
-    return null
+    console.error('getDataFeed error', error)
   }
 
-  return null
+  return []
 }

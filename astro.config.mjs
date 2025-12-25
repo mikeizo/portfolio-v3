@@ -12,6 +12,7 @@ export default defineConfig({
     enabled: false
   },
   integrations: [vue()],
+  output: 'server',
   server: {
     port: parseInt(env.PORT)
   },
