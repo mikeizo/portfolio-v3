@@ -1,13 +1,29 @@
 import type { APIRoute } from 'astro'
+import type { SortOptionsType } from '@/types/portfolio'
+
 import { fetchData } from '@/utils/mongodb'
 
-export const GET: APIRoute = async ({ params }) => {
+export const GET: APIRoute = async ({ params, request }) => {
   const headers = {
     'Content-Type': 'application/json'
   }
 
+  const url = new URL(request.url)
+  const searchParams = url.searchParams
+
   try {
-    const data = await fetchData(params.feed)
+    const sort = searchParams.get('sort')
+    const order = searchParams.get('order') === 'desc' ? -1 : 1
+    let sortOptions: SortOptionsType = null
+
+    if (sort) {
+      sortOptions = {
+        sort,
+        order
+      }
+    }
+
+    const data = await fetchData(params.feed, sortOptions)
 
     if (data) {
       return new Response(JSON.stringify(data), {

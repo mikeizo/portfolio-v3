@@ -1,3 +1,5 @@
+import type { SortOptionsType } from '@/types/portfolio'
+
 import mongoose from 'mongoose'
 
 const { Schema } = mongoose
@@ -91,7 +93,10 @@ const schemaMap = {
  * @param collection - The name of the collection to fetch data from. Should be one of the keys in schemaMap.
  * @returns An array of documents retrieved from the specified collection.
  */
-export async function fetchData(collection: string | undefined) {
+export async function fetchData(
+  collection: string | undefined,
+  sortOptions?: SortOptionsType
+) {
   const schema = schemaMap[collection as keyof typeof schemaMap]
 
   if (!schema || !collection) {
@@ -103,7 +108,12 @@ export async function fetchData(collection: string | undefined) {
 
   try {
     await connectToDatabase()
-    const data = await Model.find().lean()
+    const data =
+      sortOptions?.sort && sortOptions?.order
+        ? await Model.find()
+            .lean()
+            .sort({ [sortOptions.sort]: sortOptions.order })
+        : await Model.find().lean()
 
     return data
   } catch (error) {

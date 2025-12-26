@@ -6,7 +6,7 @@ import AboutList from '@/components/pages/about/AboutList.vue'
 import Layout from '@/layouts/Layout.astro'
 
 const [settingsData] = await getDataFeed('settings')
-const aboutData = await getDataFeed('about')
+const aboutData = await getDataFeed('about', 'yearFrom')
 ---
 
 <Layout>

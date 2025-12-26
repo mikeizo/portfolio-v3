@@ -57,3 +57,8 @@ export type MenuItemsType = {
   title: string
   url: string
 }[]
+
+export type SortOptionsType = {
+  sort: string
+  order: -1 | 1
+} | null
