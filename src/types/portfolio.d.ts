@@ -5,6 +5,8 @@ export type MenuType = {
 
 export type SettingsType = {
   about: string
+  title: string
+  subtitle: string
   email: string
 }[]
 

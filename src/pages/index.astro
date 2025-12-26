@@ -1,12 +1,14 @@
 ---
+import { getDataFeed } from '@/utils/api'
 import { splitText } from '@/utils/animation'
 
 import Background from '@/components/pages/home/Background.vue'
 import Icon from '@/components/Icon.vue'
 import Layout from '@/layouts/Layout.astro'
 
-const title = splitText("Hi, I'm Mike")
-const subtitle = splitText('Web Developer & Designer', 0.5)
+const [settings] = await getDataFeed('settings')
+const title = splitText(settings.title)
+const subtitle = splitText(settings.subtitle, 0.5)
 ---
 
 <Layout>
