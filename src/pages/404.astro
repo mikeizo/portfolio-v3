@@ -1,8 +1,10 @@
 ---
+import Background from '@/components/pages/home/Background.vue'
 import Layout from '@/layouts/Layout.astro'
 ---
 
 <Layout>
+  <Background client:load />
   <div class="page wrapper not-found">
     <h1 class="page__title">404</h1>
     <div class="page__content">
