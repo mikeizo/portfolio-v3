@@ -17,7 +17,7 @@
 </script>
 
 <template>
-  <Modal :is-open="Boolean(data)">
+  <Modal :isOpen="Boolean(data)">
     <div v-if="data" class="work-item">
       <div class="work-item__content">
         <h2 class="work-item__name text-center">{{ data?.name }}</h2>

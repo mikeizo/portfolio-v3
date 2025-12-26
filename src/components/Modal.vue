@@ -27,9 +27,9 @@
 </script>
 
 <template>
-  <Teleport to="modal">
-    <Transition name="modal">
-      <div v-if="isOpen" class="modal" :class="[classes]">
+  <Transition name="modal">
+    <Teleport v-if="isOpen" to="modal">
+      <div class="modal" :class="[classes]">
         <div class="modal__container" :style="containerStyle">
           <button
             class="modal__close-btn btn"
@@ -44,6 +44,6 @@
         </div>
         <div class="modal__overlay" @click="close"></div>
       </div>
-    </Transition>
-  </Teleport>
+    </Teleport>
+  </Transition>
 </template>

@@ -66,7 +66,7 @@
 </script>
 
 <template>
-  <Modal :is-open="isOpen" :classNames="['contact']" :maxWidth="500">
+  <Modal :isOpen="isOpen" :classNames="['contact']" :maxWidth="500">
     <div class="contact__content">
       <h2 class="contact__name text-center">Contact Me</h2>
       <form class="contact__form" @submit.prevent="submitForm">
