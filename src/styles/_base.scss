@@ -1,6 +1,9 @@
 /*
  * Base Styles
  */
+:root {
+  interpolate-size: allow-keywords;
+}
 
 html {
   scrollbar-gutter: stable;
@@ -573,6 +576,8 @@ img {
 
 // About
 .about {
+  overflow: clip;
+
   .page__content {
     display: grid;
     gap: var(--margin);
@@ -585,7 +590,6 @@ img {
     height: auto;
     width: min(100%, 300px);
     border-radius: var(--border-radius);
-    overflow: hidden;
     aspect-ratio: inherit;
     object-fit: contain;
   }
@@ -608,6 +612,62 @@ img {
     justify-content: center;
     gap: 1rem;
     font-weight: 700;
+  }
+
+  &__list-description {
+    display: grid;
+    grid-template-columns: 1fr;
+    position: relative;
+    align-items: center;
+    cursor: pointer;
+
+    p {
+      margin: 0 1rem 0 0;
+    }
+
+    &:has(.about__list-button) {
+      grid-template-columns: 1fr 25px;
+    }
+
+    &--open {
+      .about__list-accordion {
+        display: block;
+        height: auto;
+      }
+
+      .about__list-button {
+        .icon {
+          rotate: -180deg;
+        }
+      }
+    }
+  }
+
+  &__list-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    width: 25px;
+    border-radius: var(--border-radius-half);
+    background-color: var(--primary-color);
+
+    .icon {
+      fill: var(--background-color);
+      rotate: 45deg;
+      transition: rotate 0.5s ease-in-out;
+    }
+  }
+
+  &__list-accordion {
+    grid-column: 1 / -1;
+    height: 0;
+    overflow: clip;
+    transition: height 0.5s ease-in-out;
+
+    img {
+      margin-top: var(--margin);
+    }
   }
 }
 
