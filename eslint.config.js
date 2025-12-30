@@ -9,7 +9,15 @@ import vuePlugin from 'eslint-plugin-vue'
 
 export default [
   {
-    ignores: ['.astro/', 'dist/', 'coverage/', 'build/', 'node_modules/']
+    ignores: [
+      '.astro/',
+      '.vercel',
+      '.vscode/',
+      'dist/',
+      'coverage/',
+      'build/',
+      'node_modules/'
+    ]
   },
   // Global configuration
   {
