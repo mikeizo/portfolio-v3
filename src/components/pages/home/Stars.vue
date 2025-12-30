@@ -210,10 +210,12 @@
 
     renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.value,
-      antialias: true
+      antialias: true,
+      alpha: true
     })
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setClearColor(0x000000, 0)
 
     stars = createStars()
     scene.add(stars)
