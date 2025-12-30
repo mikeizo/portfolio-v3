@@ -1,12 +1,10 @@
 <script setup lang="ts">
   import type { MenuItemsType } from '@/types/portfolio.d'
 
-  import { computed, provide, ref } from 'vue'
-  import { ThemeType } from '@/types/portfolio.d'
-  import { useTheme } from '@/composables/useTheme.ts'
+  import { provide, ref } from 'vue'
 
   import Contact from '@/components/Contact.vue'
-  import Icon from '@/components/Icon.vue'
+  import IconThemeButton from '@/components/regions/IconThemeButton.vue'
   import Logo from '@/components/Logo.vue'
   import Nav from '@/components/regions/Nav.vue'
 
@@ -18,12 +16,6 @@
 
   const isNavOpen = ref(false)
   const isContactOpen = ref(false)
-
-  const { toggleTheme, isLightTheme } = useTheme()
-
-  const iconTheme = computed(() => {
-    return isLightTheme.value ? ThemeType.Dark : ThemeType.Light
-  })
 
   const toggleNav = () => (isNavOpen.value = !isNavOpen.value)
 
@@ -58,14 +50,7 @@
         class="nav__desktop"
       />
       <div class="header__desktop">
-        <button class="header__theme">
-          <Icon
-            :name="iconTheme"
-            :height="20"
-            :width="20"
-            @click="toggleTheme"
-          />
-        </button>
+        <IconThemeButton />
         <button
           class="nav__contact btn"
           aria-label="Contact"
@@ -93,17 +78,7 @@
             Contact
           </button>
         </div>
-        <button
-          class="header__theme"
-          :aria-label="`Switch to ${iconTheme} theme`"
-        >
-          <Icon
-            :name="iconTheme"
-            :height="20"
-            :width="20"
-            @click="toggleTheme"
-          />
-        </button>
+        <IconThemeButton />
         <button
           :class="{ 'header__burger--is-open': isNavOpen }"
           class="header__burger"
