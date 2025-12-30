@@ -22,7 +22,7 @@
 
     gsap.to('#themeIcon', {
       morphSVG: targetD,
-      duration: 0.5,
+      duration: 1,
       ease: 'power2.inOut',
       onStart: () => {
         toggleTheme()
