@@ -113,7 +113,6 @@
       grid-template-columns: 300px 1fr;
       gap: 4rem;
       grid-template-rows: auto;
-      overflow: hidden;
     }
 
     &__image {
@@ -129,7 +128,6 @@
       inset: 0;
       padding-right: 1rem;
       overflow-y: scroll;
-      overflow-x: hidden;
       scroll-behavior: smooth;
       scrollbar-width: thin;
       scrollbar-color: var(--primary-color) transparent;

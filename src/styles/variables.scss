@@ -8,7 +8,9 @@
   --page-width: 1200px;
   --header-height: 64px;
   --footer-height: 64px;
-  --home-height: calc(100svh - var(--header-height) - var(--footer-height) - (var(--margin) * 3));
+  --home-height: calc(
+    100svh - var(--header-height) - var(--footer-height) - (var(--margin) * 3)
+  );
 
   // Colors
   --black: hsl(0, 0%, 5%);
@@ -24,7 +26,7 @@
 }
 
 // Dark theme
-[data-theme="dark"] {
+[data-theme='dark'] {
   --primary-color: var(--white);
   --accent-color: var(--white-2);
   --text-color: var(--white-1);
@@ -38,7 +40,7 @@
 }
 
 // Light theme
-[data-theme="light"] {
+[data-theme='light'] {
   --primary-color: var(--black);
   --accent-color: var(--blue-dark);
   --text-color: var(--black-1);
