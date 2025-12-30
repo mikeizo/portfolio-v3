@@ -1,7 +1,6 @@
 ---
 import { getDataFeed } from '@/utils/api'
 
-import AboutContent from '@/components/pages/about/AboutContent.vue'
 import AboutList from '@/components/pages/about/AboutList.vue'
 import Layout from '@/layouts/Layout.astro'
 
@@ -13,7 +12,16 @@ const aboutData = await getDataFeed('about', 'yearFrom')
   <div class="page wrapper about">
     <h1 class="page__title">About Me</h1>
     <div class="page__content">
-      <AboutContent data={settingsData?.about || ''} />
+      <div class="about__content">
+        <div set:html={settingsData?.about || ''} />
+        <img
+          class="about__image"
+          src="/images/mike-tropea.jpg"
+          alt="Mike Tropea"
+          width="316"
+          height="395"
+        />
+      </div>
       <AboutList data={aboutData || []} client:load />
     </div>
   </div>
