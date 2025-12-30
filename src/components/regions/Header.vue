@@ -4,7 +4,7 @@
   import { provide, ref } from 'vue'
 
   import Contact from '@/components/Contact.vue'
-  import IconThemeButton from '@/components/regions/IconThemeButton.vue'
+  import IconThemeButton from '@/components/IconThemeButton.vue'
   import Logo from '@/components/Logo.vue'
   import Nav from '@/components/regions/Nav.vue'
 
