@@ -60,7 +60,12 @@
             <Icon name="close" :height="16" :width="16" />
           </div>
           <div v-if="item.image" class="about__list-accordion">
-            <img :src="`images/old-sites/${item.image}`" />
+            <img
+              :src="`images/old-sites/${item.image}`"
+              height="300"
+              width="500"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
