@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { computed, onMounted } from 'vue'
-  import gsap from 'gsap'
-  import MorphSVGPlugin from 'gsap/MorphSVGPlugin'
+  import { gsap } from 'gsap/dist/gsap'
+  import { MorphSVGPlugin } from 'gsap/dist/MorphSVGPlugin'
   import { ThemeType } from '@/types/portfolio.d'
   import { useTheme } from '@/composables/useTheme'
 
