@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { ref, type Ref } from 'vue'
-
   import type { AboutType } from '@/types/portfolio'
-  import useObserver from '@/composables/useObserver'
+
+  import { ref, type Ref } from 'vue'
+  import { useObserver } from '@/composables/useObserver'
 
   defineProps<{
     data: AboutType

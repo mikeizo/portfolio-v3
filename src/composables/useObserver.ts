@@ -1,6 +1,6 @@
 import { onMounted, onUnmounted, type Ref } from 'vue'
 
-export default function useObserver(
+export function useObserver(
   element: Ref<HTMLElement | null>,
   observeClass: string,
   animationClass: string,

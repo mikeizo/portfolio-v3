@@ -2,9 +2,9 @@
   import type { WorkType } from '@/types/portfolio'
 
   import { provide, ref, type Ref } from 'vue'
+  import { useObserver } from '@/composables/useObserver'
 
   import Icon from '@/components/Icon.vue'
-  import useObserver from '@/composables/useObserver'
   import WorkItem from '@/components/pages/work/WorkItem.vue'
 
   const props = defineProps<{
