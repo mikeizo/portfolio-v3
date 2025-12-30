@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { computed, onMounted } from 'vue'
-  import { gsap } from 'gsap'
+  import gsap from 'gsap'
   import MorphSVGPlugin from 'gsap/MorphSVGPlugin'
   import { ThemeType } from '@/types/portfolio.d'
   import { useTheme } from '@/composables/useTheme'
