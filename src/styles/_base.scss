@@ -47,15 +47,23 @@ img {
 }
 
 .btn {
-  color: var(--primary-color);
-  background-color: var(--background-color);
+  display: inline-block;
+  color: var(--background-color);
+  background-color: var(--primary-color);
   border-radius: var(--border-radius-half);
   cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.1s ease;
 
   &:active:not(:disabled),
   &:focus-visible:not(:disabled) {
     transform: translateY(1px) scale(0.97);
     background-color: var(--background-color-200);
+  }
+
+  &:hover {
+    background-color: var(--primary-color-200);
   }
 
   &--inverted {
@@ -554,8 +562,18 @@ img {
   }
 
   .icon,
-  .git-link {
-    vertical-align: middle;
+  .git-btn {
+    vertical-align: bottom;
+  }
+
+  .icon {
+    fill: var(--background-color);
+  }
+
+  .git-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    text-decoration: none;
   }
 
   &__git {

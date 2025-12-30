@@ -28,12 +28,14 @@
 // Dark theme
 [data-theme='dark'] {
   --primary-color: var(--white);
+  --primary-color-100: var(--white-1);
+  --primary-color-200: var(--white-2);
   --accent-color: var(--white-2);
   --text-color: var(--white-1);
   --background-color: var(--black);
-  --background-color-alpha: hsla(from var(--black) h s l / 0.25);
   --background-color-100: var(--black-1);
   --background-color-200: var(--black-2);
+  --background-color-alpha: hsla(from var(--black) h s l / 0.25);
   --border-color: hsla(from var(--white-2) h s l / 0.25);
   --logo-color: var(--white-1);
   --error: var(--red-dark);
@@ -42,6 +44,8 @@
 // Light theme
 [data-theme='light'] {
   --primary-color: var(--black);
+  --primary-color-100: var(--black-1);
+  --primary-color-200: var(--black-2);
   --accent-color: var(--blue-dark);
   --text-color: var(--black-1);
   --background-color: var(--white);

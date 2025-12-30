@@ -18,19 +18,19 @@ const subtitle = splitText(settings.subtitle, 0.5)
       <h1 set:html={title} />
       <h2 set:html={subtitle} />
       <p class="fade-in home__git">
-        <Icon
-          name="github"
-          height={28}
-          width={28}
-          client:load
-          alt="GitHub icon"
-        />
         <a
-          class="git-link"
+          class="git-btn btn"
           href="https://github.com/mikeizo"
           target="_blank"
           rel="nofollow"
         >
+          <Icon
+            name="github"
+            height={20}
+            width={20}
+            client:load
+            alt="GitHub icon"
+          />
           <span>View my github profile</span>
         </a>
       </p>
