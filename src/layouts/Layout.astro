@@ -41,6 +41,17 @@ const menuItems = await getDataFeed('menu')
         document.documentElement.setAttribute('data-theme', theme)
       })()
     </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YS4SJXC4C5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'G-YS4SJXC4C5')
+    </script>
   </head>
   <body>
     <Fragment set:html={sprite} />
