@@ -7,8 +7,7 @@
     menuItems: MenuItemsType
   }>()
 
-  const isActive = (pathName: string) =>
-    props.path.replace('/', '') === pathName
+  const isActive = (pathName: string) => props.path === pathName
 
   defineOptions({
     name: 'Nav'

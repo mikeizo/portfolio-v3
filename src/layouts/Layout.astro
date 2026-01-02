@@ -1,5 +1,6 @@
 ---
 import { getDataFeed } from '@/utils/api'
+import { getMetaData } from '@/meta/meta'
 
 import Footer from '@/components/regions/Footer.vue'
 import Header from '@/components/regions/Header.vue'
@@ -8,7 +9,9 @@ import sprite from '/images/icons.svg?raw'
 import '@/styles/styles.scss'
 
 const astroSite = import.meta.env.SITE_URL
-const astroPath = Astro.url.pathname
+const astroPath = Astro.url?.pathname?.replace(/^\//, '') || ''
+const metadata = getMetaData(astroPath)
+const { title: meataTitle, description: meataDescription } = metadata
 const menuItems = await getDataFeed('menu')
 ---
 
@@ -18,8 +21,11 @@ const menuItems = await getDataFeed('menu')
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Mike Tropea - Website Portfolio</title>
+    <title>{meataTitle ?? 'Mike Tropea'}</title>
+    <meta
+      name="description"
+      content={meataDescription ?? 'Personal website portfolio of Mike Tropea'}
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,20 +33,6 @@ const menuItems = await getDataFeed('menu')
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-
-    <script is:inline>
-      // Prevent flash of wrong theme
-      ;(() => {
-        const savedTheme = localStorage.getItem('theme')
-        const theme = savedTheme || 'dark'
-
-        if (!savedTheme) {
-          localStorage.setItem('theme', theme)
-        }
-
-        document.documentElement.setAttribute('data-theme', theme)
-      })()
-    </script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YS4SJXC4C5"
@@ -52,6 +44,20 @@ const menuItems = await getDataFeed('menu')
       }
       gtag('js', new Date())
       gtag('config', 'G-YS4SJXC4C5')
+    </script>
+
+    <!-- Prevent flash of wrong theme -->
+    <script is:inline>
+      ;(() => {
+        const savedTheme = localStorage.getItem('theme')
+        const theme = savedTheme || 'dark'
+
+        if (!savedTheme) {
+          localStorage.setItem('theme', theme)
+        }
+
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
     </script>
   </head>
   <body>

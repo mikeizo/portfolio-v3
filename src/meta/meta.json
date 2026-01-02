@@ -1,0 +1,13 @@
+{
+  "home": {
+    "title": "Full-Stack Developer"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "Mike Tropea is a full-stack developer from New York. Passionate about building websites, hiking, gaming, and piano—with 15+ years in web development."
+  },
+  "work": {
+    "title": "Work",
+    "description": "Web development portfolio by Mike Tropea. View completed projects including custom websites, responsive designs, and branding for diverse clients."
+  }
+}

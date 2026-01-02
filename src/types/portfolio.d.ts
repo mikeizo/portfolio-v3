@@ -45,7 +45,7 @@ export type ContactType = {
 
 export type ContactErrorType = {
   isValid: boolean
-  message: string | b
+  message: string | boolean
 }
 
 export enum ThemeType {
@@ -62,3 +62,8 @@ export type SortOptionsType = {
   sort: string
   order: -1 | 1
 } | null
+
+export type MetaDataType = {
+  title: string
+  description?: string
+}
