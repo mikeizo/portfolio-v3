@@ -5,7 +5,8 @@ import { fetchData } from '@/utils/mongodb'
 
 export const GET: APIRoute = async ({ params, request }) => {
   const headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600'
   }
 
   const url = new URL(request.url)
