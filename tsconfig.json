@@ -1,6 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [
+    "node_modules/gsap/types/index.d.ts",
     ".astro/types.d.ts",
     "**/*"
   ],
@@ -11,11 +12,9 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "three/webgpu": ["node_modules/three/build/three.webgpu.js"],
+      "three/tsl": ["node_modules/three/build/three.tsl.js"]
     }
-  },
-  "paths": {
-    "three/webgpu": ["node_modules/three/build/three.webgpu.js"],
-    "three/tsl": ["node_modules/three/build/three.tsl.js"],
   }
 }
