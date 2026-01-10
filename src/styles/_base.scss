@@ -521,10 +521,10 @@ img {
 }
 
 #contact-message {
-  field-sizing: content;
   min-height: 100px;
   resize: none;
   box-sizing: border-box;
+  field-sizing: content;
 }
 
 /*
@@ -533,7 +533,7 @@ img {
 
 // Page
 .page {
-  overflow-y: hidden;
+  overflow-x: clip;
 
   &__title {
     text-align: center;
@@ -598,11 +598,9 @@ img {
 
 // About
 .about {
-  overflow: clip;
-
-  .page__content {
+  &__content {
     display: grid;
-    gap: var(--margin);
+    gap: var(--gap);
   }
 
   &__image {
@@ -691,13 +689,58 @@ img {
       margin-top: var(--margin);
     }
   }
+
+  // Experience
+  .experience {
+    margin-top: var(--margin);
+
+    &__items-container {
+      display: flex;
+      gap: var(--gap);
+      padding: var(--padding);
+      overflow-inline: clip;
+      border-radius: var(--border-radius);
+      background-color: var(--background-color-100);
+    }
+
+    &__items {
+      display: flex;
+      gap: var(--gap);
+      animation-name: scroll;
+      animation-duration: 40s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    &__items-container:hover .experience__items,
+    &__items-container:active .experience__items {
+      animation-play-state: paused;
+    }
+
+    &__item {
+      display: grid;
+      gap: 1rem;
+      text-align: center;
+      align-items: center;
+    }
+
+    &__item-icon {
+      font-size: 3.5rem;
+    }
+
+    &__item-name {
+      align-self: start;
+      line-height: 0.75rem;
+      height: 1rem;
+    }
+  }
 }
 
 // Work
 .work {
   &__list {
     display: grid;
-    gap: var(--margin);
+    gap: var(--gap);
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     overflow: hidden;
   }

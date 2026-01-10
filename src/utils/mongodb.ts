@@ -58,6 +58,13 @@ const aboutSchema = new Schema(
   },
   { collection: 'about' }
 )
+const experienceSchema = new Schema(
+  {
+    name: String,
+    icon: String
+  },
+  { collection: 'experience' }
+)
 const workSchema = new Schema(
   {
     name: String,
@@ -84,6 +91,7 @@ const schemaMap = {
   settings: settingsSchema,
   menu: menuSchema,
   about: aboutSchema,
+  experience: experienceSchema,
   work: workSchema
 }
 

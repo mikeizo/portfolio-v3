@@ -72,3 +72,9 @@
   display: inline-block;
   animation: blur-in 0.3s ease-in forwards;
 }
+
+@keyframes scroll {
+  to {
+    transform: translateX(calc(-100% - var(--margin)));
+  }
+}

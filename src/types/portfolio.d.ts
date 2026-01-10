@@ -18,6 +18,11 @@ export type AboutType = {
   updated?: string
 }[]
 
+export type ExperienceType = {
+  name: string
+  icon: string
+}[]
+
 export type WorkType = {
   name: string
   description: string
