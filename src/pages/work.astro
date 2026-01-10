@@ -2,6 +2,7 @@
 import { getDataFeed } from '@/utils/api'
 
 import Layout from '@/layouts/Layout.astro'
+import PageWrapper from '@/components/pages/PageWrapper.astro'
 import WorkList from '@/components/pages/work/WorkList.vue'
 
 const env = import.meta.env
@@ -10,10 +11,7 @@ const workData = await getDataFeed('work', 'weight')
 ---
 
 <Layout>
-  <div class="page wrapper work">
-    <h1 class="page__title">Work</h1>
-    <div class="page__content">
-      <WorkList path={assetsPath} data={workData || []} client:load />
-    </div>
-  </div>
+  <PageWrapper title="My Work" className="work">
+    <WorkList path={assetsPath} data={workData || []} client:load />
+  </PageWrapper>
 </Layout>
