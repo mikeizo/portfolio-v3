@@ -7,8 +7,8 @@ import Layout from '@/layouts/Layout.astro'
 import PageWrapper from '@/components/pages/PageWrapper.astro'
 
 const [settingsData] = await getDataFeed('settings')
+const aboutData = await getDataFeed('about', 'yearFrom', 'desc')
 const experienceData = await getDataFeed('experience', 'name')
-const aboutData = await getDataFeed('about', 'yearFrom')
 ---
 
 <Layout>
