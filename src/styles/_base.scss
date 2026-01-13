@@ -692,36 +692,45 @@ img {
 
   // Experience
   .experience {
-    margin-top: var(--margin);
+    --speed: 40s;
+    --single-speed: calc(var(--speed) / var(--num-items));
+    --item-width: 100px;
+    --container-width: calc(var(--item-width) * var(--num-items));
 
-    &__items-container {
-      display: flex;
-      gap: var(--gap);
-      padding: var(--padding);
-      overflow-inline: clip;
-      border-radius: var(--border-radius);
-      background-color: var(--background-color-100);
-    }
+    margin-top: var(--margin);
+    padding: 1rem;
+    overflow-inline: clip;
+    border-radius: var(--border-radius);
+    background-color: var(--background-color-100);
 
     &__items {
-      display: flex;
-      gap: var(--gap);
-      animation-name: scroll;
-      animation-duration: 40s;
-      animation-iteration-count: infinite;
-      animation-timing-function: linear;
-    }
+      display: grid;
+      grid-template-columns:
+        var(--container-width) [container]
+        0px [rest];
+      container-type: inline-size;
+      width: max-content;
 
-    &__items-container:hover .experience__items,
-    &__items-container:active .experience__items {
-      animation-play-state: paused;
+      &:hover,
+      &:active {
+        .experience__item {
+          animation-play-state: paused;
+        }
+      }
     }
 
     &__item {
+      grid-area: rest;
       display: grid;
       gap: 1rem;
-      text-align: center;
+      width: var(--item-width);
       align-items: center;
+      text-align: center;
+      animation-name: scroll;
+      animation-duration: var(--speed);
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-delay: calc(var(--single-speed) * var(--item-index) * -1);
     }
 
     &__item-icon {

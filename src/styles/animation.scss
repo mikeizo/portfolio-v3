@@ -75,6 +75,6 @@
 
 @keyframes scroll {
   to {
-    transform: translateX(calc(-100% - var(--margin)));
+    transform: translateX(calc(-100cqw - 100%));
   }
 }
