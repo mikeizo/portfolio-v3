@@ -16,8 +16,8 @@
     :height="height"
     :width="width"
     :class="`icon icon--${name}`"
-    :aria-label="name"
+    :aria-label="alt || name"
   >
-    <use :xlink:href="`#${name}`" />
+    <use :href="`#${name}`" />
   </svg>
 </template>

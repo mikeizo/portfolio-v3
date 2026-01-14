@@ -32,6 +32,11 @@ a {
   text-decoration: underline;
 }
 
+ul,
+ol {
+  list-style: none;
+}
+
 p {
   margin-bottom: 1rem;
 
@@ -271,6 +276,7 @@ img {
   &__contact {
     width: 100%;
     padding: 2px 1rem;
+    box-sizing: border-box;
   }
 }
 
