@@ -9,23 +9,41 @@
 </script>
 
 <template>
-  <div class="experience" :style="`--num-items: ${data.length};`">
-    <h2 class="text-center">Experience Working With</h2>
-    <div class="experience__items">
-      <div
-        v-for="(experience, index) in data"
-        :index="experience.icon"
-        class="experience__item"
-        :style="`--item-index: ${index};`"
-      >
-        <template v-if="experience.icon">
-          <i
-            :class="['experience__item-icon', experience.icon.toLowerCase()]"
-          />
-          <div class="experience__item-name">
-            <small>{{ experience.name }}</small>
-          </div>
-        </template>
+  <div class="experience">
+    <h2 class="experience__title">Experience Working With</h2>
+    <div class="experience__items-container">
+      <div class="experience__items">
+        <div
+          v-for="experience in data"
+          :index="experience.icon"
+          class="experience__item"
+        >
+          <template v-if="experience.icon">
+            <i
+              :class="['experience__item-icon', experience.icon.toLowerCase()]"
+            />
+            <div class="experience__item-name">
+              <small>{{ experience.name }}</small>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <div class="experience__items" aria-hidden="true">
+        <div
+          v-for="experience in data"
+          :index="experience.icon"
+          class="experience__item"
+        >
+          <template v-if="experience.icon">
+            <i
+              :class="['experience__item-icon', experience.icon.toLowerCase()]"
+            />
+            <div class="experience__item-name">
+              <small>{{ experience.name }}</small>
+            </div>
+          </template>
+        </div>
       </div>
     </div>
   </div>
