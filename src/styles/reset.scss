@@ -12,6 +12,10 @@ html {
   text-size-adjust: none;
 }
 
+body {
+  all: unset;
+}
+
 /* Remove default margin in favour of better control in authored CSS */
 body,
 h1,
