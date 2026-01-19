@@ -12,7 +12,7 @@ const astroSite = import.meta.env.SITE_URL
 const astroPath = Astro.url?.pathname?.replace(/^\//, '') || ''
 const metadata = getMetaData(astroPath)
 const { title: meataTitle, description: meataDescription } = metadata
-const menuItems = await getDataFeed('menu')
+const menuItems = await getDataFeed('menu', 'sort')
 ---
 
 <!doctype html>
