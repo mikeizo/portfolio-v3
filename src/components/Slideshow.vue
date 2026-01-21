@@ -1,8 +1,5 @@
 <script setup lang="ts">
-  import type { UseSwipeDirection } from '@vueuse/core'
-
   import { computed, ref, shallowRef } from 'vue'
-  import { useSwipe } from '@vueuse/core'
 
   import Icon from '@/components/Icon.vue'
 
@@ -12,27 +9,28 @@
 
   const path = import.meta.env.PUBLIC_ASSETS_PATH
 
-  const swipeTarget = shallowRef<HTMLElement | null>(null)
-
+  const slideshowTarget = shallowRef<HTMLElement | null>(null)
   const currentIndex = ref(0)
+
+  const totalImages = computed(() => props.images.length)
+  const multipleImage = computed(() => totalImages.value > 1)
 
   const imageUrls = computed(() =>
     props.images.map((image) => `${path}/${image}`)
   )
 
-  const totalImages = computed(() => props.images.length)
-  const multipleImage = computed(() => totalImages.value > 1)
-  const sliderStyle = computed(() => {
-    const gap = 20
-
-    return {
-      gap: `${gap}%`,
-      transform: `translateX(-${currentIndex.value * (100 + gap)}%)`
-    }
-  })
-
   const goToSlide = (index: number) => {
     currentIndex.value = index
+
+    const slideEl = slideshowTarget.value?.children[index] as
+      | HTMLElement
+      | undefined
+    if (!slideEl) return
+
+    slideEl.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'center'
+    })
   }
 
   const nextSlide = () => {
@@ -46,38 +44,22 @@
       currentIndex.value === 0 ? totalImages.value - 1 : currentIndex.value - 1
     goToSlide(prevIndex)
   }
-
-  useSwipe(swipeTarget, {
-    passive: false,
-    onSwipeEnd(e: TouchEvent, direction: UseSwipeDirection) {
-      if (direction === 'left') {
-        nextSlide()
-      }
-
-      if (direction === 'right') {
-        prevSlide()
-      }
-    }
-  })
 </script>
 
 <template>
   <div class="slideshow">
     <div class="slideshow__container">
       <div class="slideshow__image-container">
-        <div ref="swipeTarget" class="slideshow__images" :style="sliderStyle">
-          <div
+        <div ref="slideshowTarget" class="slideshow__images">
+          <img
             v-for="(image, index) in imageUrls"
             :key="`slide-${index}`"
             class="slideshow__image"
             :class="{ 'slideshow__image--active': index === currentIndex }"
-          >
-            <img
-              :src="image"
-              :alt="`Slide ${index + 1}`"
-              :loading="index === 0 ? 'eager' : 'lazy'"
-            />
-          </div>
+            :src="image"
+            :alt="`Slide ${index + 1}`"
+            :loading="index === 0 ? 'eager' : 'lazy'"
+          />
         </div>
       </div>
 

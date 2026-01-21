@@ -93,10 +93,6 @@
    * Pages
    */
 
-  // Page
-  .page {
-  }
-
   // About
   .about {
     &__content {
@@ -182,7 +178,6 @@
 
   // Slideshow
   .slideshow {
-    max-width: 92%;
     margin-inline: auto;
 
     &__button {

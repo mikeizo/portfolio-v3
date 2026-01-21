@@ -23,7 +23,7 @@
         <h2 class="work-item__name text-center">{{ data?.name }}</h2>
         <p class="work-item__description">{{ data?.description }}</p>
         <div class="work-item__group">
-          <div class="work-item__images">
+          <div class="work-item__slideshow">
             <Slideshow :images="data.images" />
           </div>
           <div class="work-item__assets">
