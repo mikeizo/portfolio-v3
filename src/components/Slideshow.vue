@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, ref, shallowRef } from 'vue'
+  import { computed, onMounted, onUnmounted, ref, shallowRef } from 'vue'
 
   import Icon from '@/components/Icon.vue'
 
@@ -44,6 +44,59 @@
       currentIndex.value === 0 ? totalImages.value - 1 : currentIndex.value - 1
     goToSlide(prevIndex)
   }
+
+  let observer: IntersectionObserver | null = null
+  let observerInitialized = false
+
+  const imagesClass = '.slideshow__image'
+  const threshold = 0.5
+
+  const observerCB = (entries: IntersectionObserverEntry[]) => {
+    // Skip initial run
+    if (!observerInitialized) {
+      observerInitialized = true
+
+      return
+    }
+
+    entries.forEach((image) => {
+      if (image.isIntersecting) {
+        currentIndex.value = Number(
+          image.target.getAttribute('data-index') ?? 0
+        )
+      }
+    })
+  }
+
+  onMounted(() => {
+    if (!slideshowTarget.value) return
+
+    const observerOptions: IntersectionObserverInit = {
+      root: slideshowTarget.value,
+      rootMargin: '0px',
+      threshold
+    }
+
+    observer = new IntersectionObserver(observerCB, observerOptions)
+
+    const slideshowImages = slideshowTarget.value.querySelectorAll(imagesClass)
+
+    slideshowImages.forEach((element) => {
+      observer?.observe(element)
+    })
+  })
+
+  onUnmounted(() => {
+    if (observer && slideshowTarget.value) {
+      const images = slideshowTarget.value.querySelectorAll(imagesClass)
+
+      images.forEach((element) => {
+        observer?.unobserve(element)
+      })
+    }
+
+    observer = null
+  })
 </script>
 
 <template>
@@ -59,6 +112,7 @@
             :src="image"
             :alt="`Slide ${index + 1}`"
             :loading="index === 0 ? 'eager' : 'lazy'"
+            :data-index="index"
           />
         </div>
       </div>
@@ -83,14 +137,19 @@
     </div>
 
     <!-- Dots indicator -->
-    <div v-if="multipleImage" class="slideshow__dots">
+    <div
+      v-if="multipleImage"
+      class="slideshow__dots"
+      role="tablist"
+      aria-label="Slide navigation"
+    >
       <button
         v-for="(image, index) in images"
         :key="`dot-${index}`"
         class="slideshow__dot"
         :class="{ 'slideshow__dot--active': index === currentIndex }"
-        :aria-label="`Go to slide ${index + 1}`"
         role="tab"
+        :aria-label="`Go to slide ${index + 1}`"
         :aria-selected="index === currentIndex"
         @click="goToSlide(index)"
       />
