@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { onMounted, ref, shallowRef } from 'vue'
 
   defineProps<{
     src: string
@@ -12,14 +12,22 @@
   }>()
 
   const isLoading = ref(false)
+  const img = shallowRef<HTMLImageElement>()
 
   const onLoad = () => {
     isLoading.value = true
   }
+
+  onMounted(() => {
+    if (img.value?.complete) {
+      isLoading.value = true
+    }
+  })
 </script>
 
 <template>
   <img
+    ref="img"
     :src="src"
     :alt="alt || 'Image'"
     :height="height"
@@ -45,6 +53,7 @@
     object-fit: cover;
     object-position: center;
     position: relative;
+    z-index: 1;
 
     &__placeholder {
       position: absolute;
@@ -57,7 +66,7 @@
       justify-content: center;
       color: var(--background-color-200);
       font-size: 1rem;
-      z-index: 1;
+      z-index: 0;
 
       span {
         font-size: 6rem;
