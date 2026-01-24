@@ -564,6 +564,7 @@ img {
   justify-content: center;
   min-height: var(--home-height);
   text-align: center;
+  user-select: none;
 
   h1 {
     font-size: clamp(1.5rem, 7vw, 3.5rem);
@@ -710,6 +711,7 @@ img {
     background-color: var(--background-color-100);
     padding-top: var(--padding);
     padding-bottom: var(--padding);
+    user-select: none;
 
     &__title {
       text-align: center;
