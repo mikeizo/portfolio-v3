@@ -1,10 +1,13 @@
 import { onMounted, onUnmounted, type Ref } from 'vue'
 
 export function useObserver(
+  callback: (
+    entries: IntersectionObserverEntry[],
+    observer?: IntersectionObserver | null
+  ) => void,
   element: Ref<HTMLElement | null>,
   observeClass: string,
-  animationClass: string,
-  observeOptions?: Partial<IntersectionObserverInit>
+  observeOptions?: IntersectionObserverInit
 ) {
   let observer: IntersectionObserver | null = null
   const defaultObserverOptions: IntersectionObserverInit = {
@@ -24,12 +27,7 @@ export function useObserver(
     const items = element.value.querySelectorAll(observeClass)
 
     observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add(animationClass)
-          observer?.unobserve(entry.target)
-        }
-      })
+      callback(entries, observer)
     }, observerOptions)
 
     items.forEach((item) => {

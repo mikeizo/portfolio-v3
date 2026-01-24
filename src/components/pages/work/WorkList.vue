@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { WorkType } from '@/types/portfolio'
 
-  import { provide, ref, type Ref } from 'vue'
+  import { provide, ref, type Ref, shallowRef } from 'vue'
   import { useObserver } from '@/composables/useObserver'
 
   import Icon from '@/components/Icon.vue'
@@ -13,7 +13,7 @@
   }>()
 
   const workItem: Ref<WorkType | null> = ref(null)
-  const listContainer: Ref<HTMLElement | null> = ref(null)
+  const listContainer: Ref<HTMLElement | null> = shallowRef(null)
 
   const logoPath = `${props.path}/logos`
 
@@ -21,15 +21,27 @@
     workItem.value = null
   }
 
-  const observerConfig = {
-    root: listContainer.value
+  const workListObserverCallback = (
+    entries: IntersectionObserverEntry[],
+    observer?: IntersectionObserver | null
+  ) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('slide-in-bottom')
+        observer?.unobserve(entry.target)
+      }
+    })
+  }
+
+  const workListObserverOptions = {
+    threshold: 0.75
   }
 
   useObserver(
+    workListObserverCallback,
     listContainer,
     '.work__list-item',
-    'slide-in-bottom',
-    observerConfig
+    workListObserverOptions
   )
 
   provide('closeModal', closeModal)

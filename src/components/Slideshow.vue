@@ -1,7 +1,8 @@
 <script setup lang="ts">
-  import { computed, onMounted, onUnmounted, ref, shallowRef } from 'vue'
+  import { computed, ref, shallowRef } from 'vue'
 
   import Icon from '@/components/Icon.vue'
+  import { useObserver } from '@/composables/useObserver'
 
   const props = defineProps<{
     images: string[]
@@ -45,58 +46,26 @@
     goToSlide(prevIndex)
   }
 
-  let observer: IntersectionObserver | null = null
   let observerInitialized = false
 
-  const imagesClass = '.slideshow__image'
-  const threshold = 0.5
-
-  const observerCB = (entries: IntersectionObserverEntry[]) => {
-    // Skip initial run
+  const slideshowObserverCallback = (entries: IntersectionObserverEntry[]) => {
+    // Skip the initial callback on observer setup
     if (!observerInitialized) {
       observerInitialized = true
 
       return
     }
 
-    entries.forEach((image) => {
-      if (image.isIntersecting) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
         currentIndex.value = Number(
-          image.target.getAttribute('data-index') ?? 0
+          entry.target.getAttribute('data-index') ?? 0
         )
       }
     })
   }
 
-  onMounted(() => {
-    if (!slideshowTarget.value) return
-
-    const observerOptions: IntersectionObserverInit = {
-      root: slideshowTarget.value,
-      rootMargin: '0px',
-      threshold
-    }
-
-    observer = new IntersectionObserver(observerCB, observerOptions)
-
-    const slideshowImages = slideshowTarget.value.querySelectorAll(imagesClass)
-
-    slideshowImages.forEach((element) => {
-      observer?.observe(element)
-    })
-  })
-
-  onUnmounted(() => {
-    if (observer && slideshowTarget.value) {
-      const images = slideshowTarget.value.querySelectorAll(imagesClass)
-
-      images.forEach((element) => {
-        observer?.unobserve(element)
-      })
-    }
-
-    observer = null
-  })
+  useObserver(slideshowObserverCallback, slideshowTarget, '.slideshow__image')
 </script>
 
 <template>
@@ -116,8 +85,6 @@
           />
         </div>
       </div>
-
-      <!-- Buttons -->
       <button
         v-if="multipleImage"
         class="slideshow__button slideshow__button--prev"
@@ -135,8 +102,6 @@
         <Icon name="chevron-right" />
       </button>
     </div>
-
-    <!-- Dots indicator -->
     <div
       v-if="multipleImage"
       class="slideshow__dots"

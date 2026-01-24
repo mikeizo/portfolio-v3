@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { AboutType } from '@/types/portfolio'
 
-  import { ref, type Ref } from 'vue'
+  import { type Ref, shallowRef } from 'vue'
   import { useObserver } from '@/composables/useObserver'
 
   import Icon from '@/components/Icon.vue'
@@ -10,22 +10,34 @@
     data: AboutType
   }>()
 
-  const listContainer: Ref<HTMLElement | null> = ref(null)
+  const listContainer: Ref<HTMLElement | null> = shallowRef(null)
 
   const toggleDescription = (e: Event) => {
     const descriptionElement = e.currentTarget as HTMLElement
     descriptionElement.classList.toggle('about__list-description--open')
   }
 
-  const observerConfig = {
-    root: listContainer.value
+  const aboutListObserverCallback = (
+    entries: IntersectionObserverEntry[],
+    observer?: IntersectionObserver | null
+  ) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('slide-in-right')
+        observer?.unobserve(entry.target)
+      }
+    })
+  }
+
+  const aboutListObserverOptions = {
+    threshold: 0.8
   }
 
   useObserver(
+    aboutListObserverCallback,
     listContainer,
     '.about__list-item',
-    'slide-in-right',
-    observerConfig
+    aboutListObserverOptions
   )
 
   defineOptions({
