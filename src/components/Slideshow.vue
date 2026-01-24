@@ -1,8 +1,9 @@
 <script setup lang="ts">
   import { computed, ref, shallowRef } from 'vue'
+  import { useObserver } from '@/composables/useObserver'
 
   import Icon from '@/components/Icon.vue'
-  import { useObserver } from '@/composables/useObserver'
+  import Image from '@/components/Image.vue'
 
   const props = defineProps<{
     images: string[]
@@ -73,15 +74,19 @@
     <div class="slideshow__container">
       <div class="slideshow__image-container">
         <div ref="slideshowTarget" class="slideshow__images">
-          <img
+          <Image
             v-for="(image, index) in imageUrls"
-            :key="`slide-${index}`"
-            class="slideshow__image"
-            :class="{ 'slideshow__image--active': index === currentIndex }"
+            :key="`slide-image-${index}`"
             :src="image"
+            :className="[
+              'slideshow__image',
+              `${index === currentIndex ? 'slideshow__image--active' : ''}`
+            ]"
+            :height="300"
+            :width="300"
             :alt="`Slide ${index + 1}`"
-            :loading="index === 0 ? 'eager' : 'lazy'"
-            :data-index="index"
+            :loading="`${index === 0 ? 'eager' : 'lazy'}`"
+            :attributes="{ 'data-index': index }"
           />
         </div>
       </div>

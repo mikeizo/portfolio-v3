@@ -78,3 +78,21 @@
     transform: translateX(calc(-100% - var(--margin)));
   }
 }
+
+@keyframes bounceLoad {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-16px);
+  }
+  30% {
+    transform: translateY(4px);
+  }
+  35% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

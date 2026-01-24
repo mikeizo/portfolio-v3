@@ -5,6 +5,7 @@
   import { useObserver } from '@/composables/useObserver'
 
   import Icon from '@/components/Icon.vue'
+  import Image from '@/components/Image.vue'
 
   defineProps<{
     data: AboutType
@@ -72,10 +73,10 @@
             <Icon name="close" :height="16" :width="16" />
           </div>
           <div v-if="item.image" class="about__list-accordion">
-            <img
+            <Image
               :src="`images/old-sites/${item.image}`"
-              height="300"
-              width="500"
+              :height="300"
+              :width="500"
               loading="lazy"
             />
           </div>
