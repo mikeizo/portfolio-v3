@@ -18,9 +18,9 @@ export function useTheme() {
   }
 
   onMounted(() => {
-    const savedValue = localStorage.getItem('theme')
+    const theme = document.documentElement.getAttribute('data-theme')
 
-    if (savedValue === ThemeType.Light) {
+    if (theme === ThemeType.Light) {
       isLightTheme.value = true
     }
   })
