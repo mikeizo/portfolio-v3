@@ -19,19 +19,10 @@ export function useTheme() {
 
   onMounted(() => {
     const theme = document.documentElement.getAttribute('data-theme')
-    const storageTheme = localStorage.getItem('theme')
-
-    console.log('Production debug:', {
-      dataTheme: theme,
-      storageTheme: storageTheme,
-      isLightThemeBefore: isLightTheme.value
-    })
 
     if (theme === ThemeType.Light) {
       isLightTheme.value = true
     }
-
-    console.log('isLightThemeAfter:', isLightTheme.value)
   })
 
   return {
