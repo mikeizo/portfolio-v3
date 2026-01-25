@@ -50,7 +50,12 @@ const menuItems = await getDataFeed('menu', 'sort')
     <script is:inline>
       ;(() => {
         const savedTheme = localStorage.getItem('theme')
-        const theme = savedTheme || 'dark'
+
+        const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)')
+          .matches
+          ? 'dark'
+          : 'light'
+        const theme = savedTheme || preferredTheme
 
         if (!savedTheme) {
           localStorage.setItem('theme', theme)
