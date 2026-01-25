@@ -64,7 +64,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--background-color-200);
+      color: var(--color-background-200);
       font-size: 1rem;
       z-index: 0;
 

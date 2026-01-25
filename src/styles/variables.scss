@@ -3,7 +3,7 @@
   --margin: 2rem;
   --padding: 2rem;
   --gap: 2rem;
-  --border: 0.5px solid var(--border-color);
+  --border: 0.5px solid var(--color-border);
   --border-radius: 1rem;
   --border-radius-half: calc(var(--border-radius) / 2);
   --page-width: 1200px;
@@ -28,32 +28,32 @@
 
 // Dark theme
 [data-theme='dark'] {
-  --primary-color: var(--white);
-  --primary-color-100: var(--white-1);
-  --primary-color-200: var(--white-2);
-  --accent-color: var(--white-2);
-  --text-color: var(--white-1);
-  --background-color: var(--black);
-  --background-color-100: var(--black-1);
-  --background-color-200: var(--black-2);
-  --background-color-alpha: hsla(from var(--black) h s l / 0.25);
-  --border-color: hsla(from var(--white-2) h s l / 0.25);
-  --logo-color: var(--white-1);
-  --error: var(--red-dark);
+  --color-primary: var(--white);
+  --color-primary-100: var(--white-1);
+  --color-primary-200: var(--white-2);
+  --color-accent: var(--white-2);
+  --color-text: var(--white-1);
+  --color-background: var(--black);
+  --color-background-100: var(--black-1);
+  --color-background-200: var(--black-2);
+  --color-background-alpha: hsla(from var(--black) h s l / 0.25);
+  --color-border: hsla(from var(--white-2) h s l / 0.25);
+  --color-logo: var(--white-1);
+  --color-error: var(--red-dark);
 }
 
 // Light theme
 [data-theme='light'] {
-  --primary-color: var(--black);
-  --primary-color-100: var(--black-1);
-  --primary-color-200: var(--black-2);
-  --accent-color: var(--blue-dark);
-  --text-color: var(--black-1);
-  --background-color: var(--white);
-  --background-color-100: var(--white-1);
-  --background-color-200: var(--white-2);
-  --background-color-alpha: hsla(from var(--white) h s l / 0.25);
-  --border-color: hsla(from var(--black-2) h s l / 0.25);
-  --logo-color: var(--black-1);
-  --error: var(--red-light);
+  --color-primary: var(--black);
+  --color-primary-100: var(--black-1);
+  --color-primary-200: var(--black-2);
+  --color-accent: var(--blue-dark);
+  --color-text: var(--black-1);
+  --color-background: var(--white);
+  --color-background-100: var(--white-1);
+  --color-background-200: var(--white-2);
+  --color-background-alpha: hsla(from var(--white) h s l / 0.25);
+  --color-border: hsla(from var(--black-2) h s l / 0.25);
+  --color-logo: var(--black-1);
+  --color-error: var(--red-light);
 }

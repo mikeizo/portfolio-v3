@@ -78,7 +78,9 @@
             name="name"
             type="text"
             class="contact__input"
-            :class="{ 'contact__input--error': !fieldValidation.name.isValid }"
+            :class="{
+              'contact__input--color-error': !fieldValidation.name.isValid
+            }"
             placeholder="Richard Hendricks"
             autocomplete="name"
           />
@@ -97,7 +99,9 @@
             name="email"
             type="email"
             class="contact__input"
-            :class="{ 'contact__input--error': !fieldValidation.email.isValid }"
+            :class="{
+              'contact__input--color-error': !fieldValidation.email.isValid
+            }"
             placeholder="richard@piedpiper.com"
             autocomplete="email"
           />
@@ -116,7 +120,9 @@
             name="phone"
             type="tel"
             class="contact__input"
-            :class="{ 'contact__input--error': !fieldValidation.phone.isValid }"
+            :class="{
+              'contact__input--color-error': !fieldValidation.phone.isValid
+            }"
             placeholder="555-555-5555"
             autocomplete="tel"
           />
@@ -136,7 +142,7 @@
             rows="4"
             class="contact__input"
             :class="{
-              'contact__input--error': !fieldValidation.message.isValid
+              'contact__input--color-error': !fieldValidation.message.isValid
             }"
             placeholder="How can I help you?"
           ></textarea>

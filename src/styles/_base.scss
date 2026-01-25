@@ -8,7 +8,7 @@
 html {
   scrollbar-gutter: stable;
   scrollbar-width: thin;
-  background-color: var(--background-color);
+  background-color: var(--color-background);
   transition: background-color 0.5s ease-in-out;
 }
 
@@ -54,8 +54,8 @@ img {
 
 .btn {
   display: inline-block;
-  color: var(--background-color);
-  background-color: var(--primary-color);
+  color: var(--color-background);
+  background-color: var(--color-primary);
   border-radius: var(--border-radius-half);
   cursor: pointer;
   transition:
@@ -65,21 +65,21 @@ img {
   &:active:not(:disabled),
   &:focus-visible:not(:disabled) {
     transform: translateY(1px) scale(0.97);
-    background-color: var(--background-color-200);
+    background-color: var(--color-background-200);
   }
 
   &:hover {
-    background-color: var(--primary-color-200);
+    background-color: var(--color-primary-200);
   }
 
   &--inverted {
-    color: var(--primary-color);
-    background-color: var(--background-color);
+    color: var(--color-primary);
+    background-color: var(--color-background);
 
     &:active:not(:disabled),
     &:focus-visible:not(:disabled),
     &:disabled {
-      background-color: var(--background-color-alpha);
+      background-color: var(--color-background-alpha);
     }
   }
 }
@@ -141,7 +141,7 @@ img {
     cursor: pointer;
 
     .icon {
-      fill: var(--primary-color);
+      fill: var(--color-primary);
     }
   }
 
@@ -154,7 +154,7 @@ img {
     width: 20px;
 
     & > * {
-      background-color: var(--text-color);
+      background-color: var(--color-text);
       height: 2px;
       border-radius: 4px;
       transform-origin: 0% 0px;
@@ -198,8 +198,8 @@ img {
     left: 0;
     width: 100%;
     padding: 1rem;
-    background-color: var(--primary-color);
-    color: var(--background-color);
+    background-color: var(--color-primary);
+    color: var(--color-background);
     border-radius: var(--border-radius);
     transform: translateY(-100%);
     -webkit-transition:
@@ -226,11 +226,11 @@ img {
   margin: 1rem 0;
 
   &-a {
-    fill: var(--logo-color);
+    fill: var(--color-logo);
   }
 
   &-b {
-    fill: var(--accent-color);
+    fill: var(--color-accent);
   }
 }
 
@@ -246,7 +246,7 @@ img {
     height: 100svh;
     top: 0;
     left: 0;
-    background-color: hsla(from var(--background-color) h s l / 0.75);
+    background-color: hsla(from var(--color-background) h s l / 0.75);
     z-index: 10;
   }
 
@@ -260,7 +260,7 @@ img {
   &__link {
     margin-bottom: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--color-border);
 
     &:last-child {
       border: none;
@@ -288,7 +288,7 @@ img {
     margin-top: var(--margin);
     padding: 1rem var(--padding);
     height: var(--footer-height);
-    border-top: 0.5px solid var(--border-color);
+    border-top: 0.5px solid var(--color-border);
     font-size: 0.65rem;
     text-align: center;
   }
@@ -318,8 +318,8 @@ img {
     width: calc(100% - 2rem);
     max-width: var(--page-width);
     border-radius: var(--border-radius);
-    background-color: var(--primary-color);
-    color: var(--background-color);
+    background-color: var(--color-primary);
+    color: var(--color-background);
     z-index: 100;
   }
 
@@ -341,8 +341,8 @@ img {
     height: 30px;
     width: 30px;
     padding: 0.2rem;
-    fill: var(--primary-color);
-    background-color: var(--background-color);
+    fill: var(--color-primary);
+    background-color: var(--color-background);
     border-radius: 50%;
     line-height: 0;
     cursor: pointer;
@@ -379,7 +379,7 @@ img {
     position: relative;
     padding: 1rem;
     border-radius: var(--border-radius);
-    background-color: var(--background-color-100);
+    background-color: var(--color-background-100);
   }
 
   &__images {
@@ -410,7 +410,7 @@ img {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--background-color-alpha);
+    background: var(--color-background-alpha);
     border: none;
     border-radius: 50%;
     width: 20px;
@@ -423,11 +423,11 @@ img {
     svg {
       width: 1rem;
       height: 1rem;
-      fill: var(--primary-color);
+      fill: var(--color-primary);
     }
 
     &:hover {
-      background: var(--background-color);
+      background: var(--color-background);
       transform: translateY(-50%) scale(1.1);
     }
 
@@ -451,13 +451,13 @@ img {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--background-color-200);
+    background: var(--color-background-200);
     cursor: pointer;
     transition: all 0.3s ease;
 
     &:hover,
     &--active {
-      background: var(--accent-color);
+      background: var(--color-accent);
     }
 
     &:hover {
@@ -489,7 +489,7 @@ img {
   }
 
   &__input {
-    border: 1px solid var(--background-color-alpha);
+    border: 1px solid var(--color-background-alpha);
     border-radius: var(--border-radius-half);
     width: 100%;
     padding: 0.5rem;
@@ -498,8 +498,8 @@ img {
       opacity: 0.5;
     }
 
-    &--error {
-      border-color: var(--error);
+    &--color-error {
+      border-color: var(--color-error);
     }
   }
 
@@ -507,7 +507,7 @@ img {
     position: absolute;
     bottom: -1.1rem;
     left: 0;
-    color: var(--error);
+    color: var(--color-error);
     font-size: 0.65rem;
   }
 
@@ -522,7 +522,7 @@ img {
       height: 1rem;
       width: 1rem;
       margin-left: 0.5rem;
-      fill: var(--primary-color);
+      fill: var(--color-primary);
     }
   }
 
@@ -575,7 +575,7 @@ img {
   }
 
   p {
-    fill: var(--text-color);
+    fill: var(--color-text);
   }
 
   .icon,
@@ -584,7 +584,7 @@ img {
   }
 
   .icon {
-    fill: var(--background-color);
+    fill: var(--color-background);
   }
 
   .git-btn {
@@ -634,6 +634,7 @@ img {
     border: var(--border);
     border-radius: var(--border-radius);
     opacity: 0;
+    user-select: none;
 
     &:last-child {
       margin-bottom: 0;
@@ -683,10 +684,10 @@ img {
     height: 25px;
     width: 25px;
     border-radius: var(--border-radius-half);
-    background-color: var(--primary-color);
+    background-color: var(--color-primary);
 
     .icon {
-      fill: var(--background-color);
+      fill: var(--color-background);
       rotate: 45deg;
       transition: rotate 0.5s ease-in-out;
     }
@@ -708,7 +709,7 @@ img {
   .experience {
     margin-top: var(--margin);
     border-radius: var(--border-radius);
-    background-color: var(--background-color-100);
+    background-color: var(--color-background-100);
     padding-top: var(--padding);
     padding-bottom: var(--padding);
     user-select: none;
@@ -774,8 +775,8 @@ img {
     padding: 2rem 2rem 2rem 0;
     margin-right: calc(var(--margin) * -1);
     margin-bottom: calc(var(--margin) * -1);
-    border-right: 0.5px solid var(--border-color);
-    border-bottom: 0.5px solid var(--border-color);
+    border-right: 0.5px solid var(--color-border);
+    border-bottom: 0.5px solid var(--color-border);
     min-height: 300px;
     cursor: pointer;
     opacity: 0;
@@ -800,7 +801,7 @@ img {
 
     .icon {
       margin-left: 0.5rem;
-      fill: var(--accent-color);
+      fill: var(--color-accent);
     }
   }
 }
@@ -841,7 +842,7 @@ img {
     & > *:not(:last-child) {
       margin-top: 1rem;
       padding-bottom: 1rem;
-      border-bottom: 0.5px solid var(--background-color-alpha);
+      border-bottom: 0.5px solid var(--color-background-alpha);
     }
   }
 
