@@ -282,8 +282,6 @@ img {
 
 // Footer
 .footer {
-  padding-inline: 1rem;
-
   &__content {
     margin-top: var(--margin);
     padding: 1rem var(--padding);
@@ -455,16 +453,12 @@ img {
     cursor: pointer;
     transition: all 0.3s ease;
 
-    &:hover,
-    &--active {
-      background: var(--color-accent);
-    }
-
     &:hover {
       transform: scale(1.2);
     }
 
     &--active {
+      background: var(--color-accent);
       transform: scale(1.2);
     }
   }
