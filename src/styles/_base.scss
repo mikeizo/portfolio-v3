@@ -137,10 +137,11 @@ img {
 
   &__theme-btn {
     line-height: 0;
-    animation: fade-in 0.5s ease-in forwards;
-    cursor: pointer;
 
     .icon {
+      opacity: 0;
+      animation: fade-in 0.5s linear forwards 0.2s;
+      cursor: pointer;
       fill: var(--color-primary);
     }
   }

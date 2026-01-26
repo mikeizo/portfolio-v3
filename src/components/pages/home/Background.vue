@@ -1,10 +1,11 @@
 <script setup lang="ts">
-  import { useTheme } from '@/composables/useTheme'
+  import { $isLightTheme } from '@/stores/theme'
+  import { useStore } from '@nanostores/vue'
 
   import Clouds from '@/components/pages/home/Clouds.vue'
   import Stars from '@/components/pages/home/Stars.vue'
 
-  const { isLightTheme } = useTheme()
+  const isLightTheme = useStore($isLightTheme)
 
   defineOptions({
     name: 'Background'
