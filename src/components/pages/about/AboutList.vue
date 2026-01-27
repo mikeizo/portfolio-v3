@@ -14,8 +14,20 @@
   const listContainer: Ref<HTMLElement | null> = shallowRef(null)
 
   const toggleDescription = (e: Event) => {
+    const openDesciptionClass = 'about__list-description--open'
     const descriptionElement = e.currentTarget as HTMLElement
-    descriptionElement.classList.toggle('about__list-description--open')
+    const accordionElement = descriptionElement.querySelector(
+      '.about__list-accordion'
+    ) as HTMLElement
+    const height = accordionElement.scrollHeight
+
+    descriptionElement.classList.toggle(openDesciptionClass)
+
+    if (descriptionElement.classList.contains(openDesciptionClass)) {
+      accordionElement.style.height = `${height}px`
+    } else {
+      accordionElement.style.height = '0px'
+    }
   }
 
   const aboutListObserverCallback = (
