@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { onMounted, ref, shallowRef } from 'vue'
+  import { onMounted, ref, type Ref, shallowRef } from 'vue'
 
   defineProps<{
     src: string
@@ -12,7 +12,7 @@
   }>()
 
   const isLoading = ref(false)
-  const img = shallowRef<HTMLImageElement>()
+  const img: Ref<HTMLImageElement | null> = shallowRef(null)
 
   const onLoad = () => {
     isLoading.value = true

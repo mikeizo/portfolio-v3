@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, ref, shallowRef } from 'vue'
+  import { computed, ref, type Ref, shallowRef } from 'vue'
   import { useObserver } from '@/composables/useObserver'
 
   import Icon from '@/components/Icon.vue'
@@ -11,7 +11,7 @@
 
   const path = import.meta.env.PUBLIC_ASSETS_PATH
 
-  const slideshowTarget = shallowRef<HTMLElement | null>(null)
+  const slideshowTarget: Ref<HTMLElement | null> = shallowRef(null)
   const currentIndex = ref(0)
 
   const totalImages = computed(() => props.images.length)
