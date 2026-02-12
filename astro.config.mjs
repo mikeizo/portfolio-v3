@@ -1,5 +1,7 @@
 import { defineConfig } from 'astro/config'
 import { loadEnv } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
+import ui from '@nuxt/ui/vite'
 import vercel from '@astrojs/vercel'
 import vue from '@astrojs/vue'
 
@@ -11,7 +13,12 @@ export default defineConfig({
   devToolbar: {
     enabled: false
   },
-  integrations: [vue()],
+  integrations: [
+    vue({
+      appEntrypoint: '/src/app.ts',
+      tailwindcss
+    })
+  ],
   output: 'server',
   server: {
     port: parseInt(env.PORT)
@@ -22,6 +29,7 @@ export default defineConfig({
       alias: {
         '@': '/src'
       }
-    }
+    },
+    plugins: [ui({ router: false })]
   }
 })
