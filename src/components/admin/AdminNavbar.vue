@@ -1,9 +1,22 @@
 <script setup lang="ts">
   import type { DropdownMenuItem } from '@nuxt/ui'
-  import { ref } from 'vue'
-  import { useColorMode } from '@vueuse/core'
 
-  const colorMode = useColorMode()
+  import { onMounted, ref } from 'vue'
+  import { ThemeType } from '@/types/portfolio.d'
+
+  const isDark = ref(false)
+
+  onMounted(() => {
+    const colorScheme = localStorage.getItem('vueuse-color-scheme')
+
+    if (colorScheme === 'auto') {
+      isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
+    } else {
+      isDark.value = colorScheme === ThemeType.Dark
+    }
+
+    document.documentElement.classList.toggle(ThemeType.Dark, isDark.value)
+  })
 
   const items = [
     [
@@ -30,7 +43,7 @@
     </template>
 
     <template #right>
-      <UColorModeSwitch />
+      <UColorModeSwitch v-model="isDark" />
       <UDropdownMenu :items="items">
         <UButton icon="i-lucide-user" size="md" class="rounded-full" />
       </UDropdownMenu>
