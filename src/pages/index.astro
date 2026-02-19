@@ -7,8 +7,8 @@ import Icon from '@/components/Icon.vue'
 import Layout from '@/layouts/Layout.astro'
 
 const [settings] = await getDataFeed('settings')
-const title = splitText(settings.title)
-const subtitle = splitText(settings.subtitle, 0.5)
+const title = settings?.title ? splitText(settings.title) : ''
+const subtitle = settings?.subtitle ? splitText(settings.subtitle, 0.5) : ''
 ---
 
 <Layout>
