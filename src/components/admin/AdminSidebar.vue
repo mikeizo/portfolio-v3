@@ -3,13 +3,14 @@
   import { ref } from 'vue'
 
   const open = ref(false)
+  const basePath = '/admin'
 
   const links = [
     [
       {
         label: 'Dashboard',
         icon: 'i-lucide-layout-dashboard',
-        to: '/',
+        to: basePath,
         onSelect: () => {
           open.value = false
         }
@@ -17,7 +18,7 @@
       {
         label: 'Settings',
         icon: 'i-lucide-settings',
-        to: '/',
+        to: `${basePath}/settings`,
         onSelect: () => {
           open.value = false
         }
@@ -25,7 +26,7 @@
       {
         label: 'Experience',
         icon: 'i-lucide-code-xml',
-        to: '/',
+        to: `${basePath}/experience`,
         onSelect: () => {
           open.value = false
         }
@@ -38,7 +39,7 @@
         children: [
           {
             label: 'About',
-            to: '/about',
+            to: `${basePath}/about`,
             exact: true,
             onSelect: () => {
               open.value = false
@@ -46,7 +47,7 @@
           },
           {
             label: 'Work',
-            to: '/work',
+            to: `${basePath}/work`,
             onSelect: () => {
               open.value = false
             }

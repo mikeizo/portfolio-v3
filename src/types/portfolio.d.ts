@@ -8,7 +8,7 @@ export type SettingsType = {
   title: string
   subtitle: string
   email: string
-}[]
+}
 
 export type AboutType = {
   yearFrom: string

@@ -1,0 +1,12 @@
+---
+import { getDataFeed } from '@/utils/api'
+
+import Admin from '@/layouts/Admin.astro'
+import SettingsPage from '@/components/admin/pages/Settings.vue'
+
+const [settingsData] = await getDataFeed('settings')
+---
+
+<Admin>
+  <SettingsPage client:load data={settingsData} />
+</Admin>
