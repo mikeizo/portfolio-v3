@@ -4,7 +4,7 @@
   import 'devicon'
 
   defineProps<{
-    data: ExperienceType
+    data: ExperienceType[]
   }>()
 </script>
 

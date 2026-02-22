@@ -17,12 +17,12 @@ export type AboutType = {
   description: string
   image?: string
   updated?: string
-}[]
+}
 
 export type ExperienceType = {
   name: string
   icon: string
-}[]
+}
 
 export type WorkType = {
   name: string

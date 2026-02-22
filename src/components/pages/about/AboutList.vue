@@ -8,7 +8,7 @@
   import Image from '@/components/Image.vue'
 
   defineProps<{
-    data: AboutType
+    data: AboutType[]
   }>()
 
   const listContainer: Ref<HTMLElement | null> = shallowRef(null)
