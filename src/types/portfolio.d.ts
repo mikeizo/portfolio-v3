@@ -8,6 +8,7 @@ export type SettingsType = {
   title: string
   subtitle: string
   email: string
+  git: string
 }
 
 export type AboutType = {

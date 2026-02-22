@@ -81,7 +81,7 @@ export async function saveData(
   data: Record<string, unknown>,
   id?: number
 ) {
-  if (!collectionName) {
+  if (!collectionName || !data) {
     return null
   }
 
@@ -90,7 +90,7 @@ export async function saveData(
 
     const Collection = mongoose.connection.collection(collectionName)
 
-    if (collectionName === 'settings') {
+    if (!id) {
       const updateDoc = {
         $set: {
           ...data

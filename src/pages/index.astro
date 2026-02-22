@@ -9,6 +9,7 @@ import Layout from '@/layouts/Layout.astro'
 const [settings] = await getDataFeed('settings')
 const title = settings?.title ? splitText(settings.title) : ''
 const subtitle = settings?.subtitle ? splitText(settings.subtitle, 0.5) : ''
+const git = settings.git ?? ''
 ---
 
 <Layout>
@@ -18,12 +19,7 @@ const subtitle = settings?.subtitle ? splitText(settings.subtitle, 0.5) : ''
       <h1 set:html={title} />
       <h2 set:html={subtitle} />
       <p class="fade-in home__git">
-        <a
-          class="git-btn btn"
-          href="https://github.com/mikeizo"
-          target="_blank"
-          rel="nofollow"
-        >
+        <a class="git-btn btn" href={git} target="_blank" rel="nofollow">
           <Icon
             name="github"
             height={20}

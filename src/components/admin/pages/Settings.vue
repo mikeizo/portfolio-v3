@@ -36,7 +36,8 @@
     title: props.data?.title ?? '',
     subtitle: props.data?.subtitle ?? '',
     email: props.data?.email ?? '',
-    about: props.data?.about ?? ''
+    about: props.data?.about ?? '',
+    git: props.data?.git ?? ''
   })
 
   const schema = v.object({
@@ -96,6 +97,7 @@
       <UInput
         v-model="state.title"
         type="text"
+        size="xl"
         class="relative inline-flex items-center w-1/2"
       />
     </UFormField>
@@ -103,12 +105,21 @@
       <UInput
         v-model="state.subtitle"
         type="text"
+        size="xl"
         class="relative inline-flex items-center w-1/2"
       />
     </UFormField>
     <UFormField label="Email" name="email">
       <UInput
         v-model="state.email"
+        size="xl"
+        class="relative inline-flex items-center w-1/2"
+      />
+    </UFormField>
+    <UFormField label="Email" name="email">
+      <UInput
+        v-model="state.git"
+        size="xl"
         class="relative inline-flex items-center w-1/2"
       />
     </UFormField>
@@ -116,7 +127,7 @@
       <UEditor
         v-slot="{ editor }"
         v-model="state.about"
-        class="border border-default rounded-md"
+        class="border border-default rounded-md pb-5"
         :extensions="[
           TextAlign.configure({
             types: ['heading', 'paragraph']
@@ -126,7 +137,7 @@
         <UEditorToolbar
           :editor="editor"
           :items="items"
-          class="border-b border-muted"
+          class="border-b border-muted mb-5"
         />
       </UEditor>
     </UFormField>
