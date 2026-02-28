@@ -2,19 +2,19 @@ import type { APIRoute } from 'astro'
 
 import { updateData } from '@/utils/mongodb'
 
-export const POST: APIRoute = async ({ params, request }) => {
-  const headers = {
-    'Content-Type': 'application/json'
-  }
+const collectionName = 'settings'
+const headers = {
+  'Content-Type': 'application/json'
+}
 
+export const POST: APIRoute = async ({ request }) => {
   const body = await request.json()
-  const collectionName = 'settings'
 
   try {
-    const data = await updateData(collectionName, body)
+    const request = await updateData(collectionName, body)
 
-    if (data) {
-      return new Response(JSON.stringify(data), {
+    if (request) {
+      return new Response(JSON.stringify(request), {
         status: 200,
         headers
       })

@@ -77,8 +77,7 @@ export async function fetchData(
  */
 export async function updateData(
   collectionName: string | undefined,
-  data: Record<string, unknown>,
-  id?: number
+  data: Record<string, unknown>
 ) {
   if (!collectionName || !data) {
     return null
@@ -86,20 +85,29 @@ export async function updateData(
 
   try {
     await connectToDatabase()
-
     const Collection = mongoose.connection.collection(collectionName)
 
-    if (!id) {
+    if (data.id) {
+      const updateDoc = {
+        $set: {
+          name: data.name
+        }
+      }
+      const result = await Collection.findOneAndUpdate(
+        { _id: new ObjectId(data.id) },
+        updateDoc,
+        { returnDocument: 'after' }
+      )
+      return result
+    } else {
       const updateDoc = {
         $set: {
           ...data
         }
       }
-
       const result = await Collection.updateOne({}, updateDoc)
 
       return result
-    } else {
     }
   } catch (error) {
     throw error

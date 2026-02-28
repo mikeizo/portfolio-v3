@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import type { ExperienceType } from '@/types/portfolio'
-  import type { FormSubmitEvent } from '@nuxt/ui'
 
   import 'devicon'
   import * as v from 'valibot'
@@ -11,12 +10,15 @@
     data: ExperienceType[]
   }>()
 
+  const toast = useToast()
   const initialState = {
     icon: '',
     name: ''
   }
+
   const state = reactive({ ...initialState })
   const experiences = ref(props.data)
+  const editIndex = ref<number | null>(null)
 
   const schema = v.object({
     name: v.pipe(v.string(), v.minLength(3, 'Must more than 3 characters')),
@@ -26,12 +28,8 @@
     )
   })
 
-  type Schema = v.InferOutput<typeof schema>
-
-  const toast = useToast()
-
   // Handle add icon
-  async function insertIcon(event: FormSubmitEvent<Schema>) {
+  const insertIcon = async () => {
     try {
       const response = await fetch('/api/admin/experience', {
         method: 'POST',
@@ -71,16 +69,48 @@
   }
 
   // Handle updating icon
-  async function editName(id: string) {
+  const editName = (index: number) => {
+    editIndex.value = index
+  }
+
+  // Handle update icon name
+  const updateIconName = async (id: string, name: string) => {
+    editIndex.value = null
+
+    try {
+      const response = await fetch('/api/admin/experience', {
+        method: 'PATCH',
+        body: JSON.stringify({ id, name })
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        toast.add({
+          title: 'Error',
+          description: errorData.error || 'Failed to update settings.',
+          color: 'red'
+        })
+        return
+      }
+    } catch (error) {
+      toast.add({
+        title: 'Error',
+        description:
+          (error as Error).message || 'An unexpected error occurred.',
+        color: 'red'
+      })
+      return
+    }
+
     toast.add({
       title: 'Success',
-      description: `The form has been updated.`,
+      description: `Icon name has been updated.`,
       color: 'success'
     })
   }
 
   // Handle delete icon
-  async function deleteIcon(id: string, name: string) {
+  const deleteIcon = async (id: string, name: string) => {
     try {
       const response = await fetch('/api/admin/experience', {
         method: 'DELETE',
@@ -119,32 +149,62 @@
 
 <template>
   <UForm :schema="schema" :state="state" class="space-y-4" @submit="insertIcon">
-    <div class="flex gap-4">
-      <UFormField label="Icon" name="icon" class="w-1/2">
+    <div class="flex gap-4 items-end">
+      <UFormField label="Icon" name="icon" class="w-3/7">
         <UInput v-model="state.icon" size="xl" class="w-full" />
       </UFormField>
-      <UFormField label="Name" name="name" class="w-1/2">
+      <UFormField label="Name" name="name" class="w-3/7">
         <UInput v-model="state.name" size="xl" class="w-full" />
       </UFormField>
+      <UButton
+        type="submit"
+        class="mr-4 w-1/7 flex items-center justify-center cursor-pointer"
+        size="xl"
+        trailing-icon="i-lucide-circle-plus"
+      >
+        Add
+      </UButton>
     </div>
-    <UButton type="submit">Add</UButton>
+    <UButton
+      class="cursor-pointer"
+      to="https://devicon.dev"
+      trailing-icon="i-lucide-arrow-up-right"
+      color="neutral"
+      variant="outline"
+      target="_blank"
+    >
+      DevIcons
+    </UButton>
   </UForm>
+
   <hr class="border-default" />
   <UPageGrid
     class="grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8"
   >
     <div
       v-for="(experience, index) in experiences"
-      :key="experience.icon"
+      :key="`${experience.icon}-${index}`"
       class="bg-gray-200 dark:bg-gray-800 rounded-lg p-6 text-center flex flex-col justify-between gap-4"
     >
       <i :class="[experience.icon.toLowerCase()]" class="text-[64px]" />
-      <p>{{ experience.name }}</p>
+      <UInput
+        v-if="editIndex === index"
+        v-model="experience.name"
+        class="w-full"
+      />
+      <p v-else class="experience__name">{{ experience.name }}</p>
       <div class="flex justify-center gap-8">
         <UIcon
+          v-if="editIndex === index"
+          name="i-lucide-save"
+          class="size-5 text-green-500 cursor-pointer"
+          @click="updateIconName(experience?._id ?? '', experience.name)"
+        />
+        <UIcon
+          v-else
           name="i-lucide-pencil"
           class="size-5 text-blue-500 cursor-pointer"
-          @click="editName(experience?._id ?? '')"
+          @click="editName(index)"
         />
         <UIcon
           name="i-lucide-circle-x"
