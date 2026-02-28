@@ -1,6 +1,7 @@
 import type { SortOptionsType } from '@/types/portfolio'
 
 import mongoose, { type ConnectOptions } from 'mongoose'
+import { ObjectId } from 'mongodb'
 
 const { MONGODB_URI, MONGODB_DB } = import.meta.env
 const options = {
@@ -69,14 +70,12 @@ export async function fetchData(
  *
  * If a document with the same identifier exists,
  * it will be updated; otherwise, a new document will be created.
- * For 'settings', 'about', update single global document (singleton).
- * For others, upsert by _id or unique property.
  *
  * @param collectionName - The name of the collection to save data to.
  * @param data - The data object to save. Should conform to the schema for the collection.
  * @returns The saved/updated document or null if failed.
  */
-export async function saveData(
+export async function updateData(
   collectionName: string | undefined,
   data: Record<string, unknown>,
   id?: number
@@ -97,10 +96,51 @@ export async function saveData(
         }
       }
 
-      const update = await Collection.updateOne({}, updateDoc)
+      const result = await Collection.updateOne({}, updateDoc)
 
-      return update
+      return result
+    } else {
     }
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function insertData(
+  collectionName: string,
+  data: Record<string, unknown>
+) {
+  if (!collectionName || !data) {
+    return null
+  }
+
+  try {
+    await connectToDatabase()
+
+    const Collection = mongoose.connection.collection(collectionName)
+
+    const result = Array.isArray(data)
+      ? await Collection.insertMany(data)
+      : await Collection.insertOne(data)
+
+    return result
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function deleteData(collectionName: string, id: string) {
+  if (!collectionName || !id) {
+    return null
+  }
+
+  try {
+    await connectToDatabase()
+
+    const Collection = mongoose.connection.collection(collectionName)
+    const result = await Collection.findOneAndDelete({ _id: new ObjectId(id) })
+
+    return result
   } catch (error) {
     throw error
   }

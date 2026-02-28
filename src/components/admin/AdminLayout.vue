@@ -4,19 +4,17 @@
 </script>
 
 <template>
-  <Suspense>
-    <UApp>
-      <UDashboardGroup unit="rem" storage="local">
-        <AdminSidebar />
-        <UDashboardPanel id="home">
-          <template #header>
-            <AdminNavbar />
-          </template>
-          <template #body>
-            <slot />
-          </template>
-        </UDashboardPanel>
-      </UDashboardGroup>
-    </UApp>
-  </Suspense>
+  <UApp>
+    <UDashboardGroup unit="rem" storage="local">
+      <AdminSidebar />
+      <UDashboardPanel id="home">
+        <template #header>
+          <AdminNavbar />
+        </template>
+        <template #body>
+          <slot />
+        </template>
+      </UDashboardPanel>
+    </UDashboardGroup>
+  </UApp>
 </template>

@@ -94,7 +94,6 @@
         class="mt-auto"
       />
     </template>
-
     <template #footer="{ collapsed }">
       <!-- Footer Navigation -->
     </template>

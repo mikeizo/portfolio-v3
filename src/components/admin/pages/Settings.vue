@@ -18,7 +18,7 @@
       { kind: 'mark', mark: 'italic', icon: 'i-lucide-italic' }
     ],
     [
-      { kind: 'heading', level: 1, icon: 'i-lucide-heading-1' },
+      // { kind: 'heading', level: 1, icon: 'i-lucide-heading-1' },
       { kind: 'heading', level: 2, icon: 'i-lucide-heading-2' },
       { kind: 'heading', level: 3, icon: 'i-lucide-heading-3' }
     ],
@@ -94,34 +94,16 @@
 <template>
   <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
     <UFormField label="Title" name="title">
-      <UInput
-        v-model="state.title"
-        type="text"
-        size="xl"
-        class="relative inline-flex items-center w-1/2"
-      />
+      <UInput v-model="state.title" type="text" size="xl" class="w-1/2" />
     </UFormField>
     <UFormField label="Subtitle" name="subtitle">
-      <UInput
-        v-model="state.subtitle"
-        type="text"
-        size="xl"
-        class="relative inline-flex items-center w-1/2"
-      />
+      <UInput v-model="state.subtitle" type="text" size="xl" class="w-1/2" />
     </UFormField>
     <UFormField label="Email" name="email">
-      <UInput
-        v-model="state.email"
-        size="xl"
-        class="relative inline-flex items-center w-1/2"
-      />
+      <UInput v-model="state.email" size="xl" class="w-1/2" />
     </UFormField>
     <UFormField label="Email" name="email">
-      <UInput
-        v-model="state.git"
-        size="xl"
-        class="relative inline-flex items-center w-1/2"
-      />
+      <UInput v-model="state.git" size="xl" class="w-1/2" />
     </UFormField>
     <UFormField label="About Paragraph" name="about">
       <UEditor
@@ -141,6 +123,6 @@
         />
       </UEditor>
     </UFormField>
-    <UButton type="submit">Submit</UButton>
+    <UButton type="submit">Update</UButton>
   </UForm>
 </template>

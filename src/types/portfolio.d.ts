@@ -20,6 +20,7 @@ export type AboutType = {
 }
 
 export type ExperienceType = {
+  _id?: string
   name: string
   icon: string
 }

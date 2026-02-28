@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro'
 
-import { saveData } from '@/utils/mongodb'
+import { updateData } from '@/utils/mongodb'
 
 export const POST: APIRoute = async ({ params, request }) => {
   const headers = {
@@ -8,9 +8,10 @@ export const POST: APIRoute = async ({ params, request }) => {
   }
 
   const body = await request.json()
+  const collectionName = 'settings'
 
   try {
-    const data = await saveData(params.feed, body)
+    const data = await updateData(collectionName, body)
 
     if (data) {
       return new Response(JSON.stringify(data), {
@@ -20,7 +21,7 @@ export const POST: APIRoute = async ({ params, request }) => {
     } else {
       return new Response(
         JSON.stringify({
-          error: `Failed to fetch data from the ${params.feed} collection.`
+          error: `Failed to fetch data from the ${collectionName} collection.`
         }),
         {
           status: 404,

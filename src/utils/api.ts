@@ -5,8 +5,14 @@ export const getDataFeed = async (
   sort?: string,
   order?: 'asc' | 'desc'
 ) => {
+  let siteUrl = SITE_URL
+
+  if (!siteUrl && typeof window !== 'undefined') {
+    siteUrl = window.location.origin
+  }
+
   try {
-    const url = new URL(`${SITE_URL}/api/${feed}`)
+    const url = new URL(`/api/${feed}`, siteUrl)
 
     if (sort) {
       url.searchParams.append('sort', sort)

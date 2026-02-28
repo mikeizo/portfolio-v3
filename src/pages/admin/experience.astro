@@ -1,0 +1,12 @@
+---
+import { getDataFeed } from '@/utils/api'
+
+import Admin from '@/layouts/Admin.astro'
+import ExperiencePage from '@/components/admin/pages/Experience.vue'
+
+const experienceData = await getDataFeed('experience', 'name', 'asc')
+---
+
+<Admin>
+  <ExperiencePage data={experienceData} client:load />
+</Admin>
