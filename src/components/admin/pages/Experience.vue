@@ -149,16 +149,26 @@
 
 <template>
   <UForm :schema="schema" :state="state" class="space-y-4" @submit="insertIcon">
-    <div class="flex gap-4 items-end">
-      <UFormField label="Icon" name="icon" class="w-3/7">
-        <UInput v-model="state.icon" size="xl" class="w-full" />
+    <div class="grid grid-cols-1 sm:grid-cols-7 gap-4 items-start">
+      <UFormField label="Icon" name="icon" class="sm:col-span-3">
+        <UInput
+          v-model="state.icon"
+          size="xl"
+          class="w-full"
+          placeholder="devicon-android-plain"
+        />
       </UFormField>
-      <UFormField label="Name" name="name" class="w-3/7">
-        <UInput v-model="state.name" size="xl" class="w-full" />
+      <UFormField label="Name" name="name" class="sm:col-span-3">
+        <UInput
+          v-model="state.name"
+          size="xl"
+          class="w-full"
+          placeholder="Android"
+        />
       </UFormField>
       <UButton
         type="submit"
-        class="mr-4 w-1/7 flex items-center justify-center cursor-pointer"
+        class="flex items-center justify-center sm:mt-6 cursor-pointer"
         size="xl"
         trailing-icon="i-lucide-circle-plus"
       >
