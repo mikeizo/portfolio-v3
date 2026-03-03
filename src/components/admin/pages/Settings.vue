@@ -36,20 +36,22 @@
     title: props.data?.title ?? '',
     subtitle: props.data?.subtitle ?? '',
     email: props.data?.email ?? '',
-    about: props.data?.about ?? '',
-    git: props.data?.git ?? ''
+    git: props.data?.git ?? '',
+    about: props.data?.about ?? ''
   })
 
   const schema = v.object({
-    email: v.pipe(v.string(), v.email('Invalid email')),
     title: v.pipe(
       v.string(),
+      v.nonEmpty('Please enter a title'),
       v.maxLength(25, 'Must be less than 25 characters')
     ),
     subtitle: v.pipe(
       v.string(),
-      v.maxLength(25, 'Must be less than 25 characters')
+      v.maxLength(50, 'Must be less than 50 characters')
     ),
+    email: v.pipe(v.string(), v.email('Please enter a valid email')),
+    git: v.pipe(v.string(), v.url('Please enter a valid url')),
     about: v.pipe(v.string())
   })
 
@@ -102,7 +104,7 @@
     <UFormField label="Email" name="email">
       <UInput v-model="state.email" size="xl" class="w-1/2" />
     </UFormField>
-    <UFormField label="Email" name="email">
+    <UFormField label="GitHub" name="git">
       <UInput v-model="state.git" size="xl" class="w-1/2" />
     </UFormField>
     <UFormField label="About Paragraph" name="about">
