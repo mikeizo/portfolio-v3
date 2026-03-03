@@ -62,7 +62,7 @@
     // Submit the form data to the API endpoint for settings
     try {
       const response = await fetch('/api/admin/settings', {
-        method: 'POST',
+        method: 'PUT',
         body: JSON.stringify(state)
       })
 
