@@ -7,8 +7,29 @@ const headers = {
   'Content-Type': 'application/json'
 }
 
+const ALLOWED_FEEDS = ['settings', 'experience', 'about'] as const
+
+type AllowedFeed = (typeof ALLOWED_FEEDS)[number]
+
+const checkFeed = (feed: string) => {
+  if (!ALLOWED_FEEDS.includes(feed as AllowedFeed)) {
+    return new Response(
+      JSON.stringify({
+        error: `Failed to fetch data from the ${feed} collection.`
+      }),
+      {
+        status: 404,
+        headers
+      }
+    )
+  }
+}
+
 export const POST: APIRoute = async ({ request }) => {
   const collectionName = request.url.split('/').pop() || ''
+
+  const invalid = checkFeed(collectionName)
+  if (invalid) return invalid
 
   const body = await request.json()
 
@@ -46,6 +67,10 @@ export const POST: APIRoute = async ({ request }) => {
 
 export const DELETE: APIRoute = async ({ request }) => {
   const collectionName = request.url.split('/').pop() || ''
+
+  const invalid = checkFeed(collectionName)
+  if (invalid) return invalid
+
   const body = await request.json()
   const { id } = body
 
@@ -83,6 +108,10 @@ export const DELETE: APIRoute = async ({ request }) => {
 
 export const PATCH: APIRoute = async ({ request }) => {
   const collectionName = request.url.split('/').pop() || ''
+
+  const invalid = checkFeed(collectionName)
+  if (invalid) return invalid
+
   const body = await request.json()
   const { id, name } = body
 
@@ -120,6 +149,10 @@ export const PATCH: APIRoute = async ({ request }) => {
 
 export const PUT: APIRoute = async ({ request }) => {
   const collectionName = request.url.split('/').pop() || ''
+
+  const invalid = checkFeed(collectionName)
+  if (invalid) return invalid
+
   const body = await request.json()
 
   try {
