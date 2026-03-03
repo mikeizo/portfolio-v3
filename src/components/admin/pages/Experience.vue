@@ -4,13 +4,14 @@
   import 'devicon'
   import * as v from 'valibot'
   import { reactive, ref } from 'vue'
+  import { adminRequest } from '@/utils/request'
   import { getDataFeed } from '@/utils/api'
 
   const props = defineProps<{
     data: ExperienceType[]
   }>()
 
-  const toast = useToast()
+  const endpoint = 'experience'
   const initialState = {
     icon: '',
     name: ''
@@ -28,122 +29,41 @@
     )
   })
 
+  // Handle edit icon name
+  const editName = (index: number) => {
+    editIndex.value = index
+  }
+
   // Handle add icon
   const insertIcon = async () => {
-    try {
-      const response = await fetch('/api/admin/experience', {
-        method: 'POST',
-        body: JSON.stringify(state)
-      })
+    const description = `${state.name} has been added.`
 
-      if (!response.ok) {
-        const errorData = await response.json()
-        toast.add({
-          title: 'Error',
-          description: errorData.error || 'Failed to update settings.',
-          color: 'red'
-        })
-        return
-      }
-    } catch (error) {
-      toast.add({
-        title: 'Error',
-        description:
-          (error as Error).message || 'An unexpected error occurred.',
-        color: 'red'
-      })
-      return
-    }
+    adminRequest('POST', endpoint, state, description)
 
     // Update experience list
     experiences.value = await getDataFeed('experience', 'name', 'asc')
 
-    toast.add({
-      title: 'Success',
-      description: `${state.name} has been added.`,
-      color: 'success'
-    })
-
     // Clear form
     Object.assign(state, initialState)
-  }
-
-  // Handle updating icon
-  const editName = (index: number) => {
-    editIndex.value = index
   }
 
   // Handle update icon name
   const updateIconName = async (id: string, name: string) => {
     editIndex.value = null
 
-    try {
-      const response = await fetch('/api/admin/experience', {
-        method: 'PATCH',
-        body: JSON.stringify({ id, name })
-      })
+    const description = `${name} has been updated.`
 
-      if (!response.ok) {
-        const errorData = await response.json()
-        toast.add({
-          title: 'Error',
-          description: errorData.error || 'Failed to update settings.',
-          color: 'red'
-        })
-        return
-      }
-    } catch (error) {
-      toast.add({
-        title: 'Error',
-        description:
-          (error as Error).message || 'An unexpected error occurred.',
-        color: 'red'
-      })
-      return
-    }
-
-    toast.add({
-      title: 'Success',
-      description: `Icon name has been updated.`,
-      color: 'success'
-    })
+    adminRequest('PATCH', endpoint, { id, name }, description)
   }
 
   // Handle delete icon
   const deleteIcon = async (id: string, name: string) => {
-    try {
-      const response = await fetch('/api/admin/experience', {
-        method: 'DELETE',
-        body: JSON.stringify({ id })
-      })
+    const description = `${name} has been deleted`
 
-      if (!response.ok) {
-        const errorData = await response.json()
-        toast.add({
-          title: 'Error',
-          description: errorData.error || 'Failed to update settings.',
-          color: 'red'
-        })
-        return
-      }
-    } catch (error) {
-      toast.add({
-        title: 'Error',
-        description:
-          (error as Error).message || 'An unexpected error occurred.',
-        color: 'red'
-      })
-      return
-    }
+    adminRequest('DELETE', endpoint, { id }, description)
 
-    // // Update experience list
+    // Update experience list
     experiences.value = await getDataFeed('experience', 'name', 'asc')
-
-    toast.add({
-      title: 'Success',
-      description: `${name} has been deleted`,
-      color: 'success'
-    })
   }
 </script>
 
