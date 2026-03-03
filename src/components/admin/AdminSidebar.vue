@@ -11,6 +11,7 @@
         label: 'Dashboard',
         icon: 'i-lucide-layout-dashboard',
         to: basePath,
+        disabled: true,
         onSelect: () => {
           open.value = false
         }
