@@ -11,6 +11,19 @@ import '@/styles/admin.css'
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>Admin</title>
+
+    <script>
+      const theme = localStorage.getItem('vueuse-color-scheme') || 'auto'
+      if (
+        theme === 'dark' ||
+        (theme === 'auto' &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    </script>
   </head>
   <body>
     <div class="isolate">

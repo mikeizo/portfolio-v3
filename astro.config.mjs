@@ -30,6 +30,16 @@ export default defineConfig({
         '@': '/src'
       }
     },
-    plugins: [ui({ router: false })]
+    plugins: [
+      ui({
+        router: false,
+        ui: {
+          colors: {
+            primary: 'blue',
+            neutral: 'slate'
+          }
+        }
+      })
+    ]
   }
 })
