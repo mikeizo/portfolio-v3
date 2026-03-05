@@ -65,17 +65,17 @@
 
 <template>
   <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-    <UFormField label="Title" name="title">
-      <UInput v-model="state.title" type="text" size="xl" class="w-1/2" />
+    <UFormField class="sm:w-1/2" label="Title" name="title">
+      <UInput v-model="state.title" class="w-full" type="text" size="xl" />
     </UFormField>
-    <UFormField label="Subtitle" name="subtitle">
-      <UInput v-model="state.subtitle" type="text" size="xl" class="w-1/2" />
+    <UFormField class="sm:w-1/2" label="Subtitle" name="subtitle">
+      <UInput v-model="state.subtitle" class="w-full" type="text" size="xl" />
     </UFormField>
-    <UFormField label="Email" name="email">
-      <UInput v-model="state.email" size="xl" class="w-1/2" />
+    <UFormField class="sm:w-1/2" label="Email" name="email">
+      <UInput v-model="state.email" class="w-full" size="xl" />
     </UFormField>
-    <UFormField label="GitHub" name="git">
-      <UInput v-model="state.git" size="xl" class="w-1/2" />
+    <UFormField class="sm:w-1/2" label="GitHub" name="git">
+      <UInput v-model="state.git" class="w-full" size="xl" />
     </UFormField>
     <UFormField label="About Paragraph" name="about">
       <UEditor
