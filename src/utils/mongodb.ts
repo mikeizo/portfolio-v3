@@ -66,6 +66,32 @@ export async function fetchData(
 }
 
 /**
+ * Fetches a single document from a MongoDB collection by its unique identifier.
+ *
+ * @param collectionName - The name of the collection to query.
+ * @param id - The unique identifier (_id) of the document to retrieve.
+ * @returns The document if found, or null if not found or parameters are missing.
+ * @throws Will throw an error if the database query fails.
+ */
+export async function fetchDataById(
+  collectionName: string | undefined,
+  id: string | undefined
+) {
+  if (!collectionName || !id) return null
+
+  try {
+    await connectToDatabase()
+
+    const Collection = mongoose.connection.collection(collectionName)
+    const data = await Collection.findOne({ _id: new ObjectId(id) })
+
+    return data
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
  * Saves or updates data in a MongoDB collection using Mongoose.
  *
  * If a document with the same identifier exists,
@@ -88,16 +114,20 @@ export async function updateData(
     const Collection = mongoose.connection.collection(collectionName)
 
     if (data.id) {
+      const rest = { ...data }
+      delete rest.id
+
       const updateDoc = {
         $set: {
-          name: data.name
+          ...rest
         }
       }
       const result = await Collection.findOneAndUpdate(
-        { _id: new ObjectId(data.id) },
+        { _id: new ObjectId(data.id as string) },
         updateDoc,
         { returnDocument: 'after' }
       )
+
       return result
     } else {
       const updateDoc = {
