@@ -51,16 +51,16 @@
   const updateIconName = async (id: string, name: string) => {
     editIndex.value = null
 
-    const description = `${name} has been updated.`
+    const message = `${name} has been updated.`
 
-    adminRequest('PATCH', endpoint, { id, name }, description)
+    adminRequest('PATCH', endpoint, { id, name }, message)
   }
 
   // Handle delete icon
   const deleteIcon = async (id: string, name: string) => {
-    const description = `${name} has been deleted`
+    const message = `${name} has been deleted`
 
-    adminRequest('DELETE', endpoint, { id }, description)
+    adminRequest('DELETE', endpoint, { id }, message)
 
     // Update experience list
     experiences.value = await getDataFeed('experience', 'name', 'asc')

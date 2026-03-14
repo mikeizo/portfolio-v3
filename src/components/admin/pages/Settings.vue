@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import type { EditorToolbarItem } from '@nuxt/ui'
   import type { SettingsType } from '@/types/portfolio'
 
   import * as v from 'valibot'
   import { adminRequest } from '@/utils/request'
+  import { editorItems } from '@/utils/forms'
   import { reactive } from 'vue'
   import { TextAlign } from '@tiptap/extension-text-align'
 
@@ -11,12 +11,14 @@
     data: SettingsType
   }>()
 
+  const { title, subtitle, email, git, about } = props.data
+
   const state = reactive({
-    title: props.data?.title ?? '',
-    subtitle: props.data?.subtitle ?? '',
-    email: props.data?.email ?? '',
-    git: props.data?.git ?? '',
-    about: props.data?.about ?? ''
+    title: title ?? '',
+    subtitle: subtitle ?? '',
+    email: email ?? '',
+    git: git ?? '',
+    about: about ?? ''
   })
 
   // Form validation
@@ -35,31 +37,8 @@
     about: v.pipe(v.string())
   })
 
-  // Editor form toolbar items
-  const items: EditorToolbarItem[][] = [
-    [
-      { kind: 'mark', mark: 'bold', icon: 'i-lucide-bold' },
-      { kind: 'mark', mark: 'italic', icon: 'i-lucide-italic' }
-    ],
-    [
-      // { kind: 'heading', level: 1, icon: 'i-lucide-heading-1' },
-      { kind: 'heading', level: 2, icon: 'i-lucide-heading-2' },
-      { kind: 'heading', level: 3, icon: 'i-lucide-heading-3' }
-    ],
-    [
-      { kind: 'textAlign', align: 'left', icon: 'i-lucide-align-left' },
-      { kind: 'textAlign', align: 'center', icon: 'i-lucide-align-center' },
-      { kind: 'bulletList', icon: 'i-lucide-list' },
-      { kind: 'orderedList', icon: 'i-lucide-list-ordered' },
-      { kind: 'link', icon: 'i-lucide-link' }
-    ],
-    [{ kind: 'mark', mark: 'code', icon: 'i-lucide-code' }]
-  ]
-
   async function onSubmit() {
-    const description = 'Settings have been updated.'
-
-    adminRequest('PUT', 'settings', state, description)
+    adminRequest('PUT', 'settings', state, 'Settings have been updated.')
   }
 </script>
 
@@ -90,7 +69,7 @@
       >
         <UEditorToolbar
           :editor="editor"
-          :items="items"
+          :items="editorItems"
           class="border-b border-muted mb-5"
         />
       </UEditor>
