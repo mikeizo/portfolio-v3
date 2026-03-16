@@ -9,34 +9,32 @@
 
   const props = defineProps<{
     data: AboutType
-    id: string | undefined
-    path: URL
+    id?: string
   }>()
 
-  const { yearFrom, yearTo, description } = props.data
+  const state = reactive(props.data)
 
-  const state = reactive({
-    yearFrom: yearFrom ?? '',
-    yearTo: yearTo ?? '',
-    description: description ?? ''
-  })
+  const buttonText = props.id ? 'Update' : 'Add'
 
   // Form validation
   const schema = v.object({
     yearFrom: v.pipe(v.string(), v.nonEmpty('Please enter a start year')),
     yearTo: v.pipe(v.string()),
-    description: v.pipe(v.string())
+    description: v.pipe(v.string(), v.nonEmpty('Please enter a description'))
   })
 
   async function onSubmit() {
-    if (!props.id) return
-
-    adminRequest(
-      'PATCH',
-      'about',
-      { id: props.id, ...state },
-      'About record has been updated.'
-    )
+    if (props.id) {
+      await adminRequest(
+        'PATCH',
+        'about',
+        { id: props.id, ...state },
+        'About record has been updated.'
+      )
+    } else {
+      await adminRequest('POST', 'about', state)
+      window.location.href = '/admin/about?toast=about-created'
+    }
   }
 </script>
 
@@ -69,6 +67,6 @@
         />
       </UEditor>
     </UFormField>
-    <UButton type="submit">Update</UButton>
+    <UButton type="submit">{{ buttonText }}</UButton>
   </UForm>
 </template>

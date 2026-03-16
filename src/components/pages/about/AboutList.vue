@@ -80,7 +80,7 @@
           class="about__list-description"
           @click="toggleDescription($event)"
         >
-          <p>{{ item.description }}</p>
+          <div v-html="item.description" />
           <div v-if="item.image" class="about__list-button">
             <Icon name="close" :height="16" :width="16" />
           </div>

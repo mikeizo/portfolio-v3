@@ -5,11 +5,9 @@ import AboutForm from '@/components/admin/pages/about/Form.vue'
 import Admin from '@/layouts/Admin.astro'
 
 const { id } = Astro.params
-const path = Astro.url
-
 const aboutData = await getDataById('about', id)
 ---
 
 <Admin>
-  <AboutForm data={aboutData} id={id} path={path} client:load />
+  <AboutForm data={aboutData} id={id} client:load />
 </Admin>

@@ -38,7 +38,7 @@
   const insertIcon = async () => {
     const description = `${state.name} has been added.`
 
-    adminRequest('POST', endpoint, state, description)
+    await adminRequest('POST', endpoint, state, description)
 
     // Update experience list
     experiences.value = await getDataFeed('experience', 'name', 'asc')
@@ -53,14 +53,14 @@
 
     const message = `${name} has been updated.`
 
-    adminRequest('PATCH', endpoint, { id, name }, message)
+    await adminRequest('PATCH', endpoint, { id, name }, message)
   }
 
   // Handle delete icon
   const deleteIcon = async (id: string, name: string) => {
     const message = `${name} has been deleted`
 
-    adminRequest('DELETE', endpoint, { id }, message)
+    await adminRequest('DELETE', endpoint, { id }, message)
 
     // Update experience list
     experiences.value = await getDataFeed('experience', 'name', 'asc')

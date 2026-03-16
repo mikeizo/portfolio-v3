@@ -33,9 +33,11 @@ export const adminRequest = async (
     return
   }
 
-  toast.add({
-    title: 'Success',
-    description: description || 'The form has been submitted.',
-    color: 'success'
-  })
+  if (description) {
+    toast.add({
+      title: 'Success',
+      description: description,
+      color: 'success'
+    })
+  }
 }

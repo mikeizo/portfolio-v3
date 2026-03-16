@@ -38,7 +38,7 @@
   })
 
   async function onSubmit() {
-    adminRequest('PUT', 'settings', state, 'Settings have been updated.')
+    await adminRequest('PUT', 'settings', state, 'Settings have been updated.')
   }
 </script>
 
