@@ -12,7 +12,11 @@
     id?: string
   }>()
 
-  const state = reactive(props.data)
+  const state = reactive({
+    yearFrom: props.data.yearFrom ?? '',
+    yearTo: props.data.yearTo ?? '',
+    description: props.data.description ?? ''
+  })
 
   const buttonText = props.id ? 'Update' : 'Add'
 
