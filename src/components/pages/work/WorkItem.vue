@@ -24,7 +24,7 @@
         <p class="work-item__description">{{ data?.description }}</p>
         <div class="work-item__group">
           <div class="work-item__slideshow">
-            <Slideshow :images="data.images" />
+            <Slideshow v-if="data?.images?.length" :images="data.images" />
           </div>
           <div class="work-item__assets">
             <div v-if="data?.resources" class="work-item__resources">
