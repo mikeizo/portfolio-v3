@@ -23,14 +23,14 @@
       {
         label: 'User Settings',
         icon: 'i-lucide-cog',
-        to: '/inbox'
+        to: '/admin/settings'
       }
     ],
     [
       {
         label: 'Logout',
         icon: 'i-lucide-log-out',
-        to: '/customers'
+        to: '/admin/logout'
       }
     ]
   ] satisfies DropdownMenuItem[][]
