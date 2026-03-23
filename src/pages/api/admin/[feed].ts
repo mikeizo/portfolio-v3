@@ -6,7 +6,7 @@ const headers = {
   'Content-Type': 'application/json'
 }
 
-const ALLOWED_FEEDS = ['settings', 'experience', 'about'] as const
+const ALLOWED_FEEDS = ['settings', 'experience', 'about', 'work'] as const
 
 type AllowedFeed = (typeof ALLOWED_FEEDS)[number]
 

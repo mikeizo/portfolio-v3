@@ -20,3 +20,11 @@ export const editorItems: EditorToolbarItem[][] = [
   ],
   [{ kind: 'mark', mark: 'code', icon: 'i-lucide-code' }]
 ]
+
+export const truncateString = (text: string, limit = 100) => {
+  if (text.length > limit) {
+    return `${text.slice(0, limit)} ...`
+  } else {
+    return text
+  }
+}

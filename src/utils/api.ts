@@ -59,8 +59,6 @@ export const getDataById = async (feed: string, id: string | undefined) => {
 
     const data = await response.json()
 
-    console.log('test data', data)
-
     if (data && Object.keys(data).length > 0) {
       return data
     }
