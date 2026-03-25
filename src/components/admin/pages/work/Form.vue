@@ -42,7 +42,6 @@
     v.pipe(v.string(), v.url('Invalid URL format'))
   ])
 
-
   // Form validation
   const schema = v.object({
     name: v.pipe(v.string(), v.nonEmpty('Name is required')),

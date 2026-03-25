@@ -8,6 +8,8 @@
   import { getDataFeed } from '@/utils/api'
   import { truncateString } from '@/utils/forms'
 
+  import Title from '@/components/admin/AdminTitle.vue'
+
   const props = defineProps<{
     data: WorkType[]
     path: string
@@ -126,7 +128,7 @@
 </script>
 
 <template>
-  <div class="flex justify-end">
+  <Title title="Work">
     <UButton
       type="submit"
       class="flex items-center justify-center cursor-pointer"
@@ -136,7 +138,7 @@
     >
       Add
     </UButton>
-  </div>
+  </Title>
   <UTable
     class="flex-1"
     :data="workData"

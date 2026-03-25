@@ -7,31 +7,15 @@
 
   const links = [
     [
-      {
-        label: 'Dashboard',
-        icon: 'i-lucide-layout-dashboard',
-        to: basePath,
-        disabled: true,
-        onSelect: () => {
-          open.value = false
-        }
-      },
-      {
-        label: 'Settings',
-        icon: 'i-lucide-settings',
-        to: `${basePath}/settings`,
-        onSelect: () => {
-          open.value = false
-        }
-      },
-      {
-        label: 'Experience',
-        icon: 'i-lucide-code-xml',
-        to: `${basePath}/experience`,
-        onSelect: () => {
-          open.value = false
-        }
-      },
+      // {
+      //   label: 'Dashboard',
+      //   icon: 'i-lucide-layout-dashboard',
+      //   to: basePath,
+      //   disabled: true,
+      //   onSelect: () => {
+      //     open.value = false
+      //   }
+      // },
       {
         label: 'Pages',
         icon: 'i-lucide-file-braces',
@@ -54,6 +38,22 @@
             }
           }
         ]
+      },
+      {
+        label: 'Experience',
+        icon: 'i-lucide-code-xml',
+        to: `${basePath}/experience`,
+        onSelect: () => {
+          open.value = false
+        }
+      },
+      {
+        label: 'Settings',
+        icon: 'i-lucide-settings',
+        to: `${basePath}/settings`,
+        onSelect: () => {
+          open.value = false
+        }
       }
     ],
     [

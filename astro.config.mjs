@@ -37,6 +37,12 @@ export default defineConfig({
           colors: {
             primary: 'blue',
             neutral: 'slate'
+          },
+          table: {
+            slots: {
+              thead: 'bg-muted rounded-t-lg',
+              th: 'text-sm text-elevated font-bold first:rounded-tl-lg last:rounded-tr-lg'
+            }
           }
         }
       })

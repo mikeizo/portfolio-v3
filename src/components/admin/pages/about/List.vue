@@ -7,6 +7,8 @@
   import { adminRequest } from '@/utils/request'
   import { getDataFeed } from '@/utils/api'
 
+  import Title from '@/components/admin/AdminTitle.vue'
+
   const props = defineProps<{
     data: AboutType[]
     path: string
@@ -24,12 +26,22 @@
     {
       accessorKey: 'yearFrom',
       header: 'Year From',
-      enableSorting: true
+      enableSorting: true,
+      meta: {
+        style: {
+          th: { minWidth: '115px' }
+        }
+      }
     },
     {
       accessorKey: 'yearTo',
       header: 'Year To',
-      enableSorting: true
+      enableSorting: true,
+      meta: {
+        style: {
+          th: { minWidth: '115px' }
+        }
+      }
     },
     {
       accessorKey: 'description',
@@ -124,7 +136,7 @@
 </script>
 
 <template>
-  <div class="flex justify-end">
+  <Title title="About">
     <UButton
       type="submit"
       class="flex items-center justify-center cursor-pointer"
@@ -134,7 +146,7 @@
     >
       Add
     </UButton>
-  </div>
+  </Title>
   <UTable
     class="flex-1"
     :data="aboutData"
