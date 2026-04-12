@@ -5,7 +5,7 @@
 </script>
 
 <template>
-  <div class="flex justify-between pb-4 border-b border-accented">
+  <div class="flex justify-between">
     <h1 class="text-3xl tracking-tight sm:text-4xl text-pretty">{{ title }}</h1>
     <slot />
   </div>

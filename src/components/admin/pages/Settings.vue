@@ -7,6 +7,8 @@
   import { reactive } from 'vue'
   import { TextAlign } from '@tiptap/extension-text-align'
 
+  import Title from '@/components/admin/AdminTitle.vue'
+
   const props = defineProps<{
     data: SettingsType
   }>()
@@ -43,6 +45,7 @@
 </script>
 
 <template>
+  <Title title="Settings" class="pb-4 border-b border-accented" />
   <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
     <UFormField class="sm:w-1/2" label="Title" name="title">
       <UInput v-model="state.title" class="w-full" type="text" size="xl" />

@@ -7,6 +7,8 @@
   import { adminRequest } from '@/utils/request'
   import { getDataFeed } from '@/utils/api'
 
+  import Title from '@/components/admin/AdminTitle.vue'
+
   const props = defineProps<{
     data: ExperienceType[]
   }>()
@@ -68,6 +70,7 @@
 </script>
 
 <template>
+  <Title title="Experience" class="pb-4 border-b border-accented" />
   <UForm :schema="schema" :state="state" class="space-y-4" @submit="insertIcon">
     <div class="grid grid-cols-1 sm:grid-cols-7 gap-4 items-start">
       <UFormField label="Icon" name="icon" class="sm:col-span-3">
