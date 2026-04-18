@@ -20,8 +20,9 @@ export function isAllowedS3ObjectKey(key: string): boolean {
   }
   const rest = key.slice(prefix.length)
   const logosWebp = /^logos\/webp\/[a-zA-Z0-9._-]+$/
+  const about = /^about\/[a-zA-Z0-9._-]+$/
   const gallery = /^[a-z0-9]+(?:-[a-z0-9]+)*\/[a-zA-Z0-9._-]+$/
-  return logosWebp.test(rest) || gallery.test(rest)
+  return logosWebp.test(rest) || about.test(rest) || gallery.test(rest)
 }
 
 export const POST: APIRoute = async ({ request }) => {

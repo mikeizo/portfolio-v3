@@ -13,6 +13,8 @@
 
   const listContainer: Ref<HTMLElement | null> = shallowRef(null)
 
+  const path = import.meta.env.PUBLIC_ASSETS_PATH
+
   const toggleDescription = (e: Event) => {
     const openDesciptionClass = 'about__list-description--open'
     const descriptionElement = e.currentTarget as HTMLElement
@@ -86,7 +88,7 @@
           </div>
           <div v-if="item.image" class="about__list-accordion">
             <Image
-              :src="`images/old-sites/${item.image}`"
+              :src="`${path}/about/${item.image}`"
               :height="300"
               :width="500"
               loading="lazy"
