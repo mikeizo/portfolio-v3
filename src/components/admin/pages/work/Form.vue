@@ -2,25 +2,24 @@
   import type { WorkType } from '@/types/portfolio'
 
   import * as v from 'valibot'
-  import { fileExtension, sanitizeImageFileStem, slugify } from '@/utils/slug'
+  import { fileExtension, slugify } from '@/utils/slug'
   import { onUnmounted, reactive, ref, watch } from 'vue'
   import { editorItems } from '@/utils/forms'
-  import { S3_UPLOAD_PREFIX } from '@/pages/api/admin/presign'
   import { TextAlign } from '@tiptap/extension-text-align'
+  import { useS3Upload } from '@/composables/useS3Upload'
 
   const props = defineProps<{
     data: Partial<WorkType>
     id?: string
   }>()
 
-  const MAX_FILE_SIZE = 2 * 1024 * 1024
-
   const galleryFiles = ref<File[]>([])
   const logoFile = ref<File | null>(null)
-  /** Blob URL for pending logo selection; revoked when file changes or on unmount. */
   const logoObjectUrl = ref<string | null>(null)
   const submitting = ref(false)
   const toast = useToast()
+  const { presignAndPut, uploadMany, deleteKeys, buildUniqueKey } =
+    useS3Upload()
 
   watch(logoFile, (file) => {
     if (logoObjectUrl.value) {
@@ -99,40 +98,8 @@
     )
   })
 
-  function assertImageFile(file: File) {
-    if (file.size > MAX_FILE_SIZE) {
-      throw new Error(
-        `File "${file.name}" is too large (max ${MAX_FILE_SIZE / 1024 / 1024}MB).`
-      )
-    }
-    if (!file.type.startsWith('image/')) {
-      throw new Error(`"${file.name}" is not an image.`)
-    }
-  }
-
   function removeGalleryImage(index: number) {
     state.images.splice(index, 1)
-  }
-
-  function buildUniqueGalleryRelativePath(
-    slug: string,
-    file: File,
-    used: Set<string>
-  ): string {
-    const ext = fileExtension(file.name)
-    const base = sanitizeImageFileStem(file.name)
-    let stem = base
-    let n = 2
-    let rel = `${slug}/${stem}.${ext}`
-
-    while (used.has(rel)) {
-      stem = `${base}-${n}`
-      n++
-      rel = `${slug}/${stem}.${ext}`
-    }
-    used.add(rel)
-
-    return rel
   }
 
   async function persistWorkRecord(
@@ -171,34 +138,6 @@
     return true
   }
 
-  async function presignAndPut(key: string, file: File) {
-    const contentType = file.type || 'application/octet-stream'
-    const presignRes = await fetch('/api/admin/presign', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ key, contentType })
-    })
-
-    if (!presignRes.ok) {
-      const err = (await presignRes.json().catch(() => ({}))) as {
-        error?: string
-      }
-      throw new Error(err.error || 'Could not prepare upload.')
-    }
-
-    const { url } = (await presignRes.json()) as { url: string }
-
-    const putRes = await fetch(url, {
-      method: 'PUT',
-      body: file,
-      headers: { 'Content-Type': contentType }
-    })
-
-    if (!putRes.ok) {
-      throw new Error(`Upload failed for "${file.name}".`)
-    }
-  }
-
   const onSubmit = async () => {
     if (submitting.value) return
     submitting.value = true
@@ -207,23 +146,10 @@
       const keySlug =
         props.id && props.data.slug ? props.data.slug : slugify(state.name)
 
-      for (const f of galleryFiles.value) assertImageFile(f)
-
-      if (logoFile.value) assertImageFile(logoFile.value)
-
       const usedKeys = new Set(state.images)
-      const newPaths: string[] = []
-
-      for (const file of galleryFiles.value) {
-        const relativeKey = buildUniqueGalleryRelativePath(
-          keySlug,
-          file,
-          usedKeys
-        )
-        const objectKey = `${S3_UPLOAD_PREFIX}/${relativeKey}`
-        await presignAndPut(objectKey, file)
-        newPaths.push(relativeKey)
-      }
+      const newPaths = await uploadMany(galleryFiles.value, (file) =>
+        buildUniqueKey(keySlug, file, usedKeys)
+      )
 
       const mergedImages = [...state.images, ...newPaths]
 
@@ -231,8 +157,7 @@
       if (logoFile.value) {
         const ext = fileExtension(logoFile.value.name)
         const filename = `${keySlug}-logo.${ext}`
-        const objectKey = `${S3_UPLOAD_PREFIX}/logos/webp/${filename}`
-        await presignAndPut(objectKey, logoFile.value)
+        await presignAndPut(`logos/${filename}`, logoFile.value)
         logoFilename = filename
       }
 
@@ -259,19 +184,13 @@
         (p) => !mergedImages.includes(p)
       )
       if (toDelete.length > 0) {
-        const delRes = await fetch('/api/admin/s3-delete', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ keys: toDelete })
-        })
-        if (!delRes.ok) {
-          const err = (await delRes.json().catch(() => ({}))) as {
-            error?: string
-          }
+        try {
+          await deleteKeys(toDelete)
+        } catch (e) {
           toast.add({
             title: 'Warning',
             description:
-              err.error ||
+              (e as Error).message ||
               'Work saved, but some files could not be removed from storage.',
             color: 'warning'
           })
@@ -432,7 +351,7 @@
                 />
                 <img
                   v-else-if="assetsBase && state.logo"
-                  :src="`${assetsBase}/logos/webp/${state.logo}`"
+                  :src="`${assetsBase}/logos/${state.logo}`"
                   alt="Current logo"
                   class="max-h-full max-w-full object-contain"
                   loading="lazy"

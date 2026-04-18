@@ -5,20 +5,19 @@
   import { fileExtension, sanitizeImageFileStem } from '@/utils/slug'
   import { onUnmounted, reactive, ref, watch } from 'vue'
   import { editorItems } from '@/utils/forms'
-  import { S3_UPLOAD_PREFIX } from '@/pages/api/admin/presign'
   import { TextAlign } from '@tiptap/extension-text-align'
+  import { useS3Upload } from '@/composables/useS3Upload'
 
   const props = defineProps<{
     data: AboutType
     id?: string
   }>()
 
-  const MAX_FILE_SIZE = 2 * 1024 * 1024
-
   const imageFile = ref<File | null>(null)
   const imageObjectUrl = ref<string | null>(null)
   const submitting = ref(false)
   const toast = useToast()
+  const { presignAndPut, deleteKeys } = useS3Upload()
 
   const assetsBase =
     (import.meta.env.PUBLIC_ASSETS_PATH as string | undefined) ?? ''
@@ -65,45 +64,6 @@
     description: v.pipe(v.string(), v.nonEmpty('Please enter a description'))
   })
 
-  function assertImageFile(file: File) {
-    if (file.size > MAX_FILE_SIZE) {
-      throw new Error(
-        `File "${file.name}" is too large (max ${MAX_FILE_SIZE / 1024 / 1024}MB).`
-      )
-    }
-    if (!file.type.startsWith('image/')) {
-      throw new Error(`"${file.name}" is not an image.`)
-    }
-  }
-
-  async function presignAndPut(key: string, file: File) {
-    const contentType = file.type || 'application/octet-stream'
-    const presignRes = await fetch('/api/admin/presign', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ key, contentType })
-    })
-
-    if (!presignRes.ok) {
-      const err = (await presignRes.json().catch(() => ({}))) as {
-        error?: string
-      }
-      throw new Error(err.error || 'Could not prepare upload.')
-    }
-
-    const { url } = (await presignRes.json()) as { url: string }
-
-    const putRes = await fetch(url, {
-      method: 'PUT',
-      body: file,
-      headers: { 'Content-Type': contentType }
-    })
-
-    if (!putRes.ok) {
-      throw new Error(`Upload failed for "${file.name}".`)
-    }
-  }
-
   async function persistAboutRecord(
     payload: Record<string, unknown>
   ): Promise<boolean> {
@@ -147,12 +107,10 @@
       let imageFilename = state.image
 
       if (imageFile.value) {
-        assertImageFile(imageFile.value)
         const ext = fileExtension(imageFile.value.name)
         const stem = sanitizeImageFileStem(imageFile.value.name)
         const filename = `${stem}.${ext}`
-        const objectKey = `${S3_UPLOAD_PREFIX}/about/${filename}`
-        await presignAndPut(objectKey, imageFile.value)
+        await presignAndPut(`about/${filename}`, imageFile.value)
         imageFilename = filename
       }
 
@@ -167,19 +125,13 @@
       if (!saved) return
 
       if (lastSavedImage.value && lastSavedImage.value !== imageFilename) {
-        const delRes = await fetch('/api/admin/s3-delete', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ keys: [`about/${lastSavedImage.value}`] })
-        })
-        if (!delRes.ok) {
-          const err = (await delRes.json().catch(() => ({}))) as {
-            error?: string
-          }
+        try {
+          await deleteKeys([`about/${lastSavedImage.value}`])
+        } catch (e) {
           toast.add({
             title: 'Warning',
             description:
-              err.error ||
+              (e as Error).message ||
               'Record saved, but previous image could not be removed from storage.',
             color: 'warning'
           })

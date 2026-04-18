@@ -61,7 +61,7 @@
     >
       <div class="work__image-logo">
         <img
-          :src="`${logoPath}/webp/${work.logo}`"
+          :src="`${logoPath}/${work.logo}`"
           class="work__image-logo-img"
           :class="{ 'work__image--grayscale': work.grayscale }"
           :alt="`Logo for ${work.name}`"
