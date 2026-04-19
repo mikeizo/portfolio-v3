@@ -35,12 +35,34 @@ Since collections are addressed by string, validate/whitelist the `feed` param w
 
 ### State & utilities
 - Global state via `nanostores` + `@nanostores/vue` (`src/stores/theme.ts`).
-- `src/utils/` holds shared helpers: `api.ts` (fetch wrappers), `forms.ts`, `validation.ts` (Valibot), `slug.ts`, `animation.ts` (GSAP), `request.ts`.
+- The current session user is provided to Vue islands via Astro (`locals.user` → `Admin.astro`) and read in components through `useCurrentUser()` (`src/composables/useCurrentUser.ts`), which exposes `user`, `isAdmin`, `isGuest`. Prefer this over re-fetching `/api/auth/me`.
+- `src/utils/` holds shared helpers: `api.ts` (fetch wrappers), `forms.ts`, `validation.ts` (Valibot), `slug.ts`, `animation.ts` (GSAP), `request.ts`, `auth.ts` (JWT sign/verify, cookie helpers).
 - Animations use GSAP; there is also a Three.js dependency for visual elements.
 
 ### Styling
 - Tailwind 4 via `@tailwindcss/vite`, configured through `@nuxt/ui` in `astro.config.mjs` (primary=blue, neutral=slate, plus table slot overrides). Prefer extending the Nuxt UI theme there rather than adding ad-hoc global CSS.
 - SCSS is available (`sass`) for component-scoped styles.
+
+### Auth & roles
+
+- Login flow entry points: page at `src/pages/login.astro` (mounts `src/components/pages/Login.vue`) posts to `src/pages/api/auth/login.ts`. `logout.ts` clears the cookie; `me.ts` returns the current user. Middleware explicitly skips `/api/auth/*` so these endpoints remain reachable when unauthenticated.
+- Login is gated by `src/middleware.ts`. Unauthenticated requests to `/admin/*` are redirected to `/login?next=<path>`; unauthenticated requests to `/api/admin/*` get 401. Writes to `/api/admin/*` (POST/PATCH/PUT/DELETE) require `role: 'admin'` — guests get 403.
+- Sessions are signed JWTs (HS256, `jose`) in an httpOnly cookie (`portfolio_session` by default), 7-day TTL, refreshed on activity when <2 days remain.
+- Required env vars: `AUTH_JWT_SECRET` (32+ random bytes). Optional: `AUTH_COOKIE_NAME`.
+- Users live in a `users` collection: `{ email, passwordHash, role: 'admin' | 'guest', createdAt }`. Not exposed through any API — manage directly in MongoDB.
+
+Seed a user with `mongosh`:
+
+```js
+db.users.insertOne({
+  email: 'you@example.com',
+  passwordHash: '<bcrypt hash>',
+  role: 'admin',
+  createdAt: new Date()
+})
+```
+
+Generate a hash: `node -e "require('bcryptjs').hash('yourpassword', 10).then(console.log)"`.
 
 ## Deployment
 
