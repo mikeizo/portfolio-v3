@@ -6,8 +6,11 @@
   import { reactive, ref } from 'vue'
   import { adminRequest } from '@/utils/request'
   import { getDataFeed } from '@/utils/api'
+  import { useCurrentUser } from '@/composables/useCurrentUser'
 
   import Title from '@/components/admin/AdminTitle.vue'
+
+  const { isGuest } = useCurrentUser()
 
   const props = defineProps<{
     data: ExperienceType[]
@@ -94,6 +97,7 @@
         class="flex items-center justify-center sm:mt-6 cursor-pointer"
         size="xl"
         trailing-icon="i-lucide-circle-plus"
+        :disabled="isGuest"
       >
         Add
       </UButton>
@@ -126,7 +130,7 @@
         class="w-full"
       />
       <p v-else class="experience__name">{{ experience.name }}</p>
-      <div class="flex justify-center gap-8">
+      <div v-if="!isGuest" class="flex justify-center gap-8">
         <UIcon
           v-if="editIndex === index"
           name="i-lucide-save"

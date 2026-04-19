@@ -2,6 +2,13 @@
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 
 import '@/styles/admin.css'
+
+const { isLogin = false } = Astro.props
+const user = Astro.locals.user
+
+if (isLogin && user) {
+  return Astro.redirect('/admin')
+}
 ---
 
 <!doctype html>
@@ -27,7 +34,7 @@ import '@/styles/admin.css'
   </head>
   <body>
     <div class="isolate">
-      <AdminLayout client:load>
+      <AdminLayout client:load isLogin={isLogin} user={user}>
         <slot />
       </AdminLayout>
     </div>

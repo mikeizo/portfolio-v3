@@ -74,3 +74,11 @@ export type MetaDataType = {
   title: string
   description?: string
 }
+
+export type UserRole = 'admin' | 'guest'
+
+export type AuthUser = {
+  id: string
+  email: string
+  role: UserRole
+}

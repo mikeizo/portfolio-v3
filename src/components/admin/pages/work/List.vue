@@ -7,8 +7,11 @@
   import { adminRequest } from '@/utils/request'
   import { getDataFeed } from '@/utils/api'
   import { truncateString } from '@/utils/forms'
+  import { useCurrentUser } from '@/composables/useCurrentUser'
 
   import Title from '@/components/admin/AdminTitle.vue'
+
+  const { isGuest } = useCurrentUser()
 
   const props = defineProps<{
     data: WorkType[]
@@ -87,27 +90,30 @@
         type: 'separator'
       },
       {
-        label: 'Edit',
-        icon: 'i-lucide-pencil',
+        label: isGuest.value ? 'View' : 'Edit',
+        icon: isGuest.value ? 'i-lucide-eye' : 'i-lucide-pencil',
         type: 'link',
         to: `${props.path}/${id}`,
         target: '_self'
       },
-      {
-        label: 'Delete',
-        icon: 'i-lucide-trash',
-        async onSelect() {
-          await adminRequest(
-            'DELETE',
-            'work',
-            { id },
-            'Work record has been deleted'
-          )
+      ...(isGuest.value
+        ? []
+        : [
+            {
+              label: 'Delete',
+              icon: 'i-lucide-trash',
+              async onSelect() {
+                await adminRequest(
+                  'DELETE',
+                  'work',
+                  { id },
+                  'Work record has been deleted'
+                )
 
-          // Update experience list
-          workData.value = await getDataFeed('work', 'weight', 'asc')
-        }
-      }
+                workData.value = await getDataFeed('work', 'weight', 'asc')
+              }
+            }
+          ])
     ]
   }
 
@@ -130,6 +136,7 @@
 <template>
   <Title title="Work">
     <UButton
+      v-if="!isGuest"
       type="submit"
       class="flex items-center justify-center cursor-pointer"
       size="xl"

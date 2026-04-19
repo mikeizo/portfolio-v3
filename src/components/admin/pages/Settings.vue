@@ -6,8 +6,11 @@
   import { editorItems } from '@/utils/forms'
   import { reactive } from 'vue'
   import { TextAlign } from '@tiptap/extension-text-align'
+  import { useCurrentUser } from '@/composables/useCurrentUser'
 
   import Title from '@/components/admin/AdminTitle.vue'
+
+  const { isGuest } = useCurrentUser()
 
   const props = defineProps<{
     data: SettingsType
@@ -77,6 +80,6 @@
         />
       </UEditor>
     </UFormField>
-    <UButton type="submit">Update</UButton>
+    <UButton type="submit" :disabled="isGuest">Update</UButton>
   </UForm>
 </template>

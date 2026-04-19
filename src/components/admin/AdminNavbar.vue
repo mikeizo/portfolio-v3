@@ -1,8 +1,11 @@
 <script setup lang="ts">
+  import type { AuthUser } from '@/types/portfolio'
   import type { DropdownMenuItem } from '@nuxt/ui'
 
-  import { onMounted, ref } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
   import { ThemeType } from '@/types/portfolio.d'
+
+  const props = defineProps<{ user?: AuthUser | null }>()
 
   const isDark = ref(false)
 
@@ -18,22 +21,44 @@
     document.documentElement.classList.toggle(ThemeType.Dark, isDark.value)
   })
 
-  const items = [
-    [
-      {
-        label: 'User Settings',
-        icon: 'i-lucide-cog',
-        to: '/admin/settings'
-      }
-    ],
-    [
+  async function logout() {
+    await fetch('/api/auth/logout', { method: 'POST' })
+    window.location.assign('/login')
+  }
+
+  const items = computed<DropdownMenuItem[][]>(() => {
+    const groups: DropdownMenuItem[][] = []
+
+    if (props.user?.email) {
+      groups.push([
+        {
+          label: props.user.email,
+          icon: 'i-lucide-user',
+          disabled: true
+        }
+      ])
+    }
+
+    if (props.user?.role === 'admin') {
+      groups.push([
+        {
+          label: 'User Settings',
+          icon: 'i-lucide-cog',
+          to: '/admin/settings'
+        }
+      ])
+    }
+
+    groups.push([
       {
         label: 'Logout',
         icon: 'i-lucide-log-out',
-        to: '/admin/logout'
+        onSelect: logout
       }
-    ]
-  ] satisfies DropdownMenuItem[][]
+    ])
+
+    return groups
+  })
 </script>
 
 <template>

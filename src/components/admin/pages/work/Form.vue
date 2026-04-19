@@ -6,7 +6,10 @@
   import { onUnmounted, reactive, ref, watch } from 'vue'
   import { editorItems } from '@/utils/forms'
   import { TextAlign } from '@tiptap/extension-text-align'
+  import { useCurrentUser } from '@/composables/useCurrentUser'
   import { useS3Upload } from '@/composables/useS3Upload'
+
+  const { isGuest } = useCurrentUser()
 
   const props = defineProps<{
     data: Partial<WorkType>
@@ -562,7 +565,7 @@
       type="submit"
       size="xl"
       :loading="submitting"
-      :disabled="submitting"
+      :disabled="submitting || isGuest"
     >
       {{ buttonText }}
     </UButton>

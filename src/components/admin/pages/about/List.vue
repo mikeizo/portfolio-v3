@@ -6,8 +6,11 @@
   import { h, onMounted, ref, resolveComponent } from 'vue'
   import { adminRequest } from '@/utils/request'
   import { getDataFeed } from '@/utils/api'
+  import { useCurrentUser } from '@/composables/useCurrentUser'
 
   import Title from '@/components/admin/AdminTitle.vue'
+
+  const { isGuest } = useCurrentUser()
 
   const props = defineProps<{
     data: AboutType[]
@@ -95,27 +98,30 @@
         type: 'separator'
       },
       {
-        label: 'Edit',
-        icon: 'i-lucide-pencil',
+        label: isGuest.value ? 'View' : 'Edit',
+        icon: isGuest.value ? 'i-lucide-eye' : 'i-lucide-pencil',
         type: 'link',
         to: `${props.path}/${id}`,
         target: '_self'
       },
-      {
-        label: 'Delete',
-        icon: 'i-lucide-trash',
-        async onSelect() {
-          await adminRequest(
-            'DELETE',
-            'about',
-            { id },
-            'About record has been deleted'
-          )
+      ...(isGuest.value
+        ? []
+        : [
+            {
+              label: 'Delete',
+              icon: 'i-lucide-trash',
+              async onSelect() {
+                await adminRequest(
+                  'DELETE',
+                  'about',
+                  { id },
+                  'About record has been deleted'
+                )
 
-          // Update experience list
-          aboutData.value = await getDataFeed('about', 'year', 'asc')
-        }
-      }
+                aboutData.value = await getDataFeed('about', 'year', 'asc')
+              }
+            }
+          ])
     ]
   }
 
@@ -138,6 +144,7 @@
 <template>
   <Title title="About">
     <UButton
+      v-if="!isGuest"
       type="submit"
       class="flex items-center justify-center cursor-pointer"
       size="xl"

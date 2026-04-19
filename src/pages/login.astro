@@ -1,0 +1,8 @@
+---
+import Admin from '@/layouts/Admin.astro'
+import LoginPage from '@/components/pages/Login.vue'
+---
+
+<Admin isLogin={true}>
+  <LoginPage client:load />
+</Admin>
