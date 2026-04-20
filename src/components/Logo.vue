@@ -47,3 +47,12 @@
     />
   </svg>
 </template>
+
+<style>
+  .logo-a {
+    fill: var(--color-logo);
+  }
+  .logo-b {
+    fill: var(--color-accent);
+  }
+</style>

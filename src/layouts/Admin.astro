@@ -2,13 +2,10 @@
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 
 import '@/styles/admin.css'
+import '@/styles/variables.scss'
 
 const { isLogin = false } = Astro.props
 const user = Astro.locals.user
-
-if (isLogin && user) {
-  return Astro.redirect('/admin')
-}
 ---
 
 <!doctype html>
@@ -19,7 +16,7 @@ if (isLogin && user) {
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>Admin</title>
 
-    <script>
+    <script is:inline>
       const theme = localStorage.getItem('vueuse-color-scheme') || 'auto'
       if (
         theme === 'dark' ||
@@ -30,6 +27,8 @@ if (isLogin && user) {
       } else {
         document.documentElement.classList.remove('dark')
       }
+
+      document.documentElement.setAttribute('data-theme', theme)
     </script>
   </head>
   <body>

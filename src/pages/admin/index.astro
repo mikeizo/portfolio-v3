@@ -1,8 +1,3 @@
 ---
-import Admin from '@/layouts/Admin.astro'
-import DashboardPage from '@/components/admin/pages/Dashboard.vue'
+return Astro.redirect('/admin/settings')
 ---
-
-<Admin>
-  <DashboardPage client:load />
-</Admin>

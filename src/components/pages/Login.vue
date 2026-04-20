@@ -3,6 +3,8 @@
 
   import { ref } from 'vue'
 
+  import Logo from '@/components/Logo.vue'
+
   const loading = ref(false)
   const errorMessage = ref<string | null>(null)
 
@@ -48,7 +50,7 @@
       }
 
       const params = new URLSearchParams(window.location.search)
-      const next = params.get('next') || '/admin'
+      const next = params.get('next') || '/admin/settings'
       window.location.assign(next)
     } catch {
       errorMessage.value = 'Network error'
@@ -63,12 +65,13 @@
     <UPageCard class="w-full max-w-md">
       <UAuthForm
         title="Login"
-        description="Enter your credentials to access your account."
-        icon="i-lucide-user"
         :fields="fields"
         :loading="loading"
         @submit="onSubmit"
       >
+        <template #header>
+          <Logo />
+        </template>
         <template #validation>
           <UAlert
             v-if="errorMessage"

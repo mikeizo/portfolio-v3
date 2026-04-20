@@ -1,6 +1,10 @@
 ---
 import Admin from '@/layouts/Admin.astro'
 import LoginPage from '@/components/pages/Login.vue'
+
+if (Astro.locals.user) {
+  return Astro.redirect('/admin')
+}
 ---
 
 <Admin isLogin={true}>
