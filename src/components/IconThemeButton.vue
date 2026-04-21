@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { $isLightTheme, theme, toggleTheme } from '@/stores/theme'
-  import { gsap } from 'gsap'
+  import { gsap } from 'gsap/dist/gsap'
   import { MorphSVGPlugin } from 'gsap/dist/MorphSVGPlugin'
   import { onMounted } from 'vue'
   import { ThemeType } from '@/types/portfolio.d'
