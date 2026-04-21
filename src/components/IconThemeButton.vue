@@ -1,10 +1,12 @@
 <script setup lang="ts">
   import { $isLightTheme, theme, toggleTheme } from '@/stores/theme'
   import { gsap } from 'gsap'
-  import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
+  import { MorphSVGPlugin } from 'gsap/dist/MorphSVGPlugin'
   import { onMounted } from 'vue'
   import { ThemeType } from '@/types/portfolio.d'
   import { useStore } from '@nanostores/vue'
+
+  gsap.registerPlugin(MorphSVGPlugin)
 
   const isLightTheme = useStore($isLightTheme)
   const iconTheme = theme.get()
@@ -33,12 +35,6 @@
 
     if (theme === ThemeType.Light) {
       $isLightTheme.set(true)
-    }
-
-    try {
-      gsap.registerPlugin(MorphSVGPlugin)
-    } catch (error) {
-      console.error('Failed to register MorphSVGPlugin:', error)
     }
   })
 
