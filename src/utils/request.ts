@@ -12,6 +12,7 @@ export const adminRequest = async (
   try {
     const response = await fetch(`/api/admin/${endpoint}`, {
       method,
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     })
 
