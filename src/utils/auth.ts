@@ -1,20 +1,21 @@
 import type { AuthUser, UserRole } from '@/types/portfolio'
 
 import { jwtVerify, SignJWT } from 'jose'
+import { connectToDatabase } from '@/utils/mongodb'
+
 import bcrypt from 'bcryptjs'
 import mongoose from 'mongoose'
 
-import { connectToDatabase } from '@/utils/mongodb'
+export const COOKIE_NAME = 'portfolio_session'
+export const TOKEN_TTL_SECONDS = 60 * 60 * 24 * 7 // 7 days
+export const REFRESH_THRESHOLD_SECONDS = 60 * 60 * 24 * 2 // <2 days left → refresh
 
-const { AUTH_JWT_SECRET, AUTH_COOKIE_NAME } = import.meta.env
+const AUTH_JWT_SECRET =
+  process.env.AUTH_JWT_SECRET ?? import.meta.env.AUTH_JWT_SECRET
 
 if (!AUTH_JWT_SECRET) {
   console.error('Missing AUTH_JWT_SECRET env variable')
 }
-
-export const COOKIE_NAME = AUTH_COOKIE_NAME || 'portfolio_session'
-export const TOKEN_TTL_SECONDS = 604800 // 7 days
-export const REFRESH_THRESHOLD_SECONDS = 60 * 60 * 24 * 2 // <2 days left → refresh
 
 const secretKey = () => new TextEncoder().encode(AUTH_JWT_SECRET)
 
@@ -92,14 +93,14 @@ export async function getUserFromRequest(request: Request) {
   return { user: result.user, exp: result.exp, token }
 }
 
-export function buildSessionCookie(token: string) {
+function cookieAttrs(value: string, maxAge: number) {
   const isProd = import.meta.env.PROD
   const attrs = [
-    `${COOKIE_NAME}=${token}`,
+    `${COOKIE_NAME}=${value}`,
     'Path=/',
     'HttpOnly',
     'SameSite=Lax',
-    `Max-Age=${TOKEN_TTL_SECONDS}`
+    `Max-Age=${maxAge}`
   ]
 
   if (isProd) {
@@ -109,19 +110,10 @@ export function buildSessionCookie(token: string) {
   return attrs.join('; ')
 }
 
+export function buildSessionCookie(token: string) {
+  return cookieAttrs(token, TOKEN_TTL_SECONDS)
+}
+
 export function buildClearCookie() {
-  const isProd = import.meta.env.PROD
-  const attrs = [
-    `${COOKIE_NAME}=`,
-    'Path=/',
-    'HttpOnly',
-    'SameSite=Lax',
-    'Max-Age=0'
-  ]
-
-  if (isProd) {
-    attrs.push('Secure')
-  }
-
-  return attrs.join('; ')
+  return cookieAttrs('', 0)
 }
