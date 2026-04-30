@@ -1,7 +1,7 @@
 ---
 import { getDataById } from '@/utils/api'
 
-import AboutForm from '@/components/admin/pages/about/AboutForm.vue'
+import AdminAboutForm from '@/components/admin/pages/about/AdminAboutForm.vue'
 import Admin from '@/layouts/Admin.astro'
 
 const { id } = Astro.params
@@ -9,5 +9,5 @@ const aboutData = await getDataById('about', id)
 ---
 
 <Admin>
-  <AboutForm data={aboutData} id={id} client:load />
+  <AdminAboutForm data={aboutData} id={id} client:load />
 </Admin>

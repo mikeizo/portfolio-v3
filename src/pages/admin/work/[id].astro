@@ -2,12 +2,12 @@
 import { getDataById } from '@/utils/api'
 
 import Admin from '@/layouts/Admin.astro'
-import WorkForm from '@/components/admin/pages/work/WorkForm.vue'
+import AdminWorkForm from '@/components/admin/pages/work/AdminWorkForm.vue'
 
 const { id } = Astro.params
 const workData = await getDataById('work', id)
 ---
 
 <Admin>
-  <WorkForm data={workData} id={id} client:load />
+  <AdminWorkForm data={workData} id={id} client:load />
 </Admin>

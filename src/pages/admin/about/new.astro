@@ -1,10 +1,10 @@
 ---
-import AboutForm from '@/components/admin/pages/about/AboutForm.vue'
+import AdminAboutForm from '@/components/admin/pages/about/AdminAboutForm.vue'
 import Admin from '@/layouts/Admin.astro'
 
 const aboutData = { yearFrom: '', yearTo: '', description: '' }
 ---
 
 <Admin>
-  <AboutForm data={aboutData} client:load />
+  <AdminAboutForm data={aboutData} client:load />
 </Admin>

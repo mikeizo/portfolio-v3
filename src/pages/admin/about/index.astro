@@ -2,7 +2,7 @@
 import type { AboutType } from '@/types/portfolio'
 import { getDataFeed } from '@/utils/api'
 
-import AboutList from '@/components/admin/pages/about/AboutList.vue'
+import AdminAboutList from '@/components/admin/pages/about/AdminAboutList.vue'
 import Admin from '@/layouts/Admin.astro'
 
 const aboutData: AboutType[] = await getDataFeed('about', 'year', 'asc')
@@ -10,5 +10,5 @@ const path = Astro.url.pathname
 ---
 
 <Admin>
-  <AboutList data={aboutData} path={path} client:load />
+  <AdminAboutList data={aboutData} path={path} client:load />
 </Admin>
