@@ -17,18 +17,20 @@ const user = Astro.locals.user
     <title>Admin</title>
 
     <script is:inline>
-      const theme = localStorage.getItem('vueuse-color-scheme') || 'auto'
-      if (
-        theme === 'dark' ||
-        (theme === 'auto' &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+        .matches
+        ? 'dark'
+        : 'light'
+      const stored = localStorage.getItem('vueuse-color-scheme') || systemTheme
+      const resolved = stored === 'auto' ? systemTheme : stored
+
+      if (resolved === 'dark') {
         document.documentElement.classList.add('dark')
       } else {
         document.documentElement.classList.remove('dark')
       }
 
-      document.documentElement.setAttribute('data-theme', theme)
+      document.documentElement.setAttribute('data-theme', resolved)
     </script>
   </head>
   <body>

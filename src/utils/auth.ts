@@ -10,8 +10,7 @@ export const COOKIE_NAME = 'portfolio_session'
 export const TOKEN_TTL_SECONDS = 60 * 60 * 24 * 7 // 7 days
 export const REFRESH_THRESHOLD_SECONDS = 60 * 60 * 24 * 2 // <2 days left → refresh
 
-const AUTH_JWT_SECRET =
-  process.env.AUTH_JWT_SECRET ?? import.meta.env.AUTH_JWT_SECRET
+const AUTH_JWT_SECRET = import.meta.env.AUTH_JWT_SECRET
 
 if (!AUTH_JWT_SECRET) {
   console.error('Missing AUTH_JWT_SECRET env variable')
