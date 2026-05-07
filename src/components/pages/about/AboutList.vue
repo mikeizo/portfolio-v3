@@ -91,7 +91,6 @@
               :src="`${path}/about/${item.image}`"
               :height="300"
               :width="500"
-              loading="lazy"
             />
           </div>
         </div>
