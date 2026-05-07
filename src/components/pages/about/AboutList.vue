@@ -27,6 +27,33 @@
 
     if (descriptionElement.classList.contains(openDesciptionClass)) {
       accordionElement.style.height = `${height}px`
+
+      const wrapper = descriptionElement.closest(
+        '.about__list-wrapper'
+      ) as HTMLElement | null
+      const item = descriptionElement.closest(
+        '.about__list-item'
+      ) as HTMLElement | null
+
+      if (wrapper && item) {
+        const onTransitionEnd = (event: TransitionEvent) => {
+          if (event.propertyName !== 'height') return
+          accordionElement.removeEventListener('transitionend', onTransitionEnd)
+
+          const itemBottom = item.offsetTop + item.offsetHeight
+          const visibleBottom = wrapper.scrollTop + wrapper.clientHeight
+          const overflow = itemBottom - visibleBottom
+
+          if (overflow > 0) {
+            wrapper.scrollTo({
+              top: wrapper.scrollTop + overflow + 16,
+              behavior: 'smooth'
+            })
+          }
+        }
+
+        accordionElement.addEventListener('transitionend', onTransitionEnd)
+      }
     } else {
       accordionElement.style.height = '0px'
     }
