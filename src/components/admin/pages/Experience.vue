@@ -115,9 +115,7 @@
   </UForm>
 
   <hr class="border-default" />
-  <UPageGrid
-    class="grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8"
-  >
+  <UPageGrid class="grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
     <div
       v-for="(experience, index) in experiences"
       :key="`${experience.icon}-${index}`"
@@ -130,7 +128,7 @@
         class="w-full"
       />
       <p v-else class="experience__name">{{ experience.name }}</p>
-      <div v-if="!isGuest" class="flex justify-center gap-8">
+      <div v-if="!isGuest" class="flex justify-center gap-6">
         <UIcon
           v-if="editIndex === index"
           name="i-lucide-save"
