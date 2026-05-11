@@ -52,7 +52,7 @@ export type ContactType = {
 
 export type ContactErrorType = {
   isValid: boolean
-  message: string | boolean
+  message: string
 }
 
 export enum ThemeType {

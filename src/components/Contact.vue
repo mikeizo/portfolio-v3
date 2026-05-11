@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, watch } from 'vue'
   import { validateForm } from '@/utils/validation'
 
   import Icon from '@/components/Icon.vue'
@@ -17,9 +17,21 @@
   )
 
   const isSubmitting = ref(false)
+  const hasSubmitted = ref(false)
   const responseMessage = ref('')
   const formData = ref({ ...emptyForm })
   const fieldValidation = ref({ ...emptyFields })
+
+  watch(
+    formData,
+    (value) => {
+      if (!hasSubmitted.value) return
+
+      const { inputs } = validateForm(value)
+      fieldValidation.value = { ...inputs }
+    },
+    { deep: true }
+  )
 
   /**
    * Handles contact form submission:
@@ -32,6 +44,7 @@
    */
   const submitForm = async () => {
     isSubmitting.value = true
+    hasSubmitted.value = true
     const { inputs, isValidForm } = validateForm(formData.value)
 
     fieldValidation.value = { ...inputs }
@@ -56,6 +69,7 @@
     // Reset form
     formData.value = { ...emptyForm }
     fieldValidation.value = { ...emptyFields }
+    hasSubmitted.value = false
     isSubmitting.value = false
     responseMessage.value = data.message
   }
