@@ -1,14 +1,13 @@
 <script setup lang="ts">
   import * as THREE from 'three'
   import { onMounted, onUnmounted, ref } from 'vue'
+  import { useInputRotation } from '@/composables/useInputRotation'
 
   // Configuration
-  const CLOUD_COUNT = 150
+  const CLOUD_COUNT = 50
   const CLOUD_SPEED = 1.5
-  const CLOUD_SPREAD = 1500
+  const CLOUD_SPREAD = 2000
   const CLOUD_DEPTH = 2000
-  const MOUSE_SENSITIVITY = 0.0009
-  const TOUCH_SENSITIVITY = 0.002
 
   const canvasRef = ref<HTMLCanvasElement | null>(null)
 
@@ -21,17 +20,12 @@
   let cloudTextures: THREE.CanvasTexture[]
   let animationId: number
 
-  const mouse = {
-    x: 0,
-    y: 0,
-    targetX: 0,
-    targetY: 0
-  }
-
-  let touchStartX = 0
-  let touchStartY = 0
-  let touchStartTargetX = 0
-  let touchStartTargetY = 0
+  const input = useInputRotation({
+    mouseSensitivity: 0.0009,
+    touchSensitivity: 0.002,
+    gyroSensitivity: 0.015,
+    lerpFactor: 0.03
+  })
 
   function createCloudTexture(): THREE.CanvasTexture {
     const canvas = document.createElement('canvas')
@@ -209,40 +203,6 @@
     return new THREE.Points(cloudGeometry, cloudMaterial)
   }
 
-  function onMouseMove(e: MouseEvent): void {
-    mouse.targetX = (e.clientX - window.innerWidth / 2) * MOUSE_SENSITIVITY
-    mouse.targetY = (e.clientY - window.innerHeight / 2) * MOUSE_SENSITIVITY
-  }
-
-  function onMouseLeave(): void {
-    mouse.targetX = 0
-    mouse.targetY = 0
-  }
-
-  function onTouchStart(e: TouchEvent): void {
-    if (e.touches.length > 0) {
-      touchStartX = e.touches[0].clientX
-      touchStartY = e.touches[0].clientY
-      touchStartTargetX = mouse.targetX
-      touchStartTargetY = mouse.targetY
-    }
-  }
-
-  function onTouchMove(e: TouchEvent): void {
-    if (e.touches.length > 0) {
-      const deltaX = e.touches[0].clientX - touchStartX
-      const deltaY = e.touches[0].clientY - touchStartY
-
-      mouse.targetX = touchStartTargetX + deltaX * TOUCH_SENSITIVITY
-      mouse.targetY = touchStartTargetY + deltaY * TOUCH_SENSITIVITY
-    }
-  }
-
-  function onTouchEnd(): void {
-    mouse.targetX = 0
-    mouse.targetY = 0
-  }
-
   function onResize(): void {
     if (!camera || !renderer) return
     camera.aspect = window.innerWidth / window.innerHeight
@@ -253,11 +213,10 @@
   function animate(): void {
     animationId = requestAnimationFrame(animate)
 
-    mouse.x += (mouse.targetX - mouse.x) * 0.03
-    mouse.y += (mouse.targetY - mouse.y) * 0.03
+    input.update()
 
-    clouds.rotation.y = mouse.x
-    clouds.rotation.x = mouse.y
+    clouds.rotation.y = input.mouse.x + input.gyro.x
+    clouds.rotation.x = input.mouse.y + input.gyro.y
 
     const positions = cloudGeometry.attributes.position.array as Float32Array
 
@@ -305,11 +264,7 @@
     clouds = createClouds()
     scene.add(clouds)
 
-    window.addEventListener('mousemove', onMouseMove)
-    document.documentElement.addEventListener('mouseleave', onMouseLeave)
-    window.addEventListener('touchstart', onTouchStart, { passive: true })
-    window.addEventListener('touchmove', onTouchMove, { passive: true })
-    window.addEventListener('touchend', onTouchEnd)
+    input.init()
     window.addEventListener('resize', onResize)
 
     animate()
@@ -318,11 +273,7 @@
   function cleanup(): void {
     cancelAnimationFrame(animationId)
 
-    window.removeEventListener('mousemove', onMouseMove)
-    document.documentElement.removeEventListener('mouseleave', onMouseLeave)
-    window.removeEventListener('touchstart', onTouchStart)
-    window.removeEventListener('touchmove', onTouchMove)
-    window.removeEventListener('touchend', onTouchEnd)
+    input.cleanup()
     window.removeEventListener('resize', onResize)
 
     cloudGeometry?.dispose()
