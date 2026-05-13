@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import type { AuthUser } from '@/types/portfolio'
   import type { BreadcrumbItem, DropdownMenuItem } from '@nuxt/ui'
+  import type { AuthUser } from '@/types/portfolio'
 
   import { computed, onMounted, ref } from 'vue'
   import { ThemeType } from '@/types/portfolio.d'

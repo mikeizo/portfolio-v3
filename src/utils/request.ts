@@ -5,7 +5,7 @@ const toast = useToast()
 export const adminRequest = async (
   method: RequestMethod,
   endpoint: string,
-  data: any,
+  data: unknown,
   description?: string
 ) => {
   // Submit the form data to the API endpoint for settings

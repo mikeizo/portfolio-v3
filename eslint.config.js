@@ -33,7 +33,7 @@ export default [
     rules: {
       ...tsPlugin.configs.recommended.rules,
       'prettier/prettier': 'error',
-      'no-console': 'warn',
+      'no-console': ['error', { allow: ['error'] }],
       'sort-imports': [
         'error',
         {
