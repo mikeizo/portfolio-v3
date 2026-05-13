@@ -15,34 +15,98 @@ import { validateForm } from '@/utils/validation'
  */
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.json()
-  const { isValidForm } = validateForm(data)
+  const { recaptchaToken, ...formData } = data
+  const { isValidForm } = validateForm(formData)
 
-  if (isValidForm) {
-    const sendResponse = await sendMessage(data)
+  if (!isValidForm) {
+    return new Response(
+      JSON.stringify({ message: 'Unable to send email. Invalid form.' }),
+      { status: 400 }
+    )
+  }
 
-    if (sendResponse === 200) {
-      return new Response(
-        JSON.stringify({
-          message: 'Success! Your message has been sent'
-        }),
-        { status: 200 }
-      )
-    }
+  const { valid } = await verifyRecaptcha(recaptchaToken)
 
+  if (!valid) {
+    return new Response(
+      JSON.stringify({ message: 'reCAPTCHA verification failed.' }),
+      { status: 403 }
+    )
+  }
+
+  const sendResponse = await sendMessage(formData)
+
+  if (sendResponse === 200) {
     return new Response(
       JSON.stringify({
-        message: `Failed to send email. Response#: ${sendResponse}`
+        message: 'Success! Your message has been sent'
       }),
-      {
-        status: sendResponse
-      }
+      { status: 200 }
     )
   }
 
   return new Response(
-    JSON.stringify({ message: 'Unable to send email. Invalid form.' }),
-    { status: 400 }
+    JSON.stringify({
+      message: `Failed to send email. Response#: ${sendResponse}`
+    }),
+    {
+      status: sendResponse
+    }
   )
+}
+
+async function verifyRecaptcha(
+  token: string | undefined
+): Promise<{ valid: boolean; score: number; reason?: string }> {
+  if (!token) return { valid: false, score: 0, reason: 'missing token' }
+
+  const env = import.meta.env
+  const projectId = env.RECAPTCHA_PROJECT_ID
+  const apiKey = env.RECAPTCHA_API_KEY
+  const siteKey = env.PUBLIC_RECAPTCHA_SITE_KEY
+  const threshold = 0.5
+  const url = `https://recaptchaenterprise.googleapis.com/v1/projects/${projectId}/assessments?key=${apiKey}`
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify({
+      event: {
+        token,
+        siteKey,
+        expectedAction: 'contact_submit'
+      }
+    })
+  })
+
+  const result = await response.json()
+
+  if (!response.ok) {
+    return {
+      valid: false,
+      score: 0,
+      reason: `assessment HTTP ${response.status}`
+    }
+  }
+
+  const tokenValid = result.tokenProperties?.valid === true
+  const actionMatch = result.tokenProperties?.action === 'contact_submit'
+  const score = result.riskAnalysis?.score ?? 0
+
+  if (!tokenValid) {
+    return {
+      valid: false,
+      score,
+      reason: result.tokenProperties?.invalidReason
+    }
+  }
+  if (!actionMatch) {
+    return { valid: false, score, reason: 'action mismatch' }
+  }
+  if (score < threshold) {
+    return { valid: false, score, reason: 'score below threshold' }
+  }
+
+  return { valid: true, score }
 }
 
 /**

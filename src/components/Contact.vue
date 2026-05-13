@@ -5,9 +5,12 @@
   import Icon from '@/components/Icon.vue'
   import Modal from '@/components/Modal.vue'
 
-  defineProps<{
+  const props = defineProps<{
     isOpen: boolean
   }>()
+
+  const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY
+  const RECAPTCHA_SCRIPT_ID = 'recaptcha-enterprise-script'
 
   const emptyForm = { name: '', email: '', phone: '', message: '' }
   const emptyFields = Object.fromEntries(
@@ -33,6 +36,61 @@
     { deep: true }
   )
 
+  const loadRecaptchaScript = () => {
+    if (
+      typeof document === 'undefined' ||
+      !RECAPTCHA_SITE_KEY ||
+      document.getElementById(RECAPTCHA_SCRIPT_ID)
+    ) {
+      return
+    }
+
+    const script = document.createElement('script')
+    script.id = RECAPTCHA_SCRIPT_ID
+    script.src = `https://www.google.com/recaptcha/enterprise.js?render=${RECAPTCHA_SITE_KEY}`
+    script.async = true
+    script.defer = true
+    document.head.appendChild(script)
+  }
+
+  watch(
+    () => props.isOpen,
+    (isOpen) => {
+      if (isOpen) loadRecaptchaScript()
+    },
+    { immediate: true }
+  )
+
+  type RecaptchaEnterprise = {
+    ready: (cb: () => void) => void
+    execute: (siteKey: string, opts: { action: string }) => Promise<string>
+  }
+
+  const getRecaptchaToken = (): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const grecaptcha = (
+        window as unknown as {
+          grecaptcha?: { enterprise?: RecaptchaEnterprise }
+        }
+      ).grecaptcha
+      if (!grecaptcha?.enterprise) {
+        reject(new Error('reCAPTCHA not loaded'))
+        return
+      }
+      const enterprise = grecaptcha.enterprise
+      enterprise.ready(async () => {
+        try {
+          const token = await enterprise.execute(RECAPTCHA_SITE_KEY, {
+            action: 'contact_submit'
+          })
+          resolve(token)
+        } catch (err) {
+          reject(err)
+        }
+      })
+    })
+  }
+
   /**
    * Handles contact form submission:
    * - Sets submitting state
@@ -55,10 +113,21 @@
       return
     }
 
+    let recaptchaToken: string
+    try {
+      recaptchaToken = await getRecaptchaToken()
+    } catch {
+      responseMessage.value =
+        'Unable to verify request. Please refresh the page and try again.'
+      isSubmitting.value = false
+      hasSubmitted.value = false
+      return
+    }
+
     const response = await fetch('/api/mail', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData.value)
+      body: JSON.stringify({ ...formData.value, recaptchaToken })
     }).then((response) => response)
 
     const data = await response.json()
