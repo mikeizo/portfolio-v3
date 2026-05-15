@@ -24,7 +24,8 @@ Astro 5 SSR site (`output: 'server'`, Vercel adapter) with Vue 3 islands, Tailwi
 - `src/utils/mongodb.ts` is the single gateway to Mongo via Mongoose. It memoizes the connection (`isConnected`) and exposes `fetchData`, `fetchDataById`, `updateData`, `insertData`, `deleteData` — all keyed on a raw collection name (no per-collection Mongoose models).
 - Requires `MONGODB_URI` and `MONGODB_DB` env vars.
 - Public read API: `src/pages/api/[feed]/index.ts` — dynamic `[feed]` param maps directly to a Mongo collection name, with optional `?sort=&order=` query.
-- Admin write API: `src/pages/api/admin/[feed].ts`, plus `presign.ts` / `s3-delete.ts` for S3 uploads (AWS SDK v3, presigned URLs).
+- Admin write API: `src/pages/api/admin/[feed].ts`, plus `presign.ts` / `s3-delete.ts` for S3 uploads (AWS SDK v3, presigned URLs). Client flow: request a presigned PUT from `presign.ts`, PUT the file directly to S3, call `s3-delete.ts` on removal — orchestrated by the `useS3Upload` composable.
+- Contact form: `src/components/Contact.vue` (modal form) POSTs to `src/pages/api/mail.ts`, which verifies a reCAPTCHA Enterprise token server-side, sanitizes fields with `sanitize-html`, and sends mail via the Mailgun API.
 
 Since collections are addressed by string, validate/whitelist the `feed` param when adding endpoints that could be reached by untrusted input.
 
@@ -35,9 +36,14 @@ Since collections are addressed by string, validate/whitelist the `feed` param w
 
 ### State & utilities
 - Global state via `nanostores` + `@nanostores/vue` (`src/stores/theme.ts`).
-- The current session user is provided to Vue islands via Astro (`locals.user` → `Admin.astro`) and read in components through `useCurrentUser()` (`src/composables/useCurrentUser.ts`), which exposes `user`, `isAdmin`, `isGuest`. Prefer this over re-fetching `/api/auth/me`.
-- `src/utils/` holds shared helpers: `api.ts` (fetch wrappers), `forms.ts`, `validation.ts` (Valibot), `slug.ts`, `animation.ts` (GSAP), `request.ts`, `auth.ts` (JWT sign/verify, cookie helpers).
+- `src/composables/`:
+  - `useCurrentUser.ts` — exposes `user`, `isAdmin`, `isGuest`. The session user is provided to Vue islands via Astro (`locals.user` → `Admin.astro`); prefer this over re-fetching `/api/auth/me`.
+  - `useInputRotation.ts` — mouse/touch/gyroscope input tracking with lerp smoothing, used for visual effects.
+  - `useObserver.ts` — `IntersectionObserver` wrapper for mount/unmount visibility tracking.
+  - `useS3Upload.ts` — file validation + presigned-URL S3 upload with progress tracking.
+- `src/utils/` holds shared helpers: `api.ts` (fetch wrappers), `forms.ts`, `validation.ts` (form field validators + `validateForm`), `slug.ts`, `animation.ts` (GSAP), `request.ts`, `auth.ts` (JWT sign/verify, cookie helpers).
 - Animations use GSAP; there is also a Three.js dependency for visual elements.
+- Coding conventions (TypeScript strict, Vue 3 Composition API, Astro patterns, BEM naming, accessibility) are documented in `.cursorrules`.
 
 ### Styling
 - Tailwind 4 via `@tailwindcss/vite`, configured through `@nuxt/ui` in `astro.config.mjs` (primary=blue, neutral=slate, plus table slot overrides). Prefer extending the Nuxt UI theme there rather than adding ad-hoc global CSS.
@@ -63,6 +69,17 @@ db.users.insertOne({
 ```
 
 Generate a hash: `node -e "require('bcryptjs').hash('yourpassword', 10).then(console.log)"`.
+
+## Environment variables
+
+- **MongoDB**: `MONGODB_URI`, `MONGODB_DB`
+- **Auth**: `AUTH_JWT_SECRET` (required, 32+ bytes), `AUTH_COOKIE_NAME` (optional)
+- **reCAPTCHA Enterprise**: `PUBLIC_RECAPTCHA_SITE_KEY` (client), `RECAPTCHA_PROJECT_ID`, `RECAPTCHA_API_KEY` (server, `api/mail.ts`)
+- **Mailgun**: `MAILGUN_URL`, `MAILGUN_KEY` (server, `api/mail.ts`)
+- **AWS S3**: `AWS_KEY`, `AWS_SECRET`, `AWS_REGION_APP`, `AWS_BUCKET`
+- **App**: `PUBLIC_ASSETS_PATH` (image CDN base), `SITE_URL`, `PORT`, `PROD`
+
+`PUBLIC_*` vars are exposed to the client; all others are server-only.
 
 ## Deployment
 
