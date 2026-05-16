@@ -640,7 +640,6 @@ img {
     grid-template-columns: 1fr;
     position: relative;
     align-items: center;
-    cursor: pointer;
 
     p {
       margin: 0 1rem 0 0;
@@ -648,6 +647,7 @@ img {
 
     &:has(.about__list-button) {
       grid-template-columns: 1fr 25px;
+      cursor: pointer;
     }
 
     &--open {

@@ -107,7 +107,7 @@
         <div
           ref="descriptionAcc"
           class="about__list-description"
-          @click="toggleDescription($event)"
+          @click="item.image && toggleDescription($event)"
         >
           <div v-html="item.description" />
           <div v-if="item.image" class="about__list-button">
