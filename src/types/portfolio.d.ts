@@ -4,6 +4,7 @@ export type MenuType = {
 }[]
 
 export type SettingsType = {
+  _id?: string
   about: string
   title: string
   subtitle: string
@@ -12,6 +13,7 @@ export type SettingsType = {
 }
 
 export type AboutType = {
+  _id?: string
   yearFrom: string
   yearTo?: string
   description: string
@@ -26,6 +28,7 @@ export type ExperienceType = {
 }
 
 export type WorkType = {
+  _id?: string
   name: string
   description: string
   resources: {
@@ -40,7 +43,7 @@ export type WorkType = {
   weight: number
   git?: string
   created: string
-  updated?: string
+  updated: string
 }
 
 export type ContactType = {

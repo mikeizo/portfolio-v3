@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import type { AboutType } from '@/types/portfolio'
 
-  import * as v from 'valibot'
   import { fileExtension, sanitizeImageFileStem } from '@/utils/slug'
   import { onUnmounted, reactive, ref, watch } from 'vue'
+  import { aboutSchema } from '@/utils/formSchema'
   import { editorItems } from '@/utils/forms'
   import { TextAlign } from '@tiptap/extension-text-align'
   import { useCurrentUser } from '@/composables/useCurrentUser'
@@ -59,13 +59,6 @@
   }
 
   const buttonText = props.id ? 'Update' : 'Add'
-
-  // Form validation
-  const schema = v.object({
-    yearFrom: v.pipe(v.string(), v.nonEmpty('Please enter a start year')),
-    yearTo: v.pipe(v.string()),
-    description: v.pipe(v.string(), v.nonEmpty('Please enter a description'))
-  })
 
   async function persistAboutRecord(
     payload: Record<string, unknown>
@@ -167,7 +160,12 @@
 </script>
 
 <template>
-  <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+  <UForm
+    :schema="aboutSchema"
+    :state="state"
+    class="space-y-4"
+    @submit="onSubmit"
+  >
     <div class="flex flex-wrap items-center gap-2">
       <UFormField label="Year From" name="yearFrom">
         <UInput v-model="state.yearFrom" class="w-50" type="text" size="xl" />

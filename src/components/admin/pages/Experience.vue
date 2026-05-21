@@ -2,9 +2,9 @@
   import type { ExperienceType } from '@/types/portfolio'
 
   import 'devicon'
-  import * as v from 'valibot'
   import { reactive, ref } from 'vue'
   import { adminRequest } from '@/utils/request'
+  import { experienceSchema } from '@/utils/formSchema'
   import { getDataFeed } from '@/utils/api'
   import { useCurrentUser } from '@/composables/useCurrentUser'
 
@@ -25,14 +25,6 @@
   const state = reactive({ ...initialState })
   const experiences = ref(props.data)
   const editIndex = ref<number | null>(null)
-
-  const schema = v.object({
-    name: v.pipe(v.string(), v.minLength(3, 'Must more than 3 characters')),
-    icon: v.pipe(
-      v.string(),
-      v.startsWith('devicon-', 'Icon class must start with "devicon-"')
-    )
-  })
 
   // Handle edit icon name
   const editName = (index: number) => {
@@ -74,7 +66,12 @@
 
 <template>
   <Title title="Experience" class="pb-4 border-b border-accented" />
-  <UForm :schema="schema" :state="state" class="space-y-4" @submit="insertIcon">
+  <UForm
+    :schema="experienceSchema"
+    :state="state"
+    class="space-y-4"
+    @submit="insertIcon"
+  >
     <div class="grid grid-cols-1 sm:grid-cols-7 gap-4 items-start">
       <UFormField label="Icon" name="icon" class="sm:col-span-3">
         <UInput

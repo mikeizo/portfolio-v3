@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import type { SettingsType } from '@/types/portfolio'
 
-  import * as v from 'valibot'
   import { adminRequest } from '@/utils/request'
   import { editorItems } from '@/utils/forms'
   import { reactive } from 'vue'
+  import { settingsSchema } from '@/utils/formSchema'
   import { TextAlign } from '@tiptap/extension-text-align'
   import { useCurrentUser } from '@/composables/useCurrentUser'
 
@@ -26,22 +26,6 @@
     about: about ?? ''
   })
 
-  // Form validation
-  const schema = v.object({
-    title: v.pipe(
-      v.string(),
-      v.nonEmpty('Please enter a title'),
-      v.maxLength(25, 'Must be less than 25 characters')
-    ),
-    subtitle: v.pipe(
-      v.string(),
-      v.maxLength(50, 'Must be less than 50 characters')
-    ),
-    email: v.pipe(v.string(), v.email('Please enter a valid email')),
-    git: v.pipe(v.string(), v.url('Please enter a valid url')),
-    about: v.pipe(v.string())
-  })
-
   async function onSubmit() {
     await adminRequest('PUT', 'settings', state, 'Settings have been updated.')
   }
@@ -49,7 +33,12 @@
 
 <template>
   <Title title="Settings" class="pb-4 border-b border-accented" />
-  <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+  <UForm
+    :schema="settingsSchema"
+    :state="state"
+    class="space-y-4"
+    @submit="onSubmit"
+  >
     <UFormField class="sm:w-1/2" label="Title" name="title">
       <UInput v-model="state.title" class="w-full" type="text" size="xl" />
     </UFormField>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
   import type { WorkType } from '@/types/portfolio'
 
-  import * as v from 'valibot'
   import { fileExtension, slugify } from '@/utils/slug'
   import { onUnmounted, reactive, ref, watch } from 'vue'
   import { editorItems } from '@/utils/forms'
   import { TextAlign } from '@tiptap/extension-text-align'
   import { useCurrentUser } from '@/composables/useCurrentUser'
   import { useS3Upload } from '@/composables/useS3Upload'
+  import { workSchema } from '@/utils/formSchema'
 
   const { isGuest } = useCurrentUser()
 
@@ -78,28 +78,6 @@
   const removeResource = (index: number) => {
     state.resources.splice(index, 1)
   }
-
-  const optionalUrl = v.union([
-    v.literal(''),
-    v.pipe(v.string(), v.url('Invalid URL format'))
-  ])
-
-  // Form validation
-  const schema = v.object({
-    name: v.pipe(v.string(), v.nonEmpty('Name is required')),
-    weight: v.pipe(v.number()),
-    url: v.optional(optionalUrl),
-    git: v.optional(optionalUrl),
-    description: v.pipe(v.string(), v.nonEmpty('Please enter a description')),
-    resources: v.optional(
-      v.array(
-        v.object({
-          name: v.pipe(v.string(), v.nonEmpty('Resource name is required')),
-          icon: v.pipe(v.string(), v.nonEmpty('Resource icon is required'))
-        })
-      )
-    )
-  })
 
   function removeGalleryImage(index: number) {
     state.images.splice(index, 1)
@@ -174,10 +152,7 @@
         slug: keySlug,
         logo: logoFilename,
         images: mergedImages,
-        grayscale: state.grayscale,
-        ...(props.id
-          ? { updated: new Date().toISOString() }
-          : { created: new Date().toISOString() })
+        grayscale: state.grayscale
       }
 
       const saved = await persistWorkRecord(payload)
@@ -228,7 +203,12 @@
 </script>
 
 <template>
-  <UForm :schema="schema" :state="state" class="space-y-8" @submit="onSubmit">
+  <UForm
+    :schema="workSchema"
+    :state="state"
+    class="space-y-8"
+    @submit="onSubmit"
+  >
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 items-start">
       <!-- Main content -->
       <div class="space-y-8">
@@ -263,17 +243,12 @@
               />
             </UFormField>
           </div>
-          <UFormField
-            v-if="state.slug"
-            label="Slug"
-            name="slug"
-            description="Used for asset paths; set when this record was created."
-          >
+          <UFormField v-if="state.slug" label="Slug" name="slug">
             <UInput
               :model-value="state.slug"
               type="text"
-              size="md"
-              class="w-full max-w-md"
+              size="xl"
+              class="w-full"
               disabled
               readonly
             />

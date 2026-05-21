@@ -21,18 +21,22 @@ Astro 5 SSR site (`output: 'server'`, Vercel adapter) with Vue 3 islands, Tailwi
 - `trailingSlash: 'never'`.
 
 ### Data layer
-- `src/utils/mongodb.ts` is the single gateway to Mongo via Mongoose. It memoizes the connection (`isConnected`) and exposes `fetchData`, `fetchDataById`, `updateData`, `insertData`, `deleteData` — all keyed on a raw collection name (no per-collection Mongoose models).
+- `src/utils/mongodb.ts` is the single gateway to Mongo via Mongoose. It memoizes the connection (`isConnected`) and exposes `fetchData`, `fetchDataById`, `updateData`, `insertData`, `deleteData` — all keyed on a raw collection name.
 - Requires `MONGODB_URI` and `MONGODB_DB` env vars.
+- **Writes go through per-collection Mongoose Models** in `src/models/` (`Settings`, `Experience`, `About`, `Work`), registered in `src/models/index.ts` as `writeModels`. Each Schema uses `strict: 'throw'` so unknown fields cause Mongoose to throw `StrictModeError`; the API handler maps that (plus `ValidationError` / `CastError`) to HTTP 400. `insertData` / `updateData` / `deleteData` resolve the right Model from the collection-name string via this registry and call Model methods with `runValidators: true`. Reads (`fetchData`, `fetchDataById`) still hit the raw collection — read shape is whatever Mongo holds.
+- Each Schema is typed `Schema<T>` / `Model<T>` against its matching type in `src/types/portfolio.d.ts` (e.g. `Schema<WorkType>`), so schema field names stay aligned with the TypeScript types at compile time.
+- The `Work` schema manages `created` / `updated` ISO-string timestamps server-side via `pre('validate')` (sets `created` on new docs and `updated` on every save) and `pre('findOneAndUpdate')` (sets `updated` on update queries). `created` is `immutable: true`. Clients must not send these fields — the hooks overwrite any supplied value.
+- **Adding a new writable collection requires**: (1) a Model in `src/models/`, (2) registering it in `writeModels` in `src/models/index.ts`, and (3) a mirrored valibot schema in `src/utils/formSchema.ts` for the corresponding Vue form's `UForm`. `ALLOWED_FEEDS` in `src/pages/api/admin/[feed].ts` is derived from `Object.keys(writeModels)`, so it stays in sync automatically.
 - Public read API: `src/pages/api/[feed]/index.ts` — dynamic `[feed]` param maps directly to a Mongo collection name, with optional `?sort=&order=` query.
 - Admin write API: `src/pages/api/admin/[feed].ts`, plus `presign.ts` / `s3-delete.ts` for S3 uploads (AWS SDK v3, presigned URLs). Client flow: request a presigned PUT from `presign.ts`, PUT the file directly to S3, call `s3-delete.ts` on removal — orchestrated by the `useS3Upload` composable.
 - Contact form: `src/components/Contact.vue` (modal form) POSTs to `src/pages/api/mail.ts`, which verifies a reCAPTCHA Enterprise token server-side, sanitizes fields with `sanitize-html`, and sends mail via the Mailgun API.
 
-Since collections are addressed by string, validate/whitelist the `feed` param when adding endpoints that could be reached by untrusted input.
+Since the public read API still addresses collections by string, validate/whitelist the `feed` param when adding read endpoints that could be reached by untrusted input.
 
 ### Admin area
 - Routes under `src/pages/admin/*.astro` use `src/layouts/Admin.astro` and mount Vue components from `src/components/admin/`.
 - `AdminLayout.vue` / `AdminNavbar.vue` / `AdminSidebar.vue` wrap page-level components in `src/components/admin/pages/`.
-- Forms use Nuxt UI + Valibot; rich text via Tiptap; media via S3 presigned uploads (`presign.ts` → client PUTs → `s3-delete.ts` on removal).
+- Forms use Nuxt UI + Valibot (client-side schemas live in `src/utils/formSchema.ts`, hand-mirrored from the server Mongoose Schemas in `src/models/` — keep both in sync when changing fields); rich text via Tiptap; media via S3 presigned uploads (`presign.ts` → client PUTs → `s3-delete.ts` on removal).
 
 ### State & utilities
 - Global state via `nanostores` + `@nanostores/vue` (`src/stores/theme.ts`).

@@ -18,11 +18,13 @@ export const adminRequest = async (
 
     if (!response.ok) {
       const errorData = await response.json()
+
       toast.add({
         title: 'Error',
         description: errorData.error || 'Failed to update settings.',
         color: 'red'
       })
+
       return
     }
   } catch (error) {
@@ -31,6 +33,7 @@ export const adminRequest = async (
       description: (error as Error).message || 'An unexpected error occurred.',
       color: 'red'
     })
+
     return
   }
 

@@ -1,7 +1,13 @@
 import type { SortOptionsType } from '@/types/portfolio'
 
 import mongoose, { type ConnectOptions } from 'mongoose'
+import { type WritableCollection, writeModels } from '@/models'
 import { ObjectId } from 'mongodb'
+
+function getModel(collectionName: string | undefined) {
+  if (!collectionName || !(collectionName in writeModels)) return null
+  return writeModels[collectionName as WritableCollection]
+}
 
 const { MONGODB_URI, MONGODB_DB } = import.meta.env
 const options = {
@@ -92,94 +98,61 @@ export async function fetchDataById(
 }
 
 /**
- * Saves or updates data in a MongoDB collection using Mongoose.
+ * Saves or updates data in a MongoDB collection via the per-collection Mongoose Model.
  *
- * If a document with the same identifier exists,
- * it will be updated; otherwise, a new document will be created.
+ * Writes are validated by the Model's schema (`strict: 'throw'`, required fields,
+ * matchers, etc.). If `data.id` is present, the matching document is updated;
+ * otherwise the singleton document for the collection is updated.
  *
  * @param collectionName - The name of the collection to save data to.
- * @param data - The data object to save. Should conform to the schema for the collection.
- * @returns The saved/updated document or null if failed.
+ * @param data - The data object to save. Validated against the Model's schema.
+ * @returns The saved/updated document or null if the collection is unknown.
  */
 export async function updateData(
   collectionName: string | undefined,
   data: Record<string, unknown>
 ) {
-  if (!collectionName || !data) {
-    return null
+  const Model = getModel(collectionName)
+  if (!Model || !data) return null
+
+  await connectToDatabase()
+
+  if (data.id) {
+    const { id, ...rest } = data
+    return Model.findByIdAndUpdate(id as string, rest, {
+      new: true,
+      runValidators: true,
+      strict: 'throw',
+      context: 'query'
+    })
   }
 
-  try {
-    await connectToDatabase()
-    const Collection = mongoose.connection.collection(collectionName)
-
-    if (data.id) {
-      const rest = { ...data }
-      delete rest.id
-
-      const updateDoc = {
-        $set: {
-          ...rest
-        }
-      }
-      const result = await Collection.findOneAndUpdate(
-        { _id: new ObjectId(data.id as string) },
-        updateDoc,
-        { returnDocument: 'after' }
-      )
-
-      return result
-    } else {
-      const updateDoc = {
-        $set: {
-          ...data
-        }
-      }
-      const result = await Collection.updateOne({}, updateDoc)
-
-      return result
-    }
-  } catch (error) {
-    throw error
-  }
+  // Singleton update (settings, about) — match the first/only document.
+  return Model.findOneAndUpdate({}, data, {
+    new: true,
+    runValidators: true,
+    strict: 'throw',
+    context: 'query'
+  })
 }
 
 export async function insertData(
   collectionName: string,
   data: Record<string, unknown>
 ) {
-  if (!collectionName || !data) {
-    return null
-  }
+  const Model = getModel(collectionName)
+  if (!Model || !data) return null
 
-  try {
-    await connectToDatabase()
+  await connectToDatabase()
 
-    const Collection = mongoose.connection.collection(collectionName)
-
-    const result = Array.isArray(data)
-      ? await Collection.insertMany(data)
-      : await Collection.insertOne(data)
-
-    return result
-  } catch (error) {
-    throw error
-  }
+  return Array.isArray(data) ? Model.insertMany(data) : Model.create(data)
 }
 
 export async function deleteData(collectionName: string, id: string) {
-  if (!collectionName || !id) {
-    return null
-  }
+  const Model = getModel(collectionName)
+  if (!Model || !id) return null
 
-  try {
-    await connectToDatabase()
+  await connectToDatabase()
 
-    const Collection = mongoose.connection.collection(collectionName)
-    const result = await Collection.findOneAndDelete({ _id: new ObjectId(id) })
-
-    return result
-  } catch (error) {
-    throw error
-  }
+  return Model.findByIdAndDelete(id)
 }
