@@ -21,7 +21,7 @@
     <div v-if="data" class="work-item">
       <div class="work-item__content">
         <h2 class="work-item__name text-center">{{ data?.name }}</h2>
-        <p class="work-item__description">{{ data?.description }}</p>
+        <div class="work-item__description" v-html="data?.description || ''" />
         <div class="work-item__group">
           <div class="work-item__slideshow">
             <Slideshow v-if="data?.images?.length" :images="data.images" />

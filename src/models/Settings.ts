@@ -3,6 +3,8 @@ import type { SettingsType } from '@/types/portfolio'
 
 import mongoose, { type Model } from 'mongoose'
 
+import { sanitizeDocFields, sanitizeUpdateFields } from '@/utils/sanitizeHtml'
+
 const { Schema, model, models } = mongoose
 
 const settingsSchema = new Schema<SettingsType>(
@@ -19,6 +21,14 @@ const settingsSchema = new Schema<SettingsType>(
   },
   { collection: 'settings', strict: 'throw', versionKey: false }
 )
+
+settingsSchema.pre('validate', function () {
+  sanitizeDocFields(this, ['about'])
+})
+
+settingsSchema.pre('findOneAndUpdate', function () {
+  sanitizeUpdateFields(this, ['about'])
+})
 
 export const Settings: Model<SettingsType> =
   (models.Settings as Model<SettingsType>) ||

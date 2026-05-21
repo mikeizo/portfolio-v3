@@ -3,6 +3,8 @@ import type { WorkType } from '@/types/portfolio'
 
 import mongoose, { type Model } from 'mongoose'
 
+import { sanitizeDocFields, sanitizeUpdateFields } from '@/utils/sanitizeHtml'
+
 const { Schema, model, models } = mongoose
 
 type WorkResource = WorkType['resources'][number]
@@ -46,10 +48,12 @@ workSchema.pre('validate', function () {
     this.created = now
   }
   this.updated = now
+  sanitizeDocFields(this, ['description'])
 })
 
 workSchema.pre('findOneAndUpdate', function () {
   this.set({ updated: isoNow() })
+  sanitizeUpdateFields(this, ['description'])
 })
 
 export const Work: Model<WorkType> =

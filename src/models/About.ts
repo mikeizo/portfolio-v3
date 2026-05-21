@@ -3,6 +3,8 @@ import type { AboutType } from '@/types/portfolio'
 
 import mongoose, { type Model } from 'mongoose'
 
+import { sanitizeDocFields, sanitizeUpdateFields } from '@/utils/sanitizeHtml'
+
 const { Schema, model, models } = mongoose
 
 const aboutSchema = new Schema<AboutType>(
@@ -15,6 +17,14 @@ const aboutSchema = new Schema<AboutType>(
   },
   { collection: 'about', strict: 'throw', versionKey: false }
 )
+
+aboutSchema.pre('validate', function () {
+  sanitizeDocFields(this, ['description'])
+})
+
+aboutSchema.pre('findOneAndUpdate', function () {
+  sanitizeUpdateFields(this, ['description'])
+})
 
 export const About: Model<AboutType> =
   (models.About as Model<AboutType>) || model<AboutType>('About', aboutSchema)
