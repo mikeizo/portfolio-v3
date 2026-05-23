@@ -12,6 +12,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@astrojs/partytown": "^2.1.7",
     "@astrojs/vercel": "^9.0.2",
     "@astrojs/vue": "^5.1.0",
     "@aws-sdk/client-s3": "^3.1029.0",

@@ -27,16 +27,18 @@ const menuItems = await getDataFeed('menu', 'sort')
       content={meataDescription ?? 'Personal website portfolio of Mike Tropea'}
     />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/fonts/Montserrat/Montserrat-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YS4SJXC4C5"
-    ></script>
+    <script
+      type="text/partytown"
+      src="https://www.googletagmanager.com/gtag/js?id=G-YS4SJXC4C5"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || []
       function gtag() {
