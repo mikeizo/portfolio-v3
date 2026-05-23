@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config'
 import { loadEnv } from 'vite'
-import partytown from '@astrojs/partytown'
 import tailwindcss from '@tailwindcss/vite'
 import ui from '@nuxt/ui/vite'
 import vercel from '@astrojs/vercel'
@@ -18,11 +17,6 @@ export default defineConfig({
     vue({
       appEntrypoint: '/src/app.ts',
       tailwindcss
-    }),
-    partytown({
-      config: {
-        forward: ['dataLayer.push']
-      }
     })
   ],
   output: 'server',
