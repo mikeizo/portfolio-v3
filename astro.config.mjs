@@ -19,7 +19,11 @@ export default defineConfig({
       appEntrypoint: '/src/app.ts',
       tailwindcss
     }),
-    partytown()
+    partytown({
+      config: {
+        forward: ['dataLayer.push']
+      }
+    })
   ],
   output: 'server',
   server: {
