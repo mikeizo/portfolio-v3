@@ -1,11 +1,10 @@
-import { defineMiddleware } from 'astro:middleware'
-
 import {
   buildSessionCookie,
   getUserFromRequest,
   REFRESH_THRESHOLD_SECONDS,
   signToken
 } from '@/utils/auth'
+import { defineMiddleware } from 'astro:middleware'
 
 const WRITE_METHODS = new Set(['POST', 'PATCH', 'PUT', 'DELETE'])
 
@@ -26,14 +25,16 @@ const json = (status: number, body: Record<string, unknown>) =>
 export const onRequest = defineMiddleware(async (context, next) => {
   const { request, url, locals, redirect } = context
   const { user, exp, token } = await getUserFromRequest(request)
-  locals.user = user
-
   const pathname = url.pathname
+
+  locals.user = user
 
   if (isProtectedPath(pathname)) {
     if (!user) {
-      if (pathname.startsWith('/api/'))
+      if (pathname.startsWith('/api/')) {
         return json(401, { error: 'Unauthorized' })
+      }
+
       return redirect(`/login?next=${encodeURIComponent(pathname)}`, 302)
     }
 
@@ -50,6 +51,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   if (user && token && exp) {
     const secondsLeft = exp - Math.floor(Date.now() / 1000)
+
     if (secondsLeft > 0 && secondsLeft < REFRESH_THRESHOLD_SECONDS) {
       const fresh = await signToken(user)
       response.headers.append('Set-Cookie', buildSessionCookie(fresh))

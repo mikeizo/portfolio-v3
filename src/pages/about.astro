@@ -22,6 +22,7 @@ const experienceData = await getDataFeed('experience', 'name', 'desc')
           alt="Mike Tropea"
           width="316"
           height="395"
+          fetchpriority="high"
         />
       </div>
       <AboutList data={aboutData || []} client:load />
