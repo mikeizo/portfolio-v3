@@ -49,7 +49,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const response = await next()
 
-  if (user && token && exp) {
+  if (user && token && exp && isProtectedPath(pathname)) {
     const secondsLeft = exp - Math.floor(Date.now() / 1000)
 
     if (secondsLeft > 0 && secondsLeft < REFRESH_THRESHOLD_SECONDS) {

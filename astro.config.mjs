@@ -9,7 +9,12 @@ const env = loadEnv(process.env, process.cwd(), '')
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: vercel(),
+  adapter: vercel({
+    isr: {
+      expiration: 60 * 5,
+      exclude: [/^\/api(\/|$)/, /^\/admin(\/|$)/, /^\/login(\/|$)/]
+    }
+  }),
   devToolbar: {
     enabled: false
   },
