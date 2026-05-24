@@ -1,11 +1,12 @@
 ---
 import type { AboutType } from '@/types/portfolio'
-import { getDataFeed } from '@/utils/api'
+import { fetchData } from '@/utils/mongodb'
 
 import Admin from '@/layouts/Admin.astro'
 import AdminAboutList from '@/components/admin/pages/about/AdminAboutList.vue'
 
-const aboutData: AboutType[] = await getDataFeed('about', 'year', 'asc')
+const aboutData = ((await fetchData('about', { sort: 'year', order: 1 })) ??
+  []) as AboutType[]
 const path = Astro.url.pathname
 ---
 

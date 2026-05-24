@@ -1,11 +1,11 @@
 ---
-import { getDataById } from '@/utils/api'
+import { fetchDataById } from '@/utils/mongodb'
 
 import Admin from '@/layouts/Admin.astro'
 import AdminAboutForm from '@/components/admin/pages/about/AdminAboutForm.vue'
 
 const { id } = Astro.params
-const aboutData = await getDataById('about', id)
+const aboutData = await fetchDataById('about', id)
 ---
 
 <Admin>

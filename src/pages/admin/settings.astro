@@ -1,10 +1,10 @@
 ---
-import { getDataFeed } from '@/utils/api'
+import { fetchData } from '@/utils/mongodb'
 
 import Admin from '@/layouts/Admin.astro'
 import SettingsPage from '@/components/admin/pages/Settings.vue'
 
-const [settingsData] = await getDataFeed('settings')
+const [settingsData] = (await fetchData('settings')) ?? []
 ---
 
 <Admin>

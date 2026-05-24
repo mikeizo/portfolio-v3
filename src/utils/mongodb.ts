@@ -65,7 +65,7 @@ export async function fetchData(
           })
         : await Collection.find()
 
-    return data.toArray()
+    return JSON.parse(JSON.stringify(await data.toArray()))
   } catch (error) {
     throw error
   }
@@ -91,7 +91,7 @@ export async function fetchDataById(
     const Collection = mongoose.connection.collection(collectionName)
     const data = await Collection.findOne({ _id: new ObjectId(id) })
 
-    return data
+    return data ? JSON.parse(JSON.stringify(data)) : null
   } catch (error) {
     throw error
   }

@@ -1,14 +1,19 @@
 ---
-import { getDataFeed } from '@/utils/api'
+import { fetchData } from '@/utils/mongodb'
 
 import AboutExperience from '@/components/pages/about/AboutExperience.vue'
 import AboutList from '@/components/pages/about/AboutList.vue'
 import Layout from '@/layouts/Layout.astro'
 import PageWrapper from '@/components/pages/PageWrapper.astro'
 
-const [settingsData] = await getDataFeed('settings')
-const aboutData = await getDataFeed('about', 'yearFrom', 'desc')
-const experienceData = await getDataFeed('experience', 'name', 'desc')
+const [settingsResult, aboutResult, experienceResult] = await Promise.all([
+  fetchData('settings'),
+  fetchData('about', { sort: 'yearFrom', order: -1 }),
+  fetchData('experience', { sort: 'name', order: -1 })
+])
+const [settingsData] = settingsResult ?? []
+const aboutData = aboutResult ?? []
+const experienceData = experienceResult ?? []
 ---
 
 <Layout>

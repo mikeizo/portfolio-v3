@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 import type { ContactType } from '@/types/portfolio'
 
-import { getDataFeed } from '@/utils/api'
+import { fetchData } from '@/utils/mongodb'
 import { validateForm } from '@/utils/validation'
 
 import sanitizeHtml from 'sanitize-html'
@@ -119,7 +119,7 @@ async function verifyRecaptcha(
  * @returns Promise<Response> resolving to the full fetch response from Mailgun
  */
 async function sendMessage(data: ContactType) {
-  const [settings] = await getDataFeed('settings')
+  const [settings] = (await fetchData('settings')) ?? []
   const env = import.meta.env
   const sendTo = settings.email
   const apiUrl = env.MAILGUN_URL
