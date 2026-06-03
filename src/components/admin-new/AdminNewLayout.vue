@@ -17,10 +17,16 @@
   const currentUser = ref<AuthUser | null>(props.user ?? null)
   provide('currentUser', readonly(currentUser))
 
-  // Shared theme — same storage key (`vueuse-color-scheme`) the public site +
-  // old admin use. `auto` follows the OS until the user makes an explicit choice,
-  // matching the inline pre-load script in AdminNew.astro.
-  const mode = useColorMode({ attribute: 'data-theme', initialValue: 'auto' })
+  // Theme for the admin-new shell: `auto` follows the OS until the user toggles
+  // (then light/dark are stored). Persists as admin-new-color-scheme; sets
+  // [data-theme] for admin-new.css. Pre-paint runs in AdminNew.astro.
+  const mode = useColorMode({
+    attribute: 'data-theme',
+    storageKey: 'admin-new-color-scheme',
+    initialValue: 'auto',
+    disableTransition: false
+  })
+
   const preferredDark = usePreferredDark()
   const isDark = computed(() =>
     mode.value === 'auto' ? preferredDark.value : mode.value === 'dark'

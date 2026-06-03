@@ -21,7 +21,8 @@ const path = Astro.url?.pathname
         .matches
         ? 'dark'
         : 'light'
-      const stored = localStorage.getItem('vueuse-color-scheme') || systemTheme
+      const stored =
+        localStorage.getItem('admin-new-color-scheme') || systemTheme
       const resolved = stored === 'auto' ? systemTheme : stored
 
       document.documentElement.setAttribute('data-theme', resolved)
