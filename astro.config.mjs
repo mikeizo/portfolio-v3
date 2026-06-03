@@ -12,7 +12,12 @@ export default defineConfig({
   adapter: vercel({
     isr: {
       expiration: 60 * 5,
-      exclude: [/^\/api(\/|$)/, /^\/admin(\/|$)/, /^\/login(\/|$)/]
+      exclude: [
+        /^\/api(\/|$)/,
+        /^\/admin(\/|$)/,
+        /^\/admin-new(\/|$)/,
+        /^\/login(\/|$)/
+      ]
     }
   }),
   devToolbar: {

@@ -1,0 +1,38 @@
+---
+import AdminNewLayout from '@/components/admin-new/AdminNewLayout.vue'
+
+import '@/styles/admin-new.css'
+
+const { isLogin = false } = Astro.props
+const user = Astro.locals.user
+const path = Astro.url?.pathname
+---
+
+<!doctype html>
+<html lang="en" data-theme="light" data-rail="expanded">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>Admin</title>
+
+    <script is:inline>
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+        .matches
+        ? 'dark'
+        : 'light'
+      const stored = localStorage.getItem('vueuse-color-scheme') || systemTheme
+      const resolved = stored === 'auto' ? systemTheme : stored
+
+      document.documentElement.setAttribute('data-theme', resolved)
+
+      const rail = localStorage.getItem('admin-new-rail') === 'true'
+      document.documentElement.dataset.rail = rail ? 'collapsed' : 'expanded'
+    </script>
+  </head>
+  <body>
+    <AdminNewLayout client:load isLogin={isLogin} user={user} path={path}>
+      <slot />
+    </AdminNewLayout>
+  </body>
+</html>
