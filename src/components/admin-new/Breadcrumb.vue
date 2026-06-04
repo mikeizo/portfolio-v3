@@ -23,14 +23,17 @@
 </script>
 
 <template>
-  <div class="mb-[18px] flex items-center gap-[7px] text-[13px] text-muted">
+  <div
+    class="h-[30px] flex items-center gap-[7px] text-[13px] text-muted px-[22px]"
+  >
     <template v-for="(crumb, i) in crumbs" :key="crumb.to">
       <a
         v-if="!crumb.isLast"
         :href="crumb.to"
         class="transition-colors hover:text-ink"
-        >{{ crumb.label }}</a
       >
+        {{ crumb.label }}
+      </a>
       <span v-else class="text-accent">{{ crumb.label }}</span>
       <ChevronRight
         v-if="!crumb.isLast"

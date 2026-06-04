@@ -130,10 +130,9 @@
         @toggle-sidebar="toggleSidebar"
         @toggle-theme="toggleTheme"
       />
-
+      <Breadcrumb :segments="segments" :label-for="labelFor" />
       <div class="flex-1 overflow-y-auto">
         <div class="mx-auto px-10 pb-16 pt-8">
-          <Breadcrumb :segments="segments" :label-for="labelFor" />
           <slot />
         </div>
       </div>

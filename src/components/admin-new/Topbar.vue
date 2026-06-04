@@ -40,7 +40,7 @@
     <button
       type="button"
       title="Collapse menu"
-      class="inline-flex size-8 items-center justify-center rounded-md text-muted transition-colors hover:bg-row-hover hover:text-ink"
+      class="inline-flex size-8 items-center justify-center rounded-md transition-colors bg-row-hover text-muted hover:text-ink cursor-pointer"
       @click="$emit('toggleSidebar')"
     >
       <PanelLeft :size="19" />

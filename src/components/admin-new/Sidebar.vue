@@ -7,7 +7,8 @@
     Globe,
     Settings
   } from 'lucide-vue-next'
-  import { computed, ref } from 'vue'
+  import type { NavGroup, NavItem } from '@/types/admin'
+  import { reactive } from 'vue'
 
   const props = defineProps<{
     mobileOpen: boolean
@@ -18,27 +19,53 @@
   const emit = defineEmits<{ navigate: []; expand: [] }>()
 
   const base = '/admin-new'
-  const pagesOpen = ref(true)
+
+  function isGroup(item: NavItem): item is NavGroup {
+    return 'children' in item
+  }
+
+  const navItems: NavItem[] = [
+    {
+      label: 'Pages',
+      icon: FileText,
+      defaultOpen: true,
+      children: [
+        { label: 'About', to: `${base}/about` },
+        { label: 'Work', to: `${base}/work` }
+      ]
+    },
+    { label: 'Experience', to: `${base}/experience`, icon: CodeXml },
+    { label: 'Settings', to: `${base}/settings`, icon: Settings }
+  ]
+
+  // Open/closed state per group, keyed by label and seeded from defaultOpen.
+  const openGroups = reactive<Record<string, boolean>>(
+    Object.fromEntries(
+      navItems
+        .filter(isGroup)
+        .map((group) => [group.label, group.defaultOpen ?? false])
+    )
+  )
 
   function isActive(path: string) {
     return props.pathname === path || props.pathname.startsWith(`${path}/`)
   }
 
-  // Collapsed rail: the Pages group has no destination of its own, so a click
-  // expands the rail (persisted by the parent) and forces the submenu open so
-  // About/Work are reachable. Expanded/mobile: plain toggle.
-  function onPagesClick() {
-    if (props.rail && window.matchMedia('(min-width: 1024px)').matches) {
-      emit('expand')
-      pagesOpen.value = true
-    } else {
-      pagesOpen.value = !pagesOpen.value
-    }
+  function groupActive(group: NavGroup) {
+    return group.children.some((child) => isActive(child.to))
   }
 
-  const pagesActive = computed(
-    () => isActive(`${base}/about`) || isActive(`${base}/work`)
-  )
+  // Collapsed rail: a group has no destination of its own, so a click expands
+  // the rail (persisted by the parent) and forces the submenu open so the
+  // children are reachable. Expanded/mobile: plain toggle.
+  function onGroupClick(group: NavGroup) {
+    if (props.rail && window.matchMedia('(min-width: 1024px)').matches) {
+      emit('expand')
+      openGroups[group.label] = true
+    } else {
+      openGroups[group.label] = !openGroups[group.label]
+    }
+  }
 </script>
 
 <template>
@@ -60,88 +87,72 @@
 
     <!-- nav -->
     <nav class="flex flex-1 flex-col gap-0.5 overflow-y-auto p-3">
-      <!-- Pages group -->
-      <button
-        type="button"
-        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
-        :class="pagesActive && 'text-accent'"
-        :title="rail ? 'Pages' : undefined"
-        @click="onPagesClick"
-      >
-        <FileText
-          :size="18"
-          class="shrink-0"
-          :class="pagesActive ? 'text-accent' : 'text-muted'"
-        />
-        <span class="whitespace-nowrap rail:lg:hidden">Pages</span>
-        <ChevronDown
-          :size="15"
-          class="ml-auto text-faint transition-transform duration-200 rail:lg:hidden"
-          :class="pagesOpen && 'rotate-180'"
-        />
-      </button>
+      <template v-for="item in navItems" :key="item.label">
+        <!-- group with children -->
+        <template v-if="isGroup(item)">
+          <button
+            type="button"
+            class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
+            :class="groupActive(item) && 'text-accent'"
+            :title="item.label"
+            @click="onGroupClick(item)"
+          >
+            <component
+              :is="item.icon"
+              :size="18"
+              class="shrink-0"
+              :class="groupActive(item) ? 'text-accent' : 'text-muted'"
+            />
+            <span class="whitespace-nowrap rail:lg:hidden">
+              {{ item.label }}
+            </span>
+            <ChevronDown
+              :size="15"
+              class="ml-auto text-faint transition-transform duration-200 rail:lg:hidden"
+              :class="openGroups[item.label] && 'rotate-180'"
+            />
+          </button>
 
-      <div
-        v-if="pagesOpen"
-        class="flex flex-col gap-px overflow-hidden rail:lg:hidden"
-      >
+          <div
+            v-if="openGroups[item.label]"
+            class="flex flex-col gap-px overflow-hidden rail:lg:hidden"
+          >
+            <a
+              v-for="child in item.children"
+              :key="child.to"
+              :href="child.to"
+              class="rounded-md py-[7px] pl-10 pr-2.5 text-[13.5px] transition-colors hover:bg-row-hover hover:text-ink"
+              :class="
+                isActive(child.to) ? 'font-normal text-accent' : 'text-muted'
+              "
+            >
+              {{ child.label }}
+            </a>
+          </div>
+        </template>
+
+        <!-- plain link -->
         <a
-          :href="`${base}/about`"
-          class="rounded-md py-[7px] pl-10 pr-2.5 text-[13.5px] transition-colors hover:bg-row-hover hover:text-ink"
+          v-else
+          :href="item.to"
+          class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
           :class="
-            isActive(`${base}/about`) ? 'font-normal text-accent' : 'text-muted'
+            isActive(item.to)
+              ? 'bg-accent-soft font-normal text-accent'
+              : 'text-ink-secondary'
           "
+          :title="item.label"
           @click="$emit('navigate')"
-          >About</a
         >
-        <a
-          :href="`${base}/work`"
-          class="rounded-md py-[7px] pl-10 pr-2.5 text-[13.5px] transition-colors hover:bg-row-hover hover:text-ink"
-          :class="
-            isActive(`${base}/work`) ? 'font-normal text-accent' : 'text-muted'
-          "
-          @click="$emit('navigate')"
-          >Work</a
-        >
-      </div>
-
-      <a
-        :href="`${base}/experience`"
-        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
-        :class="
-          isActive(`${base}/experience`)
-            ? 'bg-accent-soft font-normal text-accent'
-            : 'text-ink-secondary'
-        "
-        :title="rail ? 'Experience' : undefined"
-        @click="$emit('navigate')"
-      >
-        <CodeXml
-          :size="18"
-          class="shrink-0"
-          :class="isActive(`${base}/experience`) ? 'text-accent' : 'text-muted'"
-        />
-        <span class="whitespace-nowrap rail:lg:hidden">Experience</span>
-      </a>
-
-      <a
-        :href="`${base}/settings`"
-        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
-        :class="
-          isActive(`${base}/settings`)
-            ? 'bg-accent-soft font-normal text-accent'
-            : 'text-ink-secondary'
-        "
-        :title="rail ? 'Settings' : undefined"
-        @click="$emit('navigate')"
-      >
-        <Settings
-          :size="18"
-          class="shrink-0"
-          :class="isActive(`${base}/settings`) ? 'text-accent' : 'text-muted'"
-        />
-        <span class="whitespace-nowrap rail:lg:hidden">Settings</span>
-      </a>
+          <component
+            :is="item.icon"
+            :size="18"
+            class="shrink-0"
+            :class="isActive(item.to) ? 'text-accent' : 'text-muted'"
+          />
+          <span class="whitespace-nowrap rail:lg:hidden">{{ item.label }}</span>
+        </a>
+      </template>
     </nav>
 
     <!-- footer: external site link -->
@@ -150,7 +161,7 @@
         href="/"
         target="_blank"
         class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light text-muted transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
-        :title="rail ? 'Site' : undefined"
+        title="Site"
       >
         <Globe :size="18" class="shrink-0 text-muted" />
         <span class="whitespace-nowrap rail:lg:hidden">Site</span>
