@@ -10,18 +10,30 @@
   import { computed, ref } from 'vue'
 
   const props = defineProps<{
-    rail: boolean
     mobileOpen: boolean
+    rail: boolean
     pathname: string
   }>()
 
-  defineEmits<{ navigate: [] }>()
+  const emit = defineEmits<{ navigate: []; expand: [] }>()
 
   const base = '/admin-new'
   const pagesOpen = ref(true)
 
   function isActive(path: string) {
     return props.pathname === path || props.pathname.startsWith(`${path}/`)
+  }
+
+  // Collapsed rail: the Pages group has no destination of its own, so a click
+  // expands the rail (persisted by the parent) and forces the submenu open so
+  // About/Work are reachable. Expanded/mobile: plain toggle.
+  function onPagesClick() {
+    if (props.rail && window.matchMedia('(min-width: 1024px)').matches) {
+      emit('expand')
+      pagesOpen.value = true
+    } else {
+      pagesOpen.value = !pagesOpen.value
+    }
   }
 
   const pagesActive = computed(
@@ -37,11 +49,11 @@
     <!-- wordmark -->
     <div class="flex h-[60px] shrink-0 items-center gap-2 px-5">
       <span
-        v-if="!rail"
-        class="whitespace-nowrap text-[23px] font-light tracking-[-1px] text-ink"
+        class="whitespace-nowrap text-[23px] font-light tracking-[-1px] text-ink rail:lg:hidden"
         >admin<span class="text-accent">.</span></span
       >
-      <span v-else class="text-[24px] font-light tracking-[-1px] text-ink"
+      <span
+        class="hidden text-[24px] font-light tracking-[-1px] text-ink rail:lg:inline-block"
         >a<span class="text-accent">.</span></span
       >
     </div>
@@ -51,28 +63,27 @@
       <!-- Pages group -->
       <button
         type="button"
-        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
-        :class="[rail && 'justify-center px-2.5', pagesActive && 'text-accent']"
-        @click="pagesOpen = !pagesOpen"
+        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
+        :class="pagesActive && 'text-accent'"
+        :title="rail ? 'Pages' : undefined"
+        @click="onPagesClick"
       >
         <FileText
           :size="18"
           class="shrink-0"
           :class="pagesActive ? 'text-accent' : 'text-muted'"
         />
-        <template v-if="!rail">
-          <span class="whitespace-nowrap">Pages</span>
-          <ChevronDown
-            :size="15"
-            class="ml-auto text-faint transition-transform duration-200"
-            :class="pagesOpen && 'rotate-180'"
-          />
-        </template>
+        <span class="whitespace-nowrap rail:lg:hidden">Pages</span>
+        <ChevronDown
+          :size="15"
+          class="ml-auto text-faint transition-transform duration-200 rail:lg:hidden"
+          :class="pagesOpen && 'rotate-180'"
+        />
       </button>
 
       <div
-        v-if="pagesOpen && !rail"
-        class="flex flex-col gap-px overflow-hidden"
+        v-if="pagesOpen"
+        class="flex flex-col gap-px overflow-hidden rail:lg:hidden"
       >
         <a
           :href="`${base}/about`"
@@ -96,13 +107,13 @@
 
       <a
         :href="`${base}/experience`"
-        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light transition-colors hover:bg-row-hover hover:text-ink"
-        :class="[
-          rail && 'justify-center',
+        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
+        :class="
           isActive(`${base}/experience`)
             ? 'bg-accent-soft font-normal text-accent'
             : 'text-ink-secondary'
-        ]"
+        "
+        :title="rail ? 'Experience' : undefined"
         @click="$emit('navigate')"
       >
         <CodeXml
@@ -110,18 +121,18 @@
           class="shrink-0"
           :class="isActive(`${base}/experience`) ? 'text-accent' : 'text-muted'"
         />
-        <span v-if="!rail" class="whitespace-nowrap">Experience</span>
+        <span class="whitespace-nowrap rail:lg:hidden">Experience</span>
       </a>
 
       <a
         :href="`${base}/settings`"
-        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light transition-colors hover:bg-row-hover hover:text-ink"
-        :class="[
-          rail && 'justify-center',
+        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
+        :class="
           isActive(`${base}/settings`)
             ? 'bg-accent-soft font-normal text-accent'
             : 'text-ink-secondary'
-        ]"
+        "
+        :title="rail ? 'Settings' : undefined"
         @click="$emit('navigate')"
       >
         <Settings
@@ -129,7 +140,7 @@
           class="shrink-0"
           :class="isActive(`${base}/settings`) ? 'text-accent' : 'text-muted'"
         />
-        <span v-if="!rail" class="whitespace-nowrap">Settings</span>
+        <span class="whitespace-nowrap rail:lg:hidden">Settings</span>
       </a>
     </nav>
 
@@ -138,14 +149,12 @@
       <a
         href="/"
         target="_blank"
-        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light text-muted transition-colors hover:bg-row-hover hover:text-ink"
-        :class="rail && 'justify-center'"
+        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light text-muted transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
+        :title="rail ? 'Site' : undefined"
       >
         <Globe :size="18" class="shrink-0 text-muted" />
-        <template v-if="!rail">
-          <span class="whitespace-nowrap">Site</span>
-          <ArrowUpRight :size="14" class="ml-auto" />
-        </template>
+        <span class="whitespace-nowrap rail:lg:hidden">Site</span>
+        <ArrowUpRight :size="14" class="ml-auto rail:lg:hidden" />
       </a>
     </div>
   </aside>

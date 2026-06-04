@@ -50,11 +50,6 @@
     }
   })
 
-  // Defer rail-dependent inner markup until mounted so SSR and the first client
-  // render agree (expanded) — the narrow container clips the one-frame difference.
-  const mounted = ref(false)
-  const railResolved = computed(() => mounted.value && rail.value)
-
   // Keep the grid's width transition off until the collapsed width has settled
   // post-hydration, so the rail doesn't animate closed on every reload. Enabled
   // for subsequent user toggles only.
@@ -70,7 +65,6 @@
 
   // Current route → drives nav active state, breadcrumb and page title.
   onMounted(() => {
-    mounted.value = true
     requestAnimationFrame(() =>
       requestAnimationFrame(() => {
         transitionsReady.value = true
@@ -122,10 +116,11 @@
     />
 
     <Sidebar
-      :rail="railResolved"
-      :mobile-open="mobileOpen"
+      :mobileOpen="mobileOpen"
+      :rail="rail"
       :pathname="path"
       @navigate="mobileOpen = false"
+      @expand="rail = false"
     />
 
     <div class="flex h-screen min-w-0 flex-col">
