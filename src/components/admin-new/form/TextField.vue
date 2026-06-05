@@ -5,6 +5,7 @@
       label: string
       name: string
       type?: string
+      placeholder?: string
       error?: string
     }>(),
     { type: 'text' }
@@ -23,6 +24,7 @@
       :name="name"
       :type="type"
       :value="modelValue"
+      :placeholder="placeholder"
       class="w-full rounded-md border bg-field px-3 py-2 text-[15px] text-ink outline-none transition-colors placeholder:text-faint focus:border-accent"
       :class="error ? 'border-danger' : 'border-hairline-input'"
       @input="
