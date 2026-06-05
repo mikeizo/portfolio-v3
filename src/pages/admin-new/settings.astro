@@ -1,11 +1,12 @@
 ---
+import { fetchData } from '@/utils/mongodb'
+
 import AdminNew from '@/layouts/AdminNew.astro'
-import StubPanel from '@/components/admin-new/StubPanel.vue'
+import SettingsPage from '@/components/admin-new/pages/Settings.vue'
+
+const [settingsData] = (await fetchData('settings')) ?? []
 ---
 
 <AdminNew>
-  <StubPanel
-    title="Settings"
-    sub="Manage your profile and workspace details."
-  />
+  <SettingsPage data={settingsData} client:load />
 </AdminNew>

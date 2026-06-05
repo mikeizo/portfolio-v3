@@ -45,11 +45,6 @@
     >
       <PanelLeft :size="19" />
     </button>
-
-    <span class="text-[17px] font-light tracking-[-0.2px] text-ink">
-      {{ title }}
-    </span>
-
     <div class="ml-auto flex items-center gap-1.5">
       <!-- theme pill toggle -->
       <button

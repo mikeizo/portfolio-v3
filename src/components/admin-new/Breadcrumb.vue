@@ -24,7 +24,7 @@
 
 <template>
   <div
-    class="h-[30px] flex items-center gap-[7px] text-[13px] text-muted px-[22px]"
+    class="h-[30px] flex items-center gap-[7px] text-[13px] text-muted border-b border-hairline bg-bg px-[22px]"
   >
     <template v-for="(crumb, i) in crumbs" :key="crumb.to">
       <a
