@@ -3,6 +3,7 @@
 
   import * as v from 'valibot'
   import { reactive, ref } from 'vue'
+  import { addToast } from '@/stores/toasts'
   import { settingsSchema } from '@/utils/formSchema'
   import { useCurrentUser } from '@/composables/useCurrentUser'
 
@@ -25,7 +26,6 @@
 
   const errors = reactive<Record<string, string>>({})
   const status = ref<'idle' | 'saving' | 'success' | 'error'>('idle')
-  const message = ref('')
 
   async function onSubmit() {
     if (isGuest.value || status.value === 'saving') return
@@ -47,13 +47,26 @@
       })
       const body = await response.json().catch(() => ({}))
       status.value = response.ok ? 'success' : 'error'
-      message.value = response.ok
-        ? 'Settings have been updated.'
-        : body.error || 'Failed to update settings.'
+      if (response.ok) {
+        addToast({
+          type: 'success',
+          title: 'Saved',
+          description: 'Your settings have been updated.'
+        })
+      } else {
+        addToast({
+          type: 'error',
+          title: 'Update failed',
+          description: body.error || 'Failed to update settings.'
+        })
+      }
     } catch (error) {
       status.value = 'error'
-      message.value =
-        (error as Error).message || 'An unexpected error occurred.'
+      addToast({
+        type: 'error',
+        title: 'Update failed',
+        description: (error as Error).message || 'An unexpected error occurred.'
+      })
     }
   }
 </script>
@@ -65,18 +78,6 @@
   </p>
 
   <form class="max-w-2xl space-y-4" @submit.prevent="onSubmit">
-    <p
-      v-if="message"
-      class="rounded-md px-3.5 py-2.5 text-[13.5px]"
-      :class="
-        status === 'error'
-          ? 'bg-danger-soft text-danger'
-          : 'bg-accent-soft text-accent'
-      "
-    >
-      {{ message }}
-    </p>
-
     <TextField
       v-model="state.title"
       class="sm:w-1/2"

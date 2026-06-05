@@ -41,6 +41,9 @@
   --danger: #ea2261;
   --danger-soft: #fde6ee;
 
+  --success: #1a8245;
+  --success-soft: #e7f6ec;
+
   --shadow-1: 0 1px 3px rgba(0, 55, 112, 0.08);
   --shadow-2:
     0 8px 24px rgba(0, 55, 112, 0.08), 0 2px 6px rgba(0, 55, 112, 0.04);
@@ -75,6 +78,9 @@
 
   --danger: #ea2261;
   --danger-soft: rgba(234, 34, 97, 0.16);
+
+  --success: #3fb950;
+  --success-soft: rgba(63, 185, 80, 0.16);
 
   --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
   --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -113,6 +119,9 @@
 
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
+
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
 
   --radius-pill: 9999px;
 

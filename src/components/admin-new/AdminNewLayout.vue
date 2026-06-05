@@ -6,6 +6,7 @@
 
   import Breadcrumb from '@/components/admin-new/Breadcrumb.vue'
   import Sidebar from '@/components/admin-new/Sidebar.vue'
+  import Toast from '@/components/admin-new/Toast.vue'
   import Topbar from '@/components/admin-new/Topbar.vue'
 
   const props = defineProps<{
@@ -137,5 +138,7 @@
         </div>
       </div>
     </div>
+
+    <Toast />
   </div>
 </template>
