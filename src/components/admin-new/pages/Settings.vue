@@ -72,8 +72,8 @@
 </script>
 
 <template>
-  <h1 class="text-[34px] font-light tracking-[-0.7px] text-ink">Settings</h1>
-  <p class="mt-2 mb-7 text-[15px] text-muted">
+  <h1 class="text-4xl font-light tracking-[-0.7px] text-ink">Settings</h1>
+  <p class="mt-2 mb-7 text-base text-muted">
     Manage your profile and workspace details.
   </p>
 
@@ -108,14 +108,14 @@
     />
 
     <div>
-      <label class="mb-1.5 block text-[13px] text-muted">About Paragraph</label>
+      <label class="mb-1.5 block text-sm text-muted">About Paragraph</label>
       <RichTextEditor v-model="state.about" />
     </div>
 
     <button
       type="submit"
       :disabled="isGuest || status === 'saving'"
-      class="inline-flex items-center rounded-md bg-accent px-4 py-2 text-[15px] font-normal text-on-accent transition-colors hover:bg-accent-deep active:bg-accent-press disabled:cursor-not-allowed disabled:opacity-50"
+      class="inline-flex items-center rounded-md bg-accent px-4 py-2 text-base font-normal text-on-accent transition-colors hover:bg-accent-deep active:bg-accent-press disabled:cursor-not-allowed disabled:opacity-50"
     >
       {{ status === 'saving' ? 'Updating…' : 'Update' }}
     </button>

@@ -33,7 +33,7 @@
     editorProps: {
       attributes: {
         class:
-          'tiptap min-h-[160px] px-3.5 py-3 text-[15px] text-ink outline-none'
+          'tiptap min-h-40 px-3.5 py-3 text-base text-ink outline-none'
       }
     },
     onUpdate: ({ editor }) => emit('update:modelValue', editor.getHTML())

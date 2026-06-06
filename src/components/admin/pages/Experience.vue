@@ -118,7 +118,7 @@
       :key="`${experience.icon}-${index}`"
       class="bg-gray-200 dark:bg-gray-800 rounded-lg p-6 text-center flex flex-col justify-between gap-4"
     >
-      <i :class="[experience.icon.toLowerCase()]" class="text-[64px]" />
+      <i :class="[experience.icon.toLowerCase()]" class="text-6xl" />
       <UInput
         v-if="editIndex === index"
         v-model="experience.name"

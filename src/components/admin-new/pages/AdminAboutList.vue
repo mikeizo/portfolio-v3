@@ -95,8 +95,8 @@
 <template>
   <div class="flex items-start justify-between gap-4">
     <div>
-      <h1 class="text-[34px] font-light tracking-[-0.7px] text-ink">About</h1>
-      <p class="mt-2 mb-7 text-[15px] text-muted">
+      <h1 class="text-4xl font-light tracking-[-0.7px] text-ink">About</h1>
+      <p class="mt-2 mb-7 text-base text-muted">
         Manage the timeline entries shown on your About page.
       </p>
     </div>
@@ -104,7 +104,7 @@
     <a
       v-if="!isGuest"
       :href="`${base}/new`"
-      class="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-[15px] font-normal text-on-accent transition-colors hover:bg-accent-deep active:bg-accent-press"
+      class="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-base font-normal text-on-accent transition-colors hover:bg-accent-deep active:bg-accent-press"
     >
       Add
       <CirclePlus :size="16" />
@@ -114,9 +114,9 @@
   <div
     class="overflow-x-auto rounded-lg border border-hairline bg-surface shadow-card"
   >
-    <table class="w-full min-w-[680px] text-left text-[14px]">
+    <table class="w-full min-w-170 text-left text-sm">
       <thead>
-        <tr class="border-b border-hairline text-[13px] text-muted">
+        <tr class="border-b border-hairline text-sm text-muted">
           <th class="px-4 py-3 font-semibold">Year From</th>
           <th class="px-4 py-3 font-semibold">Year To</th>
           <th class="px-4 py-3 font-semibold">Description</th>

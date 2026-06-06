@@ -153,8 +153,8 @@
 </script>
 
 <template>
-  <h1 class="text-[34px] font-light tracking-[-0.7px] text-ink">Experience</h1>
-  <p class="mt-2 mb-7 text-[15px] text-muted">
+  <h1 class="text-4xl font-light tracking-[-0.7px] text-ink">Experience</h1>
+  <p class="mt-2 mb-7 text-base text-muted">
     Manage the technologies shown on your profile.
   </p>
 
@@ -179,7 +179,7 @@
       <button
         type="submit"
         :disabled="isGuest || status === 'saving'"
-        class="inline-flex items-center justify-center gap-2 rounded-md bg-accent px-4 py-2 text-[15px] font-normal text-on-accent transition-colors hover:bg-accent-deep active:bg-accent-press disabled:cursor-not-allowed disabled:opacity-50 sm:col-span-1 sm:mt-[26px]"
+        class="inline-flex items-center justify-center gap-2 rounded-md bg-accent px-4 py-2 text-base font-normal text-on-accent transition-colors hover:bg-accent-deep active:bg-accent-press disabled:cursor-not-allowed disabled:opacity-50 sm:col-span-1 sm:mt-6"
       >
         Add
         <CirclePlus :size="16" />
@@ -190,7 +190,7 @@
       href="https://devicon.dev"
       target="_blank"
       rel="noopener noreferrer"
-      class="inline-flex items-center gap-2 rounded-md border border-hairline-strong px-4 py-2 text-[15px] text-ink transition-colors hover:bg-row-hover"
+      class="inline-flex items-center gap-2 rounded-md border border-hairline-strong px-4 py-2 text-base text-ink transition-colors hover:bg-row-hover"
     >
       DevIcons
       <ArrowUpRight :size="16" />
@@ -205,14 +205,14 @@
       :key="`${experience.icon}-${index}`"
       class="flex flex-col justify-between gap-4 rounded-lg border border-hairline bg-surface p-6 text-center shadow-card"
     >
-      <i :class="experience.icon.toLowerCase()" class="text-[64px] text-ink" />
+      <i :class="experience.icon.toLowerCase()" class="text-6xl text-ink" />
 
       <input
         v-if="editIndex === index"
         v-model="experience.name"
-        class="w-full rounded-md border border-hairline-input bg-field px-3 py-2 text-center text-[15px] text-ink outline-none transition-colors focus:border-accent"
+        class="w-full rounded-md border border-hairline-input bg-field px-3 py-2 text-center text-base text-ink outline-none transition-colors focus:border-accent"
       />
-      <p v-else class="text-[15px] text-ink">{{ experience.name }}</p>
+      <p v-else class="text-base text-ink">{{ experience.name }}</p>
 
       <div v-if="!isGuest" class="flex justify-center gap-6">
         <button

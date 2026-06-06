@@ -70,17 +70,17 @@
 
 <template>
   <aside
-    class="fixed inset-y-0 left-0 z-40 flex w-[244px] min-w-0 flex-col overflow-hidden border-r border-hairline bg-sidebar transition-transform duration-200 lg:static lg:z-auto lg:w-full lg:translate-x-0"
+    class="fixed inset-y-0 left-0 z-40 flex w-61 min-w-0 flex-col overflow-hidden border-r border-hairline bg-sidebar transition-transform duration-200 lg:static lg:z-auto lg:w-full lg:translate-x-0"
     :class="mobileOpen ? 'translate-x-0' : '-translate-x-full'"
   >
     <!-- wordmark -->
-    <div class="flex h-[60px] shrink-0 items-center gap-2 px-5">
+    <div class="flex h-15 shrink-0 items-center gap-2 px-5">
       <span
-        class="whitespace-nowrap text-[23px] font-light tracking-[-1px] text-ink rail:lg:hidden"
+        class="whitespace-nowrap text-2xl font-light tracking-[-1px] text-ink rail:lg:hidden"
         >admin<span class="text-accent">.</span></span
       >
       <span
-        class="hidden text-[24px] font-light tracking-[-1px] text-ink rail:lg:inline-block"
+        class="hidden text-2xl font-light tracking-[-1px] text-ink rail:lg:inline-block"
         >a<span class="text-accent">.</span></span
       >
     </div>
@@ -121,7 +121,7 @@
               v-for="child in item.children"
               :key="child.to"
               :href="child.to"
-              class="rounded-md py-[7px] pl-10 pr-2.5 text-[13.5px] transition-colors hover:bg-row-hover hover:text-ink"
+              class="rounded-md py-2 pl-10 pr-2.5 text-sm transition-colors hover:bg-row-hover hover:text-ink"
               :class="
                 isActive(child.to) ? 'font-normal text-accent' : 'text-muted'
               "

@@ -57,7 +57,7 @@
              script in AdminNew.astro) so the pill is correct on the first frame and
              only animates on an actual user toggle, never on reload. -->
         <span
-          class="absolute left-[3px] flex size-5 items-center justify-center rounded-full bg-accent text-white transition-transform duration-200 dark:translate-x-5"
+          class="absolute left-1 flex size-5 items-center justify-center rounded-full bg-accent text-white transition-transform duration-200 dark:translate-x-5"
         >
           <Sun :size="12" class="dark:hidden" />
           <Moon :size="12" class="hidden dark:block" />
@@ -68,7 +68,7 @@
       <div class="relative">
         <button
           type="button"
-          class="inline-flex size-8 items-center justify-center rounded-full bg-accent text-[13px] font-medium text-white"
+          class="inline-flex size-8 items-center justify-center rounded-full bg-accent text-sm font-medium text-white"
           @click.stop="menuOpen = !menuOpen"
         >
           {{ initials }}
@@ -76,11 +76,11 @@
 
         <div
           v-if="menuOpen"
-          class="absolute right-0 top-[52px] z-40 min-w-[200px] rounded-lg border border-hairline bg-surface p-1.5 shadow-pop"
+          class="absolute right-0 top-13 z-40 min-w-50 rounded-lg border border-hairline bg-surface p-1.5 shadow-pop"
           @click.stop
         >
           <div class="mb-1 border-b border-hairline px-2.5 pb-2.5 pt-2">
-            <div class="truncate text-[13.5px] text-ink">
+            <div class="truncate text-sm text-ink">
               {{ user?.email ?? 'Admin' }}
             </div>
             <div class="text-xs capitalize text-muted">
@@ -90,14 +90,14 @@
           <a
             v-if="user?.role === 'admin'"
             href="/admin-new/settings"
-            class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13.5px] text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
+            class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
           >
             <Settings :size="16" class="text-muted" />
             User settings
           </a>
           <button
             type="button"
-            class="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-[13.5px] text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
+            class="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
             @click="logout"
           >
             <LogOut :size="16" class="text-muted" />

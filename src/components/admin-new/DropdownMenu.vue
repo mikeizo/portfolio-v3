@@ -94,7 +94,7 @@
 
   <div
     v-if="open"
-    class="fixed z-50 min-w-[180px] rounded-lg border border-hairline bg-surface p-1.5 shadow-pop"
+    class="fixed z-50 min-w-45 rounded-lg border border-hairline bg-surface p-1.5 shadow-pop"
     :style="{
       top: `${position.top}px`,
       left: position.left != null ? `${position.left}px` : undefined,
@@ -105,7 +105,7 @@
     <template v-for="(item, index) in items" :key="index">
       <div
         v-if="item.type === 'label'"
-        class="px-2.5 py-1.5 text-[13px] text-muted"
+        class="px-2.5 py-1.5 text-sm text-muted"
       >
         {{ item.label }}
       </div>
@@ -116,7 +116,7 @@
         v-else-if="item.type === 'link'"
         :href="item.to"
         :target="item.target"
-        class="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-[13.5px] transition-colors hover:bg-row-hover hover:text-ink"
+        class="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors hover:bg-row-hover hover:text-ink"
         :class="item.danger ? 'text-danger' : 'text-ink-secondary'"
         @click="close"
       >
@@ -133,7 +133,7 @@
       <button
         v-else
         type="button"
-        class="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-[13.5px] transition-colors hover:bg-row-hover hover:text-ink"
+        class="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors hover:bg-row-hover hover:text-ink"
         :class="item.danger ? 'text-danger' : 'text-ink-secondary'"
         @click="runItem(item)"
       >

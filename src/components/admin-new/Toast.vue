@@ -28,7 +28,7 @@
   <TransitionGroup
     tag="div"
     name="toast"
-    class="pointer-events-none fixed bottom-0 right-0 z-50 flex w-full max-w-[360px] flex-col gap-3 p-4"
+    class="pointer-events-none fixed bottom-0 right-0 z-50 flex w-full max-w-90 flex-col gap-3 p-4"
   >
     <div
       v-for="toast in toasts"
@@ -43,8 +43,8 @@
           class="mt-px shrink-0"
         />
         <div class="min-w-0 flex-1">
-          <p class="text-[13.5px] font-medium text-ink">{{ toast.title }}</p>
-          <p v-if="toast.description" class="mt-0.5 text-[13px] text-muted">
+          <p class="text-sm font-medium text-ink">{{ toast.title }}</p>
+          <p v-if="toast.description" class="mt-0.5 text-sm text-muted">
             {{ toast.description }}
           </p>
         </div>
@@ -62,7 +62,7 @@
            dismissal (via animationend). Hovering the card pauses it (see <style>),
            so bar and auto-dismiss stay in lockstep. -->
       <span
-        class="toast__bar absolute bottom-0 left-0 h-[3px] w-full origin-left"
+        class="toast__bar absolute bottom-0 left-0 h-1 w-full origin-left"
         :class="variants[toast.type].bar_class"
         @animationend="removeToast(toast.id)"
       />

@@ -9,12 +9,12 @@
 </script>
 
 <template>
-  <div class="mb-[26px] flex items-center justify-between gap-4">
+  <div class="mb-6 flex items-center justify-between gap-4">
     <div>
-      <h1 class="m-0 text-[34px] font-light tracking-[-0.7px] text-ink">
+      <h1 class="m-0 text-4xl font-light tracking-[-0.7px] text-ink">
         {{ title }}
       </h1>
-      <p v-if="sub" class="mt-2 text-[15px] text-muted">{{ sub }}</p>
+      <p v-if="sub" class="mt-2 text-base text-muted">{{ sub }}</p>
     </div>
     <button
       v-if="actionLabel"
@@ -27,10 +27,10 @@
   </div>
 
   <div
-    class="flex min-h-[260px] flex-col items-center justify-center gap-2 rounded-xl border border-hairline bg-surface p-10 text-center shadow-card"
+    class="flex min-h-65 flex-col items-center justify-center gap-2 rounded-xl border border-hairline bg-surface p-10 text-center shadow-card"
   >
-    <p class="text-[15px] text-ink-secondary">{{ title }} screen</p>
-    <p class="text-[13px] text-muted">
+    <p class="text-base text-ink-secondary">{{ title }} screen</p>
+    <p class="text-sm text-muted">
       Layout shell only — this screen is ported in a later phase.
     </p>
   </div>
