@@ -133,7 +133,7 @@
       />
       <Breadcrumb :segments="segments" :label-for="labelFor" />
       <div class="flex-1 overflow-y-auto">
-        <div class="mx-auto px-10 pb-16 pt-8">
+        <div class="mx-auto px-6 pb-16 pt-8">
           <slot />
         </div>
       </div>

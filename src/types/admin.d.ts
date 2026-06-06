@@ -14,3 +14,13 @@ export type NavGroup = {
 }
 
 export type NavItem = NavGroup | NavLink
+
+export type DropdownItem = {
+  type?: 'label' | 'separator' | 'link' | 'action'
+  label?: string
+  icon?: Component
+  to?: string
+  target?: string
+  danger?: boolean
+  onSelect?: () => void | Promise<void>
+}

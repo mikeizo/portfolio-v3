@@ -35,7 +35,7 @@
 
 <template>
   <header
-    class="flex h-[60px] shrink-0 items-center gap-3.5 border-b border-hairline bg-bg px-[22px]"
+    class="flex h-14 shrink-0 items-center gap-3 border-b border-hairline bg-bg px-6"
   >
     <button
       type="button"
@@ -45,12 +45,12 @@
     >
       <PanelLeft :size="19" />
     </button>
-    <div class="ml-auto flex items-center gap-1.5">
+    <div class="ml-auto flex items-center gap-2">
       <!-- theme pill toggle -->
       <button
         type="button"
         title="Toggle theme"
-        class="relative inline-flex h-[26px] w-[46px] items-center rounded-pill border border-hairline bg-surface-2 transition-colors"
+        class="relative inline-flex h-6 w-12 items-center rounded-pill border border-hairline bg-surface-2 transition-colors"
         @click="$emit('toggleTheme')"
       >
         <!-- Position + icon are driven by [data-theme] (set pre-paint by the inline
