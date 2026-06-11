@@ -76,11 +76,10 @@
     <!-- wordmark -->
     <div class="flex h-15 shrink-0 items-center gap-2 px-5">
       <span
-        class="whitespace-nowrap text-2xl font-light tracking-[-1px] text-ink rail:lg:hidden"
+        class="whitespace-nowrap text-2xl font-light text-ink rail:lg:hidden"
         >admin<span class="text-accent">.</span></span
       >
-      <span
-        class="hidden text-2xl font-light tracking-[-1px] text-ink rail:lg:inline-block"
+      <span class="hidden text-2xl font-light text-ink rail:lg:inline-block"
         >a<span class="text-accent">.</span></span
       >
     </div>

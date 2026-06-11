@@ -95,10 +95,7 @@
 <template>
   <div class="flex items-start justify-between gap-4">
     <div>
-      <h1 class="text-4xl font-light tracking-[-0.7px] text-ink">About</h1>
-      <p class="mt-2 mb-7 text-base text-muted">
-        Manage the timeline entries shown on your About page.
-      </p>
+      <h1 class="text-4xl font-light mb-7 text-ink">About</h1>
     </div>
 
     <a

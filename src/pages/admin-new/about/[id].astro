@@ -1,0 +1,23 @@
+---
+import { fetchDataById } from '@/utils/mongodb'
+
+import AdminAboutForm from '@/components/admin-new/pages/AdminAboutForm.vue'
+import AdminNew from '@/layouts/AdminNew.astro'
+
+const { id } = Astro.params
+
+// A missing record returns null; a malformed id makes fetchDataById throw.
+// Treat both as not-found so the form never receives null.
+let aboutData = null
+try {
+  aboutData = await fetchDataById('about', id)
+} catch {
+  aboutData = null
+}
+
+if (!aboutData) return Astro.redirect('/admin-new/about')
+---
+
+<AdminNew>
+  <AdminAboutForm data={aboutData} id={id} client:load />
+</AdminNew>

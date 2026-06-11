@@ -94,7 +94,7 @@
 
   <div
     v-if="open"
-    class="fixed z-50 min-w-45 rounded-lg border border-hairline bg-surface p-2 shadow-pop"
+    class="fixed z-50 min-w-32 rounded-lg border border-hairline bg-surface p-2 shadow-pop"
     :style="{
       top: `${position.top}px`,
       left: position.left != null ? `${position.left}px` : undefined,
@@ -103,7 +103,10 @@
     @click.stop
   >
     <template v-for="(item, index) in items" :key="index">
-      <div v-if="item.type === 'label'" class="px-3 py-2 text-sm text-muted">
+      <div
+        v-if="item.type === 'label'"
+        class="px-3 py-2 text-sm text-left text-muted"
+      >
         {{ item.label }}
       </div>
 

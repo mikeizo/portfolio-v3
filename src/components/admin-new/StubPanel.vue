@@ -11,7 +11,7 @@
 <template>
   <div class="mb-6 flex items-center justify-between gap-4">
     <div>
-      <h1 class="m-0 text-4xl font-light tracking-[-0.7px] text-ink">
+      <h1 class="m-0 text-4xl font-light tracking-tight text-ink">
         {{ title }}
       </h1>
       <p v-if="sub" class="mt-2 text-base text-muted">{{ sub }}</p>

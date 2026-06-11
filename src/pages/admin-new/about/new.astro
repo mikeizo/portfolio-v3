@@ -1,0 +1,10 @@
+---
+import AdminAboutForm from '@/components/admin-new/pages/AdminAboutForm.vue'
+import AdminNew from '@/layouts/AdminNew.astro'
+
+const aboutData = { yearFrom: '', yearTo: '', description: '', image: '' }
+---
+
+<AdminNew>
+  <AdminAboutForm data={aboutData} client:load />
+</AdminNew>

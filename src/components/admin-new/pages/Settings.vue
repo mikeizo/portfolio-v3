@@ -72,7 +72,7 @@
 </script>
 
 <template>
-  <h1 class="text-4xl font-light tracking-[-0.7px] text-ink">Settings</h1>
+  <h1 class="text-4xl font-light text-ink">Settings</h1>
   <p class="mt-2 mb-7 text-base text-muted">
     Manage your profile and workspace details.
   </p>
