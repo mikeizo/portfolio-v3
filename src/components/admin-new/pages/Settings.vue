@@ -108,7 +108,7 @@
     />
 
     <div>
-      <label class="mb-1.5 block text-sm text-muted">About Paragraph</label>
+      <label class="mb-2 block text-sm text-muted">About Paragraph</label>
       <RichTextEditor v-model="state.about" />
     </div>
 

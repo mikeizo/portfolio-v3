@@ -35,7 +35,7 @@
       :key="toast.id"
       class="toast pointer-events-auto relative overflow-hidden rounded-lg border border-hairline bg-surface shadow-pop"
     >
-      <div class="flex items-start gap-3 p-3.5">
+      <div class="flex items-start gap-3 p-4">
         <component
           :is="variants[toast.type].icon"
           :size="18"
@@ -44,7 +44,7 @@
         />
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-ink">{{ toast.title }}</p>
-          <p v-if="toast.description" class="mt-0.5 text-sm text-muted">
+          <p v-if="toast.description" class="mt-1 text-sm text-muted">
             {{ toast.description }}
           </p>
         </div>

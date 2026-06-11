@@ -86,13 +86,13 @@
     </div>
 
     <!-- nav -->
-    <nav class="flex flex-1 flex-col gap-0.5 overflow-y-auto p-3">
+    <nav class="flex flex-1 flex-col gap-1 overflow-y-auto p-3">
       <template v-for="item in navItems" :key="item.label">
         <!-- group with children -->
         <template v-if="isGroup(item)">
           <button
             type="button"
-            class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
+            class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-light text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
             :class="groupActive(item) && 'text-accent'"
             :title="item.label"
             @click="onGroupClick(item)"
@@ -121,7 +121,7 @@
               v-for="child in item.children"
               :key="child.to"
               :href="child.to"
-              class="rounded-md py-2 pl-10 pr-2.5 text-sm transition-colors hover:bg-row-hover hover:text-ink"
+              class="rounded-md py-2 pl-10 pr-3 text-sm transition-colors hover:bg-row-hover hover:text-ink"
               :class="
                 isActive(child.to) ? 'font-normal text-accent' : 'text-muted'
               "
@@ -135,7 +135,7 @@
         <a
           v-else
           :href="item.to"
-          class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
+          class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-light transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
           :class="
             isActive(item.to)
               ? 'bg-accent-soft font-normal text-accent'
@@ -160,7 +160,7 @@
       <a
         href="/"
         target="_blank"
-        class="flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-light text-muted transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
+        class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-light text-muted transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
         title="Site"
       >
         <Globe :size="18" class="shrink-0 text-muted" />

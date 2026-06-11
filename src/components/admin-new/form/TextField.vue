@@ -16,7 +16,7 @@
 
 <template>
   <div>
-    <label :for="name" class="mb-1.5 block text-sm text-muted">
+    <label :for="name" class="mb-2 block text-sm text-muted">
       {{ label }}
     </label>
     <input

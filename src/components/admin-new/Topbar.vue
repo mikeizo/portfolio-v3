@@ -76,10 +76,10 @@
 
         <div
           v-if="menuOpen"
-          class="absolute right-0 top-13 z-40 min-w-50 rounded-lg border border-hairline bg-surface p-1.5 shadow-pop"
+          class="absolute right-0 top-13 z-40 min-w-50 rounded-lg border border-hairline bg-surface p-2 shadow-pop"
           @click.stop
         >
-          <div class="mb-1 border-b border-hairline px-2.5 pb-2.5 pt-2">
+          <div class="mb-1 border-b border-hairline px-3 pb-3 pt-2">
             <div class="truncate text-sm text-ink">
               {{ user?.email ?? 'Admin' }}
             </div>
@@ -90,14 +90,14 @@
           <a
             v-if="user?.role === 'admin'"
             href="/admin-new/settings"
-            class="flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
+            class="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
           >
             <Settings :size="16" class="text-muted" />
             User settings
           </a>
           <button
             type="button"
-            class="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
+            class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
             @click="logout"
           >
             <LogOut :size="16" class="text-muted" />

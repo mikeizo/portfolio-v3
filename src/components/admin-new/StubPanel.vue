@@ -19,7 +19,7 @@
     <button
       v-if="actionLabel"
       type="button"
-      class="inline-flex shrink-0 items-center gap-1.5 rounded-pill bg-accent px-4 py-2 text-base font-normal text-white transition-colors hover:bg-accent-deep active:bg-accent-press"
+      class="inline-flex shrink-0 items-center gap-2 rounded-pill bg-accent px-4 py-2 text-base font-normal text-white transition-colors hover:bg-accent-deep active:bg-accent-press"
     >
       {{ actionLabel }}
       <CirclePlus :size="16" />

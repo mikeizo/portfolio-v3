@@ -32,8 +32,7 @@
     ],
     editorProps: {
       attributes: {
-        class:
-          'tiptap min-h-40 px-3.5 py-3 text-base text-ink outline-none'
+        class: 'tiptap min-h-40 px-4 py-3 text-base text-ink outline-none'
       }
     },
     onUpdate: ({ editor }) => emit('update:modelValue', editor.getHTML())
@@ -70,7 +69,7 @@
   <div class="overflow-hidden rounded-md border border-hairline-input bg-field">
     <div
       v-if="editor"
-      class="flex flex-wrap items-center gap-0.5 border-b border-hairline px-2 py-1.5"
+      class="flex flex-wrap items-center gap-1 border-b border-hairline px-2 py-2"
     >
       <button
         type="button"
