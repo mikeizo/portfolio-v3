@@ -139,16 +139,9 @@
 </script>
 
 <template>
-  <h1 class="text-4xl font-light text-ink">
+  <h1 class="text-4xl mb-7 font-light text-ink">
     {{ id ? 'Edit about entry' : 'New about entry' }}
   </h1>
-  <p class="mt-2 mb-7 text-base text-muted">
-    {{
-      id
-        ? 'Update this timeline entry on your About page.'
-        : 'Add a new timeline entry to your About page.'
-    }}
-  </p>
 
   <form class="max-w-2xl space-y-4" @submit.prevent="onSubmit">
     <div class="flex flex-wrap items-start gap-4">
