@@ -1,8 +1,12 @@
 ---
+import { fetchData } from '@/utils/mongodb'
+
+import AdminWorkList from '@/components/admin-new/pages/AdminWorkList.vue'
 import AdminNew from '@/layouts/AdminNew.astro'
-import StubPanel from '@/components/admin-new/StubPanel.vue'
+
+const work = (await fetchData('work', { sort: 'weight', order: 1 })) ?? []
 ---
 
 <AdminNew>
-  <StubPanel client:load title="Work" action-label="Add" />
+  <AdminWorkList data={work} client:load />
 </AdminNew>
