@@ -33,6 +33,12 @@ export const aboutSchema = v.strictObject({
   image: v.string()
 })
 
+// --- Login (client-side only; no Mongoose model) ---
+export const loginSchema = v.strictObject({
+  email: v.pipe(v.string(), v.email('Please enter a valid email')),
+  password: v.pipe(v.string(), v.nonEmpty('Please enter your password'))
+})
+
 // --- Work (src/models/Work.ts) ---
 const optionalUrl = v.union([
   v.literal(''),
