@@ -13,8 +13,10 @@
   import { reactive, ref } from 'vue'
   import { addToast } from '@/stores/toasts'
   import { experienceSchema } from '@/utils/formSchema'
+  import { useConfirmDelete } from '@/composables/useConfirmDelete'
   import { useCurrentUser } from '@/composables/useCurrentUser'
 
+  import ConfirmDialog from '@/components/admin-new/ConfirmDialog.vue'
   import TextField from '@/components/admin-new/form/TextField.vue'
 
   const { isGuest } = useCurrentUser()
@@ -26,6 +28,16 @@
   const state = reactive({ icon: '', name: '' })
   const errors = reactive<Record<string, string>>({})
   const status = ref<'idle' | 'saving'>('idle')
+
+  const {
+    isOpen: confirmOpen,
+    loading: deleting,
+    request: requestDelete,
+    confirm: confirmDelete,
+    cancel: cancelDelete
+  } = useConfirmDelete<{ id: string; name: string }>((t) =>
+    deleteIcon(t.id, t.name)
+  )
 
   const sortByName = () =>
     experiences.value.sort((a, b) => a.name.localeCompare(b.name))
@@ -237,11 +249,20 @@
           type="button"
           title="Delete"
           class="text-danger transition-opacity hover:opacity-70"
-          @click="deleteIcon(experience._id ?? '', experience.name)"
+          @click="
+            requestDelete({ id: experience._id ?? '', name: experience.name })
+          "
         >
           <CircleX :size="18" />
         </button>
       </div>
     </div>
   </div>
+
+  <ConfirmDialog
+    :open="confirmOpen"
+    :loading="deleting"
+    @confirm="confirmDelete"
+    @cancel="cancelDelete"
+  />
 </template>

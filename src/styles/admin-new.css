@@ -39,6 +39,7 @@
   --field-bg: #ffffff;
 
   --danger: #ea2261;
+  --danger-deep: #c81b54;
   --danger-soft: #fde6ee;
 
   --success: #1a8245;
@@ -77,6 +78,7 @@
   --field-bg: #0e1d30;
 
   --danger: #ea2261;
+  --danger-deep: #f0407a;
   --danger-soft: rgba(234, 34, 97, 0.16);
 
   --success: #3fb950;
@@ -118,6 +120,7 @@
   --color-field: var(--field-bg);
 
   --color-danger: var(--danger);
+  --color-danger-deep: var(--danger-deep);
   --color-danger-soft: var(--danger-soft);
 
   --color-success: var(--success);

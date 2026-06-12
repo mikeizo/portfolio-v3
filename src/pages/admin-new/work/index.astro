@@ -1,8 +1,8 @@
 ---
 import { fetchData } from '@/utils/mongodb'
 
-import AdminWorkList from '@/components/admin-new/pages/AdminWorkList.vue'
 import AdminNew from '@/layouts/AdminNew.astro'
+import AdminWorkList from '@/components/admin-new/pages/AdminWorkList.vue'
 
 const work = (await fetchData('work', { sort: 'weight', order: 1 })) ?? []
 ---

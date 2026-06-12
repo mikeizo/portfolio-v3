@@ -5,8 +5,10 @@
   import { CirclePlus, Eye, Pencil, Trash } from 'lucide-vue-next'
   import { onMounted, ref } from 'vue'
   import { addToast } from '@/stores/toasts'
+  import { useConfirmDelete } from '@/composables/useConfirmDelete'
   import { useCurrentUser } from '@/composables/useCurrentUser'
 
+  import ConfirmDialog from '@/components/admin-new/ConfirmDialog.vue'
   import DropdownMenu from '@/components/admin-new/DropdownMenu.vue'
 
   const { isGuest } = useCurrentUser()
@@ -14,6 +16,14 @@
   const props = defineProps<{ data: AboutType[] }>()
 
   const aboutData = ref<AboutType[]>([...props.data])
+
+  const {
+    isOpen: confirmOpen,
+    loading: deleting,
+    request: requestDelete,
+    confirm: confirmDelete,
+    cancel: cancelDelete
+  } = useConfirmDelete<string>((id) => deleteAbout(id))
 
   const base = '/admin-new/about'
 
@@ -40,7 +50,7 @@
               label: 'Delete',
               icon: Trash,
               danger: true,
-              onSelect: () => deleteAbout(id)
+              onSelect: () => requestDelete(id)
             } satisfies DropdownItem
           ])
     ]
@@ -147,4 +157,11 @@
       </tbody>
     </table>
   </div>
+
+  <ConfirmDialog
+    :open="confirmOpen"
+    :loading="deleting"
+    @confirm="confirmDelete"
+    @cancel="cancelDelete"
+  />
 </template>

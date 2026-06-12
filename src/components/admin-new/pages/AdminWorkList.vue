@@ -1,12 +1,14 @@
 <script setup lang="ts">
-  import type { WorkType } from '@/types/portfolio'
   import type { DropdownItem } from '@/types/admin'
+  import type { WorkType } from '@/types/portfolio'
 
   import { CirclePlus, Eye, Pencil, Trash } from 'lucide-vue-next'
   import { onMounted, ref } from 'vue'
   import { addToast } from '@/stores/toasts'
+  import { useConfirmDelete } from '@/composables/useConfirmDelete'
   import { useCurrentUser } from '@/composables/useCurrentUser'
 
+  import ConfirmDialog from '@/components/admin-new/ConfirmDialog.vue'
   import DropdownMenu from '@/components/admin-new/DropdownMenu.vue'
 
   const { isGuest } = useCurrentUser()
@@ -14,6 +16,14 @@
   const props = defineProps<{ data: WorkType[] }>()
 
   const workData = ref<WorkType[]>([...props.data])
+
+  const {
+    isOpen: confirmOpen,
+    loading: deleting,
+    request: requestDelete,
+    confirm: confirmDelete,
+    cancel: cancelDelete
+  } = useConfirmDelete<string>((id) => deleteWork(id))
 
   const base = '/admin-new/work'
 
@@ -40,7 +50,7 @@
               label: 'Delete',
               icon: Trash,
               danger: true,
-              onSelect: () => deleteWork(id)
+              onSelect: () => requestDelete(id)
             } satisfies DropdownItem
           ])
     ]
@@ -145,4 +155,11 @@
       </tbody>
     </table>
   </div>
+
+  <ConfirmDialog
+    :open="confirmOpen"
+    :loading="deleting"
+    @confirm="confirmDelete"
+    @cancel="cancelDelete"
+  />
 </template>
