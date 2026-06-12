@@ -21,11 +21,6 @@
 
   const props = defineProps<{ data: Partial<WorkType>; id?: string }>()
 
-  // Stored icons are the devicon suffix (e.g. "vue-original"); strip any legacy
-  // "devicon-" prefix on load so the field shows the suffix the public site expects.
-  const normalizeIcon = (icon: string) =>
-    icon?.startsWith('devicon-') ? icon.slice(8) : (icon ?? '')
-
   const state = reactive({
     name: props.data.name ?? '',
     // String in state — TextField type=number emits strings; coerced to Number
@@ -35,7 +30,7 @@
     git: props.data.git ?? '',
     resources: (props.data.resources ?? []).map((r) => ({
       name: r.name ?? '',
-      icon: normalizeIcon(r.icon ?? '')
+      icon: r.icon.toLowerCase() ?? ''
     })),
     description: props.data.description ?? '',
     slug: props.data.slug ?? '',
@@ -327,7 +322,7 @@
               <input
                 v-model="resource.icon"
                 type="text"
-                placeholder="vue-original"
+                placeholder="devicon-vue-original"
                 class="w-full min-w-0 rounded-md border bg-field px-3 py-2 text-sm text-ink outline-none transition-colors placeholder:text-faint focus:border-accent"
                 :class="
                   errors[`resources.${index}.icon`]

@@ -221,14 +221,14 @@
       <ImagesIcon :size="22" class="text-faint" />
       <div>
         <span class="text-sm font-medium text-ink">Drop images here</span>
-        <p class="mt-0.5 text-xs text-faint">
+        <p class="mt-1 text-xs text-faint">
           WebP, SVG, PNG, or JPG (max. 2MB each). Up to {{ max }} total.
         </p>
       </div>
       <button
         type="button"
         :disabled="images.length + files.length >= max"
-        class="inline-flex items-center gap-2 rounded-md border border-hairline-input px-3 py-1.5 text-sm text-ink transition-colors hover:bg-row-hover disabled:cursor-not-allowed disabled:opacity-50"
+        class="inline-flex items-center gap-2 rounded-md border border-hairline-input px-3 py-2 text-sm text-ink transition-colors hover:bg-row-hover disabled:cursor-not-allowed disabled:opacity-50"
         @click="inputEl?.click()"
       >
         <Upload :size="14" />
