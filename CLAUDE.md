@@ -21,14 +21,14 @@ Astro 5 SSR site (`output: 'server'`, Vercel adapter) with Vue 3 islands, Tailwi
 - `trailingSlash: 'never'`.
 
 ### Data layer
-- `src/utils/mongodb.ts` is the single gateway to Mongo via Mongoose. It memoizes the connection (`isConnected`) and exposes `fetchData`, `fetchDataById`, `updateData`, `insertData`, `deleteData` — all keyed on a raw collection name.
+- `src/utils/mongodb.ts` is the single gateway to Mongo via Mongoose. It memoizes the connection (`isConnected`) and exposes `fetchData`, `fetchDataById`, `updateData`, `insertData`, `deleteData` — all keyed on a raw collection name. Public Astro pages (`src/pages/index.astro`, `about.astro`, `work.astro`, and `src/layouts/Layout.astro`) call `fetchData` directly in-process rather than going through the HTTP read API.
 - Requires `MONGODB_URI` and `MONGODB_DB` env vars.
 - **Writes go through per-collection Mongoose Models** in `src/models/` (`Settings`, `Experience`, `About`, `Work`), registered in `src/models/index.ts` as `writeModels`. Each Schema uses `strict: 'throw'` so unknown fields cause Mongoose to throw `StrictModeError`; the API handler maps that (plus `ValidationError` / `CastError`) to HTTP 400. `insertData` / `updateData` / `deleteData` resolve the right Model from the collection-name string via this registry and call Model methods with `runValidators: true`. Reads (`fetchData`, `fetchDataById`) still hit the raw collection — read shape is whatever Mongo holds.
 - Each Schema is typed `Schema<T>` / `Model<T>` against its matching type in `src/types/portfolio.d.ts` (e.g. `Schema<WorkType>`), so schema field names stay aligned with the TypeScript types at compile time.
 - The `Work` schema manages `created` / `updated` ISO-string timestamps server-side via `pre('validate')` (sets `created` on new docs and `updated` on every save) and `pre('findOneAndUpdate')` (sets `updated` on update queries). `created` is `immutable: true`. Clients must not send these fields — the hooks overwrite any supplied value.
 - HTML-bearing fields are sanitized server-side in the same hooks: `description` on `Work` and `About`, and `about` on `Settings`. Each model calls `sanitizeDocFields(this, [...])` in `pre('validate')` and `sanitizeUpdateFields(this, [...])` in `pre('findOneAndUpdate')` — both live in `src/utils/sanitizeHtml.ts`, wrapping a single `sanitizeDescription` config (allowed tags: `p, b, strong, em, i, h1, h2, h3, code, a, ul, ol, li`; anchors keep `href/target/rel`; schemes restricted to `http/https/mailto`). Sanitization runs on every write path (`insertData` and `updateData`), so the rule cannot be bypassed by direct API calls. Empty-after-sanitize values fall through to the schema's existing `required` check and surface as 400s.
 - **Adding a new writable collection requires**: (1) a Model in `src/models/`, (2) registering it in `writeModels` in `src/models/index.ts`, and (3) a mirrored valibot schema in `src/utils/formSchema.ts` for the corresponding Vue form's `UForm`. `ALLOWED_FEEDS` in `src/pages/api/admin/[feed].ts` is derived from `Object.keys(writeModels)`, so it stays in sync automatically.
-- Public read API: `src/pages/api/[feed]/index.ts` — dynamic `[feed]` param maps directly to a Mongo collection name, with optional `?sort=&order=` query.
+- Public read API: `src/pages/api/[feed]/index.ts` — dynamic `[feed]` param maps directly to a Mongo collection name, with optional `?sort=&order=` query. Used by client-side admin Vue components (`AdminWorkList`, `AdminAboutList`, `Experience`) via `getDataFeed` in `src/utils/api.ts`; public SSR pages bypass this and hit `fetchData` directly.
 - Admin write API: `src/pages/api/admin/[feed].ts`, plus `presign.ts` / `s3-delete.ts` for S3 uploads (AWS SDK v3, presigned URLs). Client flow: request a presigned PUT from `presign.ts`, PUT the file directly to S3, call `s3-delete.ts` on removal — orchestrated by the `useS3Upload` composable.
 - Contact form: `src/components/Contact.vue` (modal form) POSTs to `src/pages/api/mail.ts`, which verifies a reCAPTCHA Enterprise token server-side, sanitizes fields with `sanitize-html`, and sends mail via the Mailgun API.
 
@@ -58,7 +58,7 @@ Since the public read API still addresses collections by string, validate/whitel
 
 - Login flow entry points: page at `src/pages/login.astro` (mounts `src/components/pages/Login.vue`) posts to `src/pages/api/auth/login.ts`. `logout.ts` clears the cookie; `me.ts` returns the current user. Middleware explicitly skips `/api/auth/*` so these endpoints remain reachable when unauthenticated.
 - Login is gated by `src/middleware.ts`. Unauthenticated requests to `/admin/*` are redirected to `/login?next=<path>`; unauthenticated requests to `/api/admin/*` get 401. Writes to `/api/admin/*` (POST/PATCH/PUT/DELETE) require `role: 'admin'` — guests get 403.
-- Sessions are signed JWTs (HS256, `jose`) in an httpOnly cookie (`portfolio_session` by default), 7-day TTL, refreshed on activity when <2 days remain.
+- Sessions are signed JWTs (HS256, `jose`) in an httpOnly cookie (`portfolio_session` by default), 7-day TTL, refreshed when <2 days remain on activity to protected paths (`/admin/*`, `/api/admin/*`). Public pages don't refresh the cookie, so they remain ISR-cacheable.
 - Required env vars: `AUTH_JWT_SECRET` (32+ random bytes). Optional: `AUTH_COOKIE_NAME`.
 - Users live in a `users` collection: `{ email, passwordHash, role: 'admin' | 'guest', createdAt }`. Not exposed through any API — manage directly in MongoDB.
 
@@ -88,4 +88,4 @@ Generate a hash: `node -e "require('bcryptjs').hash('yourpassword', 10).then(con
 
 ## Deployment
 
-Vercel (`@astrojs/vercel` adapter, `vercel.json` present). Server output — every route is a serverless function unless explicitly prerendered.
+Vercel (`@astrojs/vercel` adapter, `vercel.json` present). Server output — every route is a serverless function unless explicitly prerendered. ISR is enabled in `astro.config.mjs` with a 5-minute expiration; `/api/*`, `/admin/*`, and `/login` are excluded so they always run fresh.

@@ -1,42 +1,40 @@
 <script setup lang="ts">
-  import type { AuthFormField, FormSubmitEvent } from '@nuxt/ui'
-
-  import { ref } from 'vue'
+  import * as v from 'valibot'
+  import { reactive, ref } from 'vue'
+  import { loginSchema } from '@/utils/formSchema'
 
   import Logo from '@/components/Logo.vue'
+  import TextField from '@/components/admin/form/TextField.vue'
 
-  const loading = ref(false)
+  const state = reactive({
+    email: '',
+    password: ''
+  })
+
+  const errors = reactive<Record<string, string>>({})
+  const status = ref<'idle' | 'submitting'>('idle')
   const errorMessage = ref<string | null>(null)
 
-  const fields: AuthFormField[] = [
-    {
-      name: 'email',
-      type: 'email',
-      label: 'Email',
-      placeholder: 'Enter your email',
-      required: true
-    },
-    {
-      name: 'password',
-      label: 'Password',
-      type: 'password',
-      placeholder: 'Enter your password',
-      required: true
-    }
-  ]
+  async function onSubmit() {
+    if (status.value === 'submitting') return
 
-  async function onSubmit(
-    payload: FormSubmitEvent<{ email: string; password: string }>
-  ) {
-    loading.value = true
+    for (const key in errors) delete errors[key]
+    const result = v.safeParse(loginSchema, state)
+    if (!result.success) {
+      const nested = v.flatten(result.issues).nested ?? {}
+      for (const field in nested) errors[field] = nested[field]![0]
+      return
+    }
+
+    status.value = 'submitting'
     errorMessage.value = null
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: payload.data.email,
-          password: payload.data.password
+          email: state.email,
+          password: state.password
         })
       })
 
@@ -55,33 +53,57 @@
     } catch {
       errorMessage.value = 'Network error'
     } finally {
-      loading.value = false
+      status.value = 'idle'
     }
   }
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center gap-4 p-4">
-    <UPageCard class="w-full max-w-md">
-      <UAuthForm
-        title="Login"
-        :fields="fields"
-        :loading="loading"
-        @submit="onSubmit"
+  <div class="flex min-h-screen items-center justify-center p-4">
+    <div
+      class="w-full max-w-md rounded-lg border border-hairline bg-surface p-8 shadow-card"
+    >
+      <div
+        class="mx-auto mb-6 w-48 [--color-accent:var(--accent)] [--color-logo:var(--text)]"
       >
-        <template #header>
-          <Logo />
-        </template>
-        <template #validation>
-          <UAlert
-            v-if="errorMessage"
-            color="error"
-            icon="i-lucide-info"
-            title="Error signing in"
-            :description="errorMessage"
-          />
-        </template>
-      </UAuthForm>
-    </UPageCard>
+        <Logo />
+      </div>
+
+      <h1 class="mb-6 text-center text-2xl font-light text-ink">Login</h1>
+
+      <form class="space-y-4" novalidate @submit.prevent="onSubmit">
+        <p
+          v-if="errorMessage"
+          class="rounded-md border border-danger/40 bg-danger-soft px-3 py-2 text-sm text-danger"
+        >
+          {{ errorMessage }}
+        </p>
+
+        <TextField
+          v-model="state.email"
+          label="Email"
+          name="email"
+          type="email"
+          placeholder="Enter your email"
+          :error="errors.email"
+        />
+        <TextField
+          v-model="state.password"
+          label="Password"
+          name="password"
+          type="password"
+          placeholder="Enter your password"
+          :error="errors.password"
+        />
+
+        <button
+          type="submit"
+          :disabled="status === 'submitting'"
+          class="inline-flex w-full items-center justify-center rounded-md bg-accent px-4 py-2 text-base font-normal text-on-accent transition-colors hover:bg-accent-deep active:bg-accent-press disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {{ status === 'submitting' ? 'Signing in…' : 'Sign in' }}
+        </button>
+      </form>
+    </div>
   </div>
 </template>

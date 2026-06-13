@@ -37,10 +37,7 @@
                   <div class="work-item__resource text-center">
                     <i
                       v-if="resource.icon"
-                      :class="[
-                        'work-item__resource-icon',
-                        `devicon-${resource.icon.toLowerCase()}`
-                      ]"
+                      :class="['work-item__resource-icon', `${resource.icon}`]"
                     />
                     <br />
                     <small class="work-item__resource-name">

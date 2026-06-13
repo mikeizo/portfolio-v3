@@ -2,14 +2,14 @@
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 
 import '@/styles/admin.css'
-import '@/styles/variables.scss'
 
 const { isLogin = false } = Astro.props
 const user = Astro.locals.user
+const path = Astro.url?.pathname
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light" data-rail="expanded">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -21,23 +21,19 @@ const user = Astro.locals.user
         .matches
         ? 'dark'
         : 'light'
-      const stored = localStorage.getItem('vueuse-color-scheme') || systemTheme
+      const stored =
+        localStorage.getItem('admin-new-color-scheme') || systemTheme
       const resolved = stored === 'auto' ? systemTheme : stored
 
-      if (resolved === 'dark') {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-
       document.documentElement.setAttribute('data-theme', resolved)
+
+      const rail = localStorage.getItem('admin-new-rail') === 'true'
+      document.documentElement.dataset.rail = rail ? 'collapsed' : 'expanded'
     </script>
   </head>
   <body>
-    <div class="isolate">
-      <AdminLayout client:load isLogin={isLogin} user={user}>
-        <slot />
-      </AdminLayout>
-    </div>
+    <AdminLayout client:load isLogin={isLogin} user={user} path={path}>
+      <slot />
+    </AdminLayout>
   </body>
 </html>
