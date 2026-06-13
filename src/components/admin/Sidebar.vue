@@ -74,14 +74,17 @@
     :class="mobileOpen ? 'translate-x-0' : '-translate-x-full'"
   >
     <!-- wordmark -->
-    <div class="flex h-15 shrink-0 items-center gap-2 px-5">
+    <div
+      class="flex h-14 shrink-0 items-center gap-2 px-5 border-b border-hairline"
+    >
       <span
         class="whitespace-nowrap text-2xl font-light text-ink rail:lg:hidden"
-        >MikeTropea<span class="text-accent">.</span></span
       >
-      <span class="hidden text-2xl font-light text-ink rail:lg:inline-block"
-        >MT<span class="text-accent">.</span></span
-      >
+        MikeTropea<span class="text-accent">.</span>
+      </span>
+      <span class="hidden text-2xl font-light text-ink rail:lg:inline-block">
+        MT<span class="text-accent">.</span>
+      </span>
     </div>
 
     <!-- nav -->
