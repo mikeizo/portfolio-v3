@@ -26,10 +26,6 @@ pnpm-debug.log*
 # Vercel
 .vercel/
 
-# NuxtUI
-auto-imports.d.ts
-components.d.ts
-
 # Playwright
 /test-results/
 /playwright-report/

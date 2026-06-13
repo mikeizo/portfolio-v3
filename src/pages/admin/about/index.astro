@@ -1,15 +1,12 @@
 ---
-import type { AboutType } from '@/types/portfolio'
 import { fetchData } from '@/utils/mongodb'
 
 import Admin from '@/layouts/Admin.astro'
-import AdminAboutList from '@/components/admin/pages/about/AdminAboutList.vue'
+import AdminAboutList from '@/components/admin/pages/AdminAboutList.vue'
 
-const aboutData = ((await fetchData('about', { sort: 'year', order: 1 })) ??
-  []) as AboutType[]
-const path = Astro.url.pathname
+const about = (await fetchData('about', { sort: 'yearFrom', order: -1 })) ?? []
 ---
 
 <Admin>
-  <AdminAboutList data={aboutData} path={path} client:load />
+  <AdminAboutList data={about} client:load />
 </Admin>

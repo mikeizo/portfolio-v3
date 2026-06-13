@@ -10,10 +10,10 @@
   import { useS3Upload } from '@/composables/useS3Upload'
   import { workSchema } from '@/utils/formSchema'
 
-  import GalleryUpload from '@/components/admin-new/form/GalleryUpload.vue'
-  import ImageUpload from '@/components/admin-new/form/ImageUpload.vue'
-  import RichTextEditor from '@/components/admin-new/form/RichTextEditor.vue'
-  import TextField from '@/components/admin-new/form/TextField.vue'
+  import GalleryUpload from '@/components/admin/form/GalleryUpload.vue'
+  import ImageUpload from '@/components/admin/form/ImageUpload.vue'
+  import RichTextEditor from '@/components/admin/form/RichTextEditor.vue'
+  import TextField from '@/components/admin/form/TextField.vue'
 
   const { isGuest } = useCurrentUser()
   const { presignAndPut, uploadMany, buildUniqueKey, deleteKeys } =
@@ -174,7 +174,7 @@
           description: 'Work record has been updated.'
         })
       } else {
-        window.location.href = '/admin-new/work?toast=work-created'
+        window.location.href = '/admin/work?toast=work-created'
       }
     } catch (error) {
       addToast({

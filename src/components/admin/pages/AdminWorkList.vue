@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import type { AboutType } from '@/types/portfolio'
   import type { DropdownItem } from '@/types/admin'
+  import type { WorkType } from '@/types/portfolio'
 
   import { CirclePlus, Eye, Pencil, Trash } from 'lucide-vue-next'
   import { onMounted, ref } from 'vue'
@@ -8,14 +8,14 @@
   import { useConfirmDelete } from '@/composables/useConfirmDelete'
   import { useCurrentUser } from '@/composables/useCurrentUser'
 
-  import ConfirmDialog from '@/components/admin-new/ConfirmDialog.vue'
-  import DropdownMenu from '@/components/admin-new/DropdownMenu.vue'
+  import ConfirmDialog from '@/components/admin/ConfirmDialog.vue'
+  import DropdownMenu from '@/components/admin/DropdownMenu.vue'
 
   const { isGuest } = useCurrentUser()
 
-  const props = defineProps<{ data: AboutType[] }>()
+  const props = defineProps<{ data: WorkType[] }>()
 
-  const aboutData = ref<AboutType[]>([...props.data])
+  const workData = ref<WorkType[]>([...props.data])
 
   const {
     isOpen: confirmOpen,
@@ -23,15 +23,15 @@
     request: requestDelete,
     confirm: confirmDelete,
     cancel: cancelDelete
-  } = useConfirmDelete<string>((id) => deleteAbout(id))
+  } = useConfirmDelete<string>((id) => deleteWork(id))
 
-  const base = '/admin-new/about'
+  const base = '/admin/work'
 
   // Rich-text descriptions are stored as sanitized HTML; show plain text in the
   // table cell. Regex strip (not DOMParser) keeps this safe during SSR hydration.
   const stripHtml = (html: string) => html.replace(/<[^>]+>/g, '').trim()
 
-  function rowItems(row: AboutType): DropdownItem[] {
+  function rowItems(row: WorkType): DropdownItem[] {
     const id = row._id ?? ''
 
     return [
@@ -56,9 +56,9 @@
     ]
   }
 
-  async function deleteAbout(id: string) {
+  async function deleteWork(id: string) {
     try {
-      const response = await fetch('/api/admin/about', {
+      const response = await fetch('/api/admin/work', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
@@ -66,17 +66,17 @@
       const body = await response.json().catch(() => ({}))
 
       if (response.ok) {
-        aboutData.value = aboutData.value.filter((a) => a._id !== id)
+        workData.value = workData.value.filter((w) => w._id !== id)
         addToast({
           type: 'success',
           title: 'Deleted',
-          description: 'About record has been deleted.'
+          description: 'Work record has been deleted.'
         })
       } else {
         addToast({
           type: 'error',
           title: 'Delete failed',
-          description: body.error || 'Failed to delete about record.'
+          description: body.error || 'Failed to delete work record.'
         })
       }
     } catch (error) {
@@ -91,11 +91,11 @@
   onMounted(() => {
     const params = new URLSearchParams(window.location.search)
 
-    if (params.get('toast') === 'about-created') {
+    if (params.get('toast') === 'work-created') {
       addToast({
         type: 'success',
         title: 'Added',
-        description: 'About record has been added.'
+        description: 'Work record has been added.'
       })
       history.replaceState({}, '', base)
     }
@@ -103,10 +103,8 @@
 </script>
 
 <template>
-  <div class="flex items-start justify-between gap-4">
-    <div>
-      <h1 class="text-4xl font-light mb-7 text-ink">About</h1>
-    </div>
+  <div class="mb-7 flex items-start justify-between gap-4">
+    <h1 class="text-4xl font-light tracking-[-0.7px] text-ink">Work</h1>
 
     <a
       v-if="!isGuest"
@@ -124,32 +122,32 @@
     <table class="w-full min-w-170 text-left text-sm">
       <thead>
         <tr class="border-b border-hairline text-sm text-muted">
-          <th class="px-4 py-3 font-semibold">Year From</th>
-          <th class="px-4 py-3 font-semibold">Year To</th>
+          <th class="px-4 py-3 font-semibold">Weight</th>
+          <th class="px-4 py-3 font-semibold">Name</th>
+          <th class="px-4 py-3 font-semibold">Slug</th>
           <th class="px-4 py-3 font-semibold">Description</th>
-          <th class="px-4 py-3 font-semibold">Image</th>
           <th class="px-4 py-3" />
         </tr>
       </thead>
       <tbody>
-        <tr v-if="!aboutData.length">
+        <tr v-if="!workData.length">
           <td colspan="5" class="px-4 py-8 text-center text-muted">
-            No about records yet.
+            No work records yet.
           </td>
         </tr>
         <tr
-          v-for="row in aboutData"
+          v-for="row in workData"
           :key="row._id"
           class="border-b border-hairline last:border-0 transition-colors hover:bg-row-hover"
         >
-          <td class="tnum px-4 py-3 text-ink">{{ row.yearFrom }}</td>
-          <td class="tnum px-4 py-3 text-ink">{{ row.yearTo || '—' }}</td>
+          <td class="tnum px-4 py-3 text-ink">{{ row.weight }}</td>
+          <td class="px-4 py-3 text-ink">{{ row.name }}</td>
+          <td class="px-4 py-3 text-muted">{{ row.slug }}</td>
           <td class="px-4 py-3">
             <p class="line-clamp-2 max-w-md text-muted">
               {{ stripHtml(row.description) }}
             </p>
           </td>
-          <td class="px-4 py-3 text-muted">{{ row.image || '—' }}</td>
           <td class="px-4 py-3 text-right">
             <DropdownMenu :items="rowItems(row)" align="end" />
           </td>

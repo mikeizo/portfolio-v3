@@ -9,9 +9,9 @@
   import { useCurrentUser } from '@/composables/useCurrentUser'
   import { useS3Upload } from '@/composables/useS3Upload'
 
-  import ImageUpload from '@/components/admin-new/form/ImageUpload.vue'
-  import RichTextEditor from '@/components/admin-new/form/RichTextEditor.vue'
-  import TextField from '@/components/admin-new/form/TextField.vue'
+  import ImageUpload from '@/components/admin/form/ImageUpload.vue'
+  import RichTextEditor from '@/components/admin/form/RichTextEditor.vue'
+  import TextField from '@/components/admin/form/TextField.vue'
 
   const { isGuest } = useCurrentUser()
   const { presignAndPut, deleteKeys } = useS3Upload()
@@ -124,7 +124,7 @@
           description: 'About record has been updated.'
         })
       } else {
-        window.location.href = '/admin-new/about?toast=about-created'
+        window.location.href = '/admin/about?toast=about-created'
       }
     } catch (error) {
       addToast({

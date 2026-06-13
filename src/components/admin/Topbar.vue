@@ -54,7 +54,7 @@
         @click="$emit('toggleTheme')"
       >
         <!-- Position + icon are driven by [data-theme] (set pre-paint by the inline
-             script in AdminNew.astro) so the pill is correct on the first frame and
+             script in Admin.astro) so the pill is correct on the first frame and
              only animates on an actual user toggle, never on reload. -->
         <span
           class="absolute left-1 flex size-5 items-center justify-center rounded-full bg-accent text-white transition-transform duration-200 dark:translate-x-5"
@@ -89,7 +89,7 @@
           </div>
           <a
             v-if="user?.role === 'admin'"
-            href="/admin-new/settings"
+            href="/admin/settings"
             class="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
           >
             <Settings :size="16" class="text-muted" />

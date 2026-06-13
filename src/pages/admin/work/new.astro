@@ -1,8 +1,19 @@
 ---
 import Admin from '@/layouts/Admin.astro'
-import AdminWorkForm from '@/components/admin/pages/work/AdminWorkForm.vue'
+import AdminWorkForm from '@/components/admin/pages/AdminWorkForm.vue'
 
-const workData = {} //{ yearFrom: '', yearTo: '', description: '' }
+const workData = {
+  name: '',
+  weight: 0,
+  url: '',
+  git: '',
+  resources: [],
+  description: '',
+  slug: '',
+  logo: '',
+  images: [],
+  grayscale: false
+}
 ---
 
 <Admin>

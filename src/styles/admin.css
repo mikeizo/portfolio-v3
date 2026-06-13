@@ -1,29 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap');
 @import 'tailwindcss';
-@import '@nuxt/ui';
 
-:root {
-  /* primary (blue) */
-  --ui-color-primary-50: oklch(97% 0.014 254.604);
-  --ui-color-primary-100: oklch(93.2% 0.032 255.585);
-  --ui-color-primary-200: oklch(88.2% 0.059 254.128);
-  --ui-color-primary-300: oklch(80.9% 0.105 251.813);
-  --ui-color-primary-400: oklch(70.7% 0.165 254.624);
-  --ui-color-primary-500: oklch(62.3% 0.214 259.815);
-  --ui-color-primary-600: oklch(54.6% 0.245 262.881);
-  --ui-color-primary-700: oklch(48.8% 0.243 264.376);
-  --ui-color-primary-800: oklch(42.4% 0.199 265.638);
-  --ui-color-primary-900: oklch(37.9% 0.146 265.522);
-  --ui-color-primary-950: oklch(28.2% 0.091 267.935);
-  /* neutral (slate) */
-  --ui-color-neutral-50: oklch(98.4% 0.003 247.858);
-  --ui-color-neutral-100: oklch(96.8% 0.007 247.896);
-  --ui-color-neutral-200: oklch(92.9% 0.013 255.508);
-  --ui-color-neutral-300: oklch(86.9% 0.022 252.894);
-  --ui-color-neutral-400: oklch(70.4% 0.04 256.788);
-  --ui-color-neutral-500: oklch(55.4% 0.046 257.417);
-  --ui-color-neutral-600: oklch(44.6% 0.043 257.281);
-  --ui-color-neutral-700: oklch(37.2% 0.044 257.287);
-  --ui-color-neutral-800: oklch(27.9% 0.041 260.031);
-  --ui-color-neutral-900: oklch(20.8% 0.042 265.755);
-  --ui-color-neutral-950: oklch(12.9% 0.042 264.695);
+/* Dark mode is driven by [data-theme="dark"] on <html>, not the `.dark` class. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Collapsed sidebar is driven by [data-rail="collapsed"] on <html>. */
+@custom-variant rail ([data-rail='collapsed'] &);
+
+/* ==========================================================================
+   Semantic theme tokens — ported from the Stripi design system
+   (colors_and_type.css §4 light / §5 dark). The shell reads ONLY these vars,
+   so the same markup re-themes when [data-theme] flips.
+   ========================================================================== */
+:root,
+[data-theme='light'] {
+  --bg: #ffffff;
+  --bg-soft: #f6f9fc;
+  --surface: #ffffff;
+  --surface-2: #f6f9fc;
+  --sidebar-bg: #ffffff;
+
+  --border: #e3e8ee;
+  --border-input: #a8c3de;
+  --border-strong: #cfd9e6;
+
+  --text: #0d253d;
+  --text-secondary: #273951;
+  --text-muted: #64748d;
+  --text-faint: #93a1b5;
+
+  --accent: #533afd;
+  --accent-deep: #4434d4;
+  --accent-press: #2e2b8c;
+  --accent-soft-bg: #f0eefe;
+  --on-accent: #ffffff;
+
+  --row-hover: #f6f9fc;
+  --field-bg: #ffffff;
+
+  --danger: #ea2261;
+  --danger-deep: #c81b54;
+  --danger-soft: #fde6ee;
+
+  --success: #1a8245;
+  --success-soft: #e7f6ec;
+
+  --shadow-1: 0 1px 3px rgba(0, 55, 112, 0.08);
+  --shadow-2:
+    0 8px 24px rgba(0, 55, 112, 0.08), 0 2px 6px rgba(0, 55, 112, 0.04);
+
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #0a1626;
+  --bg-soft: #0d1b2e;
+  --surface: #111f33;
+  --surface-2: #16263d;
+  --sidebar-bg: #0b1828;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-input: rgba(255, 255, 255, 0.14);
+  --border-strong: rgba(255, 255, 255, 0.22);
+
+  --text: #eef3fa;
+  --text-secondary: #c2cedf;
+  --text-muted: #8a9bb3;
+  --text-faint: #61748f;
+
+  --accent: #6f5bff;
+  --accent-deep: #5848e6;
+  --accent-press: #4434d4;
+  --accent-soft-bg: rgba(102, 94, 253, 0.14);
+  --on-accent: #ffffff;
+
+  --row-hover: rgba(255, 255, 255, 0.04);
+  --field-bg: #0e1d30;
+
+  --danger: #ea2261;
+  --danger-deep: #f0407a;
+  --danger-soft: rgba(234, 34, 97, 0.16);
+
+  --success: #3fb950;
+  --success-soft: rgba(63, 185, 80, 0.16);
+
+  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+
+  color-scheme: dark;
+}
+
+/* ==========================================================================
+   Map semantic vars into Tailwind's theme so utilities resolve to them:
+   bg-surface, text-muted, border-hairline, rounded-pill, shadow-card, etc.
+   ========================================================================== */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-sidebar: var(--sidebar-bg);
+
+  --color-hairline: var(--border);
+  --color-hairline-input: var(--border-input);
+  --color-hairline-strong: var(--border-strong);
+
+  --color-ink: var(--text);
+  --color-ink-secondary: var(--text-secondary);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-press: var(--accent-press);
+  --color-accent-soft: var(--accent-soft-bg);
+  --color-on-accent: var(--on-accent);
+
+  --color-row-hover: var(--row-hover);
+  --color-field: var(--field-bg);
+
+  --color-danger: var(--danger);
+  --color-danger-deep: var(--danger-deep);
+  --color-danger-soft: var(--danger-soft);
+
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+
+  --radius-pill: 9999px;
+
+  --shadow-card: var(--shadow-1);
+  --shadow-pop: var(--shadow-2);
+
+  --font-sans: 'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
+}
+
+/* ==========================================================================
+   Base — ss01 globally is part of the brand's character set; thin body.
+   ========================================================================== */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--text);
+  background: var(--bg);
+  font-feature-settings: 'ss01' 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* money / numeric cells — the financial-DNA signal */
+.tnum {
+  font-feature-settings:
+    'tnum' 1,
+    'ss01' 1;
 }

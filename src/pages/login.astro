@@ -1,5 +1,5 @@
 ---
-import AdminNew from '@/layouts/AdminNew.astro'
+import Admin from '@/layouts/Admin.astro'
 import LoginPage from '@/components/pages/Login.vue'
 
 if (Astro.locals.user) {
@@ -7,6 +7,6 @@ if (Astro.locals.user) {
 }
 ---
 
-<AdminNew isLogin={true}>
+<Admin isLogin={true}>
   <LoginPage client:load />
-</AdminNew>
+</Admin>

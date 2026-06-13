@@ -4,7 +4,7 @@
   import { loginSchema } from '@/utils/formSchema'
 
   import Logo from '@/components/Logo.vue'
-  import TextField from '@/components/admin-new/form/TextField.vue'
+  import TextField from '@/components/admin/form/TextField.vue'
 
   const state = reactive({
     email: '',
@@ -48,7 +48,7 @@
       }
 
       const params = new URLSearchParams(window.location.search)
-      const next = params.get('next') || '/admin-new/settings'
+      const next = params.get('next') || '/admin/settings'
       window.location.assign(next)
     } catch {
       errorMessage.value = 'Network error'

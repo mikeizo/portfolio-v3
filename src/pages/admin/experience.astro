@@ -4,10 +4,10 @@ import { fetchData } from '@/utils/mongodb'
 import Admin from '@/layouts/Admin.astro'
 import ExperiencePage from '@/components/admin/pages/Experience.vue'
 
-const experienceData =
+const experiences =
   (await fetchData('experience', { sort: 'name', order: 1 })) ?? []
 ---
 
 <Admin>
-  <ExperiencePage data={experienceData} client:load />
+  <ExperiencePage data={experiences} client:load />
 </Admin>
