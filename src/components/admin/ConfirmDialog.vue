@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { nextTick, onUnmounted, ref, useId, watch } from 'vue'
+  import { nextTick, onMounted, onUnmounted, ref, useId, watch } from 'vue'
   import { LoaderCircle } from 'lucide-vue-next'
 
   const props = withDefaults(
@@ -23,6 +23,15 @@
 
   const uid = useId()
   const cancelEl = ref<HTMLButtonElement | null>(null)
+
+  // The dialog always starts closed, so its teleported content has nothing to
+  // SSR. Gate the Teleport on a client-only flag: server and first hydration
+  // render nothing into <body>, avoiding a Vue hydration mismatch where the
+  // Transition's placeholder lands on Astro's injected island <style> tag.
+  const mounted = ref(false)
+  onMounted(() => {
+    mounted.value = true
+  })
 
   // Focus moves into the dialog on open and back to the trigger on close, so
   // keyboard users aren't dropped at <body> after dismissing.
@@ -56,7 +65,7 @@
 </script>
 
 <template>
-  <Teleport to="body">
+  <Teleport v-if="mounted" to="body">
     <Transition name="confirm">
       <div
         v-if="open"
