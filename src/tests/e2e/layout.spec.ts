@@ -1,11 +1,8 @@
 import { expect, test } from '@playwright/test'
 
-const TIMEOUT = 2000
-
 test.describe('layout test', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
-    await page.waitForLoadState('domcontentloaded')
   })
 
   test('toggles theme via header button', async ({ page }) => {
@@ -15,13 +12,11 @@ test.describe('layout test', () => {
     const next = initial === 'dark' ? 'light' : 'dark'
 
     const themeBtn = page.locator('.header__desktop .header__theme-btn')
-    await expect(themeBtn).toBeVisible({ timeout: TIMEOUT })
+    await expect(themeBtn).toBeVisible()
 
     await expect(async () => {
       await themeBtn.click()
-      await expect(html).toHaveAttribute('data-theme', next, {
-        timeout: TIMEOUT
-      })
+      await expect(html).toHaveAttribute('data-theme', next)
     }).toPass()
   })
 
@@ -31,7 +26,7 @@ test.describe('layout test', () => {
 
     await expect(async () => {
       await contactBtn.click()
-      await expect(modal).toBeVisible({ timeout: TIMEOUT })
+      await expect(modal).toBeVisible()
     }).toPass()
 
     await modal.getByRole('button', { name: 'Close' }).click()

@@ -3,7 +3,6 @@ import { expect, test } from '@playwright/test'
 test.describe('home page', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
-    await page.waitForLoadState('domcontentloaded')
   })
 
   test('has title containing site name', async ({ page }) => {
@@ -27,9 +26,7 @@ test.describe('home page', () => {
     const link = page
       .getByRole('navigation')
       .getByRole('link', { name: 'About' })
-    if ((await link.count()) === 0) {
-      test.skip(true, 'About nav link not available')
-    }
+    await expect(link).toBeVisible()
     await expect(link).toHaveAttribute('href', /\/about$/)
   })
 
@@ -37,9 +34,7 @@ test.describe('home page', () => {
     const link = page
       .getByRole('navigation')
       .getByRole('link', { name: 'Work' })
-    if ((await link.count()) === 0) {
-      test.skip(true, 'Work nav link not available')
-    }
+    await expect(link).toBeVisible()
     await expect(link).toHaveAttribute('href', /\/work$/)
   })
 })

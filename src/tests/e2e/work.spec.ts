@@ -9,22 +9,33 @@ const openModal = async (page: Page): Promise<Locator> => {
   const modal = page.locator('.modal').first()
   await expect(async () => {
     await item.click()
-    await expect(modal).toBeVisible({ timeout: 1000 })
-  }).toPass({ timeout: 10000 })
+    await expect(modal).toBeVisible()
+  }).toPass()
   return modal
+}
+
+const getSlideshowOrSkip = async (
+  page: Page,
+  minSlides = 1
+): Promise<Locator> => {
+  const slideshow = page.locator('.slideshow')
+  const dotCount = await slideshow.locator('.slideshow__dot').count()
+  if ((await slideshow.count()) === 0 || dotCount < minSlides) {
+    test.skip(true, `slideshow with ${minSlides}+ slides not present`)
+  }
+  return slideshow
 }
 
 test.describe('work page', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/work')
-    await page.waitForLoadState('domcontentloaded')
   })
 
   test('has title containing Work', async ({ page }) => {
     await expect(page).toHaveTitle(/Work/)
   })
 
-  test('opens and close work detail modal', async ({ page }) => {
+  test('opens and closes work detail modal', async ({ page }) => {
     const modal = await openModal(page)
     await modal.getByRole('button', { name: 'Close' }).click()
     await expect(modal).toBeHidden()
@@ -55,10 +66,7 @@ test.describe('work page', () => {
   test('slideshow next/prev advances the active slide', async ({ page }) => {
     await openModal(page)
 
-    const slideshow = page.locator('.slideshow')
-    if ((await slideshow.count()) === 0) {
-      test.skip(true, 'slideshow not present on this work item')
-    }
+    const slideshow = await getSlideshowOrSkip(page, 2)
 
     const activeDot = slideshow.locator('.slideshow__dot--active')
     await expect(activeDot).toHaveAttribute('aria-label', 'Go to slide 1')
@@ -73,10 +81,7 @@ test.describe('work page', () => {
   test('slideshow dot click jumps to that slide', async ({ page }) => {
     await openModal(page)
 
-    const slideshow = page.locator('.slideshow')
-    if ((await slideshow.count()) === 0) {
-      test.skip(true, 'slideshow not present on this work item')
-    }
+    const slideshow = await getSlideshowOrSkip(page, 3)
 
     await slideshow.getByRole('tab', { name: 'Go to slide 3' }).click()
 

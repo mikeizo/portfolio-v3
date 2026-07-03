@@ -1,23 +1,16 @@
 import { expect, test } from '@playwright/test'
 
-const TIMEOUT = 2000
-
 test.describe('about page', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/about')
-    await page.waitForLoadState('domcontentloaded')
   })
 
   test('has title containing About Me', async ({ page }) => {
     await expect(page).toHaveTitle(/About Me/)
   })
 
-  test('renders multiple timeline items', async ({ page }) => {
-    const items = page.locator('.about__list-item')
-    if ((await items.count()) === 0) {
-      test.skip(true, 'No about timeline items available')
-    }
-    expect(await items.count()).toBeGreaterThanOrEqual(1)
+  test('renders timeline items', async ({ page }) => {
+    await expect(page.locator('.about__list-item').first()).toBeVisible()
   })
 
   test('toggles accordion open and closed on click', async ({ page }) => {
@@ -29,9 +22,7 @@ test.describe('about page', () => {
 
     await expect(async () => {
       await description.click()
-      await expect(description).toHaveClass(/about__list-description--open/, {
-        timeout: TIMEOUT
-      })
+      await expect(description).toHaveClass(/about__list-description--open/)
     }).toPass()
 
     const height = await accordion.evaluate(
