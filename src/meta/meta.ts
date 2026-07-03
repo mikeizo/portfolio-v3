@@ -13,14 +13,16 @@ export const getMetaData = (page: string) => {
   const siteName = 'Mike Tropea'
   const siteDescription = 'Personal website portfolio of Mike Tropea'
 
-  const data: MetaDataType = metaData[page as PageType]
-  const metaDescription = data?.description || siteDescription
-  let metaTitle = data?.title ? `${data.title} | ${siteName}` : siteName
-
-  // Handle home page (empty path)
-  if (page === '') {
-    metaTitle = `${siteName} | ${metaData.home.title ?? ''}`
+  if (page === 'home') {
+    return {
+      title: `${siteName} - ${metaData.home.title ?? ''}`,
+      description: metaData.home.description ?? siteDescription
+    }
   }
+
+  const data: MetaDataType = metaData[page as PageType]
+  const metaTitle = data?.title ? `${data.title} | ${siteName}` : siteName
+  const metaDescription = data?.description || siteDescription
 
   return {
     title: metaTitle,

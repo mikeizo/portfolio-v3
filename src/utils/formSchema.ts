@@ -18,7 +18,7 @@ export const settingsSchema = v.strictObject({
 
 // --- Experience (src/models/Experience.ts) ---
 export const experienceSchema = v.strictObject({
-  name: v.pipe(v.string(), v.minLength(3, 'Must more than 3 characters')),
+  name: v.pipe(v.string(), v.minLength(3, 'Must be more than 3 characters')),
   icon: v.pipe(
     v.string(),
     v.startsWith('devicon-', 'Icon class must start with "devicon-"')
