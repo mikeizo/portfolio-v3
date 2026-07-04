@@ -11,12 +11,23 @@
 
   import ImageUpload from '@/components/admin/form/ImageUpload.vue'
   import RichTextEditor from '@/components/admin/form/RichTextEditor.vue'
-  import TextField from '@/components/admin/form/TextField.vue'
+  import SelectField from '@/components/admin/form/SelectField.vue'
 
   const { isGuest } = useCurrentUser()
   const { presignAndPut, deleteKeys } = useS3Upload()
 
   const props = defineProps<{ data: AboutType; id?: string }>()
+
+  const currentYear = new Date().getFullYear()
+  const yearOptions = Array.from({ length: currentYear - 2000 + 1 }, (_, i) => {
+    const year = String(currentYear - i)
+    return { label: year, value: year }
+  })
+  const yearToOptions = [
+    { label: '—', value: '' },
+    { label: 'Now', value: 'Now' },
+    ...yearOptions
+  ]
 
   const state = reactive({
     yearFrom: props.data.yearFrom ?? '',
@@ -145,18 +156,21 @@
 
   <form class="max-w-2xl space-y-4" @submit.prevent="onSubmit">
     <div class="flex flex-wrap items-start gap-4">
-      <TextField
+      <SelectField
         v-model="state.yearFrom"
         class="w-40"
         label="Year From"
         name="yearFrom"
+        placeholder="Select year"
+        :options="yearOptions"
         :error="errors.yearFrom"
       />
-      <TextField
+      <SelectField
         v-model="state.yearTo"
         class="w-40"
         label="Year To"
         name="yearTo"
+        :options="yearToOptions"
         :error="errors.yearTo"
       />
     </div>

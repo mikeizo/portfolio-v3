@@ -26,6 +26,16 @@ export async function fillField(page: Page, label: string, value: string) {
   }).toPass()
 }
 
+// Same hydration caveat for <select>-backed fields: retry until the chosen
+// option sticks.
+export async function selectField(page: Page, label: string, value: string) {
+  const field = page.getByLabel(label)
+  await expect(async () => {
+    await field.selectOption(value)
+    await expect(field).toHaveValue(value)
+  }).toPass()
+}
+
 // Log in through the real login form. Lands on /admin/settings by default;
 // callers needing another admin page navigate on from there.
 export async function login(page: Page, role: Role = 'guest') {

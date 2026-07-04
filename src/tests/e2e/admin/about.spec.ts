@@ -1,10 +1,10 @@
 import {
   editUrlRe,
   expectAdminWrite,
-  fillField,
   login,
   openFirstRowEdit,
-  openFirstRowMenu
+  openFirstRowMenu,
+  selectField
 } from '@/tests/e2e/helpers'
 import { expect, test } from '@playwright/test'
 
@@ -68,16 +68,22 @@ test.describe('admin about page (guest)', () => {
     await expect(update).toBeEnabled()
   })
 
-  test('edit form validates required fields client-side', async ({ page }) => {
-    await openFirstRowEdit(page, 'about')
+  test('new form validates required fields client-side', async ({ page }) => {
+    // Year From is a select whose only empty state is the disabled placeholder,
+    // so an existing record can't be cleared — validate on the new form, where
+    // it starts empty. A submit before hydration is a no-op, so retry the click
+    // until the inline valibot error appears; the API is never reached.
+    await page.goto('/admin/about/new')
+    await expect(
+      page.getByRole('heading', { name: 'New about entry' })
+    ).toBeVisible()
 
-    // fillField retries until the value sticks, which also gates form hydration
-    // so the submit handler is wired before we click. Clearing the required
-    // field surfaces the inline valibot error; the API is never reached.
-    await fillField(page, 'Year From', '')
-    await page.getByRole('button', { name: 'Update' }).click()
-
-    await expect(page.getByText('Please enter a start year')).toBeVisible()
+    await expect(async () => {
+      await page.getByRole('button', { name: 'Add' }).click()
+      await expect(page.getByText('Please enter a start year')).toBeVisible({
+        timeout: 1000
+      })
+    }).toPass()
   })
 
   test('forbids the guest from saving edits (403)', async ({ page }) => {
@@ -86,7 +92,7 @@ test.describe('admin about page (guest)', () => {
     // Edit a field (also gates hydration). The data stays valid, so submitting
     // reaches the write API, which the middleware rejects with 403 for the
     // guest role; the failure surfaces as a toast.
-    await fillField(page, 'Year From', '2099')
+    await selectField(page, 'Year From', '2005')
     await expectAdminWrite(page, {
       feed: 'about',
       method: 'PATCH',
