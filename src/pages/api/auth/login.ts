@@ -14,7 +14,7 @@ const json = (
 ) =>
   new Response(JSON.stringify(body), {
     status,
-    headers: { 'Content-Type': 'application/json', ...(extra || {}) }
+    headers: { 'Content-Type': 'application/json', ...extra }
   })
 
 export const POST: APIRoute = async ({ request }) => {

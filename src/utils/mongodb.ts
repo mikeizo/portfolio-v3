@@ -30,13 +30,9 @@ export async function connectToDatabase() {
     return mongoose.connection
   }
 
-  try {
-    await mongoose.connect(MONGODB_URI, options as ConnectOptions)
-    isConnected = true
-    return mongoose.connection
-  } catch (error) {
-    throw error
-  }
+  await mongoose.connect(MONGODB_URI, options as ConnectOptions)
+  isConnected = true
+  return mongoose.connection
 }
 
 /**
@@ -56,19 +52,15 @@ export async function fetchData(
 
   const Collection = mongoose.connection.collection(collectionName)
 
-  try {
-    await connectToDatabase()
-    const data =
-      sortOptions?.sort && sortOptions?.order
-        ? await Collection.find().sort({
-            [sortOptions.sort]: sortOptions.order
-          })
-        : await Collection.find()
+  await connectToDatabase()
+  const data =
+    sortOptions?.sort && sortOptions?.order
+      ? await Collection.find().sort({
+          [sortOptions.sort]: sortOptions.order
+        })
+      : await Collection.find()
 
-    return JSON.parse(JSON.stringify(await data.toArray()))
-  } catch (error) {
-    throw error
-  }
+  return JSON.parse(JSON.stringify(await data.toArray()))
 }
 
 /**
@@ -85,16 +77,12 @@ export async function fetchDataById(
 ) {
   if (!collectionName || !id) return null
 
-  try {
-    await connectToDatabase()
+  await connectToDatabase()
 
-    const Collection = mongoose.connection.collection(collectionName)
-    const data = await Collection.findOne({ _id: new ObjectId(id) })
+  const Collection = mongoose.connection.collection(collectionName)
+  const data = await Collection.findOne({ _id: new ObjectId(id) })
 
-    return data ? JSON.parse(JSON.stringify(data)) : null
-  } catch (error) {
-    throw error
-  }
+  return data ? JSON.parse(JSON.stringify(data)) : null
 }
 
 /**
