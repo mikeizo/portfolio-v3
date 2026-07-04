@@ -7,7 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run dev` — start Astro dev server (port from `PORT` env var)
 - `npm run build` — production build to `./dist/`
 - `npm run preview` — preview the production build
-- `npm run lint` / `npm run lint:fix` — ESLint over `.js,.ts,.vue,.astro`
+- `npm run lint` / `npm run lint:fix` — oxlint (config in `.oxlintrc.json`; lints `.vue`/`.astro` script blocks, plus Vue-plugin rules — no Astro-specific rules)
+- `npm run format` / `npm run format:check` — oxfmt (config in `.oxfmtrc.json`; formats `.vue`/`.ts`/`.js`/CSS/SCSS/JSON/MD but **not** `.astro` yet)
 - `npm run test:e2e` — Playwright e2e tests (`src/tests/e2e/`)
   - Single file: `npx playwright test src/tests/e2e/work.spec.ts`
   - Single test: `npx playwright test --grep "test name"`

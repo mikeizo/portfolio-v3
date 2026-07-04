@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["unicorn", "typescript", "oxc", "vue"],
+  "ignorePatterns": [
+    ".astro/",
+    ".claude/",
+    ".playwright/",
+    ".vercel/",
+    ".vscode/",
+    "dist/",
+    "coverage/",
+    "build/",
+    "node_modules/"
+  ],
+  "rules": {
+    "no-console": ["error", { "allow": ["error"] }],
+    "sort-imports": ["error", { "ignoreCase": true, "allowSeparatedGroups": true }],
+    "vue/no-reserved-component-names": "off"
+  }
+}

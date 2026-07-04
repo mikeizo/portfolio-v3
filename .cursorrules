@@ -1,14 +1,14 @@
 # Cursor Rules for Astro + Vue + TypeScript Portfolio Project
 
 ## Project Overview
-This is a portfolio website built with Astro, Vue.js, and TypeScript. The project uses modern tooling including ESLint, Prettier, and follows strict TypeScript configuration.
+This is a portfolio website built with Astro, Vue.js, and TypeScript. The project uses modern tooling including oxlint, oxfmt, and follows strict TypeScript configuration.
 
 ## Technology Stack
 - **Framework**: Astro 5.x with Vue integration
 - **Language**: TypeScript (strict mode)
 - **Styling**: CSS/SCSS (component-based)
-- **Linting**: ESLint with Astro, Vue, and TypeScript plugins
-- **Formatting**: Prettier with Astro plugin
+- **Linting**: oxlint (TypeScript, unicorn, oxc, and Vue plugins; config in `.oxlintrc.json`)
+- **Formatting**: oxfmt (config in `.oxfmtrc.json`; does not format `.astro` files yet)
 - **Build Tool**: Vite (via Astro)
 
 ## File Structure Conventions
@@ -50,8 +50,8 @@ This is a portfolio website built with Astro, Vue.js, and TypeScript. The projec
 - Use semantic HTML elements
 
 ### Code Quality
-- Follow ESLint rules (no-console warnings, prettier formatting)
-- Use Prettier for consistent code formatting
+- Follow oxlint rules (`no-console` except `console.error`, sorted imports)
+- Use oxfmt for consistent code formatting (`npm run format`)
 - Write meaningful commit messages
 - Add JSDoc comments for complex functions
 - Use descriptive variable and function names
