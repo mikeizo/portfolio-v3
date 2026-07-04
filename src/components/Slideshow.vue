@@ -17,16 +17,12 @@
   const totalImages = computed(() => props.images.length)
   const multipleImage = computed(() => totalImages.value > 1)
 
-  const imageUrls = computed(() =>
-    props.images.map((image) => `${path}/${image}`)
-  )
+  const imageUrls = computed(() => props.images.map((image) => `${path}/${image}`))
 
   const goToSlide = (index: number) => {
     currentIndex.value = index
 
-    const slideEl = slideshowTarget.value?.children[index] as
-      | HTMLElement
-      | undefined
+    const slideEl = slideshowTarget.value?.children[index] as HTMLElement | undefined
     if (!slideEl) return
 
     slideEl.scrollIntoView({
@@ -36,14 +32,12 @@
   }
 
   const nextSlide = () => {
-    const nextIndex =
-      currentIndex.value === totalImages.value - 1 ? 0 : currentIndex.value + 1
+    const nextIndex = currentIndex.value === totalImages.value - 1 ? 0 : currentIndex.value + 1
     goToSlide(nextIndex)
   }
 
   const prevSlide = () => {
-    const prevIndex =
-      currentIndex.value === 0 ? totalImages.value - 1 : currentIndex.value - 1
+    const prevIndex = currentIndex.value === 0 ? totalImages.value - 1 : currentIndex.value - 1
     goToSlide(prevIndex)
   }
 
@@ -59,9 +53,7 @@
 
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        currentIndex.value = Number(
-          entry.target.getAttribute('data-index') ?? 0
-        )
+        currentIndex.value = Number(entry.target.getAttribute('data-index') ?? 0)
       }
     })
   }
@@ -73,7 +65,10 @@
   <div class="slideshow">
     <div class="slideshow__container">
       <div class="slideshow__image-container">
-        <div ref="slideshowTarget" class="slideshow__images">
+        <div
+          ref="slideshowTarget"
+          class="slideshow__images"
+        >
           <Image
             v-for="(image, index) in imageUrls"
             :key="`slide-image-${index}`"

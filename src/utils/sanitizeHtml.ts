@@ -3,21 +3,7 @@ import type { Query } from 'mongoose'
 import sanitizeHtml from 'sanitize-html'
 
 const DESCRIPTION_OPTIONS: sanitizeHtml.IOptions = {
-  allowedTags: [
-    'p',
-    'b',
-    'strong',
-    'em',
-    'i',
-    'h1',
-    'h2',
-    'h3',
-    'code',
-    'a',
-    'ul',
-    'ol',
-    'li'
-  ],
+  allowedTags: ['p', 'b', 'strong', 'em', 'i', 'h1', 'h2', 'h3', 'code', 'a', 'ul', 'ol', 'li'],
   allowedAttributes: {
     a: ['href', 'target', 'rel']
   },
@@ -40,10 +26,7 @@ export const sanitizeDocFields = <T extends Record<string, unknown>>(
   }
 }
 
-export const sanitizeUpdateFields = (
-  query: Query<unknown, unknown>,
-  fields: readonly string[]
-) => {
+export const sanitizeUpdateFields = (query: Query<unknown, unknown>, fields: readonly string[]) => {
   const update = query.getUpdate() as
     | (Record<string, unknown> & { $set?: Record<string, unknown> })
     | null

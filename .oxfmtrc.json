@@ -3,7 +3,9 @@
   "semi": false,
   "singleQuote": true,
   "trailingComma": "none",
-  "printWidth": 120,
+  "printWidth": 100,
+  "singleAttributePerLine": true,
+  "vueIndentScriptAndStyle": true,
   "ignorePatterns": [
     "node_modules/",
     "dist/",
@@ -13,6 +15,7 @@
     ".playwright/",
     ".output/",
     ".vscode/",
-    ".vercel/"
+    ".vercel/",
+    "CLAUDE.md"
   ]
 }

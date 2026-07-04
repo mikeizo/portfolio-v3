@@ -17,9 +17,7 @@
   const direction = ref<'forward' | 'backward'>('forward')
   const isReady = ref(false)
 
-  const activeIndex = computed(() =>
-    props.menuItems.findIndex((item) => isActive(item.url))
-  )
+  const activeIndex = computed(() => props.menuItems.findIndex((item) => isActive(item.url)))
 
   const targetIndex = computed(() =>
     hoveredIndex.value !== null ? hoveredIndex.value : activeIndex.value
@@ -29,23 +27,15 @@
     const menu = menuRef.value
     if (!menu || targetIndex.value < 0) return
 
-    const target =
-      menu.querySelectorAll<HTMLLIElement>('.nav__link')[targetIndex.value]
+    const target = menu.querySelectorAll<HTMLLIElement>('.nav__link')[targetIndex.value]
     if (!target) return
 
     const menuRect = menu.getBoundingClientRect()
     const targetRect = target.getBoundingClientRect()
-    const left =
-      targetRect.left -
-      menuRect.left +
-      targetRect.width / 2 -
-      INDICATOR_WIDTH / 2
+    const left = targetRect.left - menuRect.left + targetRect.width / 2 - INDICATOR_WIDTH / 2
 
     menu.style.setProperty('--indicator-left', `${left}px`)
-    menu.style.setProperty(
-      '--indicator-right',
-      `${menuRect.width - left - INDICATOR_WIDTH}px`
-    )
+    menu.style.setProperty('--indicator-right', `${menuRect.width - left - INDICATOR_WIDTH}px`)
   }
 
   watch(targetIndex, (next, prev) => {

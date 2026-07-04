@@ -51,10 +51,10 @@ export const POST: APIRoute = async ({ request }) => {
     const secretAccessKey = import.meta.env.AWS_SECRET as string | undefined
 
     if (!region || !bucket || !accessKeyId || !secretAccessKey) {
-      return new Response(
-        JSON.stringify({ error: 'Upload is not configured' }),
-        { status: 500, headers: jsonHeaders }
-      )
+      return new Response(JSON.stringify({ error: 'Upload is not configured' }), {
+        status: 500,
+        headers: jsonHeaders
+      })
     }
 
     const client = new S3Client({

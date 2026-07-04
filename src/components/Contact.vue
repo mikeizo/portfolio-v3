@@ -117,8 +117,7 @@
     try {
       recaptchaToken = await getRecaptchaToken()
     } catch {
-      responseMessage.value =
-        'Unable to verify request. Please refresh the page and try again.'
+      responseMessage.value = 'Unable to verify request. Please refresh the page and try again.'
       isSubmitting.value = false
       hasSubmitted.value = false
       return
@@ -149,12 +148,23 @@
 </script>
 
 <template>
-  <Modal :isOpen="isOpen" :classNames="['contact']" :maxWidth="500">
+  <Modal
+    :isOpen="isOpen"
+    :classNames="['contact']"
+    :maxWidth="500"
+  >
     <div class="contact__content">
       <h2 class="contact__name text-center">Contact Me</h2>
-      <form class="contact__form" @submit.prevent="submitForm">
+      <form
+        class="contact__form"
+        @submit.prevent="submitForm"
+      >
         <div class="contact__form-group">
-          <label for="contact-name" class="contact__label">*Name:</label>
+          <label
+            for="contact-name"
+            class="contact__label"
+            >*Name:</label
+          >
           <input
             id="contact-name"
             v-model="formData.name"
@@ -175,7 +185,11 @@
           </div>
         </div>
         <div class="contact__form-group">
-          <label for="contact-email" class="contact__label">*Email:</label>
+          <label
+            for="contact-email"
+            class="contact__label"
+            >*Email:</label
+          >
           <input
             id="contact-email"
             v-model="formData.email"
@@ -196,7 +210,11 @@
           </div>
         </div>
         <div class="contact__form-group">
-          <label for="contact-phone" class="contact__label">Phone:</label>
+          <label
+            for="contact-phone"
+            class="contact__label"
+            >Phone:</label
+          >
           <input
             id="contact-phone"
             v-model="formData.phone"
@@ -217,7 +235,11 @@
           </div>
         </div>
         <div class="contact__form-group">
-          <label for="contact-message" class="contact__label">Message:</label>
+          <label
+            for="contact-message"
+            class="contact__label"
+            >Message:</label
+          >
           <textarea
             id="contact-message"
             v-model="formData.message"
@@ -248,11 +270,18 @@
               class="contact__submit-icon spin"
               name="arrow-path"
             />
-            <Icon v-else class="contact__submit-icon" name="paper-airplane" />
+            <Icon
+              v-else
+              class="contact__submit-icon"
+              name="paper-airplane"
+            />
           </button>
         </div>
       </form>
-      <div v-if="responseMessage" class="contact__response">
+      <div
+        v-if="responseMessage"
+        class="contact__response"
+      >
         {{ responseMessage }}
       </div>
     </div>

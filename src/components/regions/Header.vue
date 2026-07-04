@@ -35,11 +35,18 @@
 
 <template>
   <Contact :isOpen="isContactOpen" />
-  <div v-if="isNavOpen" class="nav__mobile-backdrop" @click="toggleNav"></div>
+  <div
+    v-if="isNavOpen"
+    class="nav__mobile-backdrop"
+    @click="toggleNav"
+  ></div>
   <header class="header wrapper sticky">
     <div class="header__content">
       <div class="header__logo logo">
-        <a href="/" aria-label="Home Page">
+        <a
+          href="/"
+          aria-label="Home Page"
+        >
           <Logo />
         </a>
       </div>

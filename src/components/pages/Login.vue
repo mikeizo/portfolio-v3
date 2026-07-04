@@ -39,9 +39,7 @@
       })
 
       if (!response.ok) {
-        const { error } = await response
-          .json()
-          .catch(() => ({ error: 'Login failed' }))
+        const { error } = await response.json().catch(() => ({ error: 'Login failed' }))
         errorMessage.value = error || 'Login failed'
 
         return
@@ -60,18 +58,18 @@
 
 <template>
   <div class="flex min-h-screen items-center justify-center p-4">
-    <div
-      class="w-full max-w-md rounded-lg border border-hairline bg-surface p-8 shadow-card"
-    >
-      <div
-        class="mx-auto mb-6 w-48 [--color-accent:var(--accent)] [--color-logo:var(--text)]"
-      >
+    <div class="w-full max-w-md rounded-lg border border-hairline bg-surface p-8 shadow-card">
+      <div class="mx-auto mb-6 w-48 [--color-accent:var(--accent)] [--color-logo:var(--text)]">
         <Logo />
       </div>
 
       <h1 class="mb-6 text-center text-2xl font-light text-ink">Login</h1>
 
-      <form class="space-y-4" novalidate @submit.prevent="onSubmit">
+      <form
+        class="space-y-4"
+        novalidate
+        @submit.prevent="onSubmit"
+      >
         <p
           v-if="errorMessage"
           class="rounded-md border border-danger/40 bg-danger-soft px-3 py-2 text-sm text-danger"

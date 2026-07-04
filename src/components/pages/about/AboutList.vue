@@ -28,12 +28,8 @@
     if (descriptionElement.classList.contains(openDesciptionClass)) {
       accordionElement.style.height = `${height}px`
 
-      const wrapper = descriptionElement.closest(
-        '.about__list-wrapper'
-      ) as HTMLElement | null
-      const item = descriptionElement.closest(
-        '.about__list-item'
-      ) as HTMLElement | null
+      const wrapper = descriptionElement.closest('.about__list-wrapper') as HTMLElement | null
+      const item = descriptionElement.closest('.about__list-item') as HTMLElement | null
 
       if (wrapper && item) {
         const onTransitionEnd = (event: TransitionEvent) => {
@@ -88,7 +84,10 @@
 </script>
 
 <template>
-  <div ref="listContainer" class="about__list">
+  <div
+    ref="listContainer"
+    class="about__list"
+  >
     <div class="about__list-wrapper">
       <div
         v-for="(item, index) in data"
@@ -99,7 +98,10 @@
           <div class="about__list-year-from">{{ item.yearFrom }}</div>
           <template v-if="item.yearTo">
             <div class="about__list-year-dash">&ndash;</div>
-            <div v-if="item.yearTo" class="about__list-year-to">
+            <div
+              v-if="item.yearTo"
+              class="about__list-year-to"
+            >
               {{ item.yearTo }}
             </div>
           </template>
@@ -110,10 +112,20 @@
           @click="item.image && toggleDescription($event)"
         >
           <div v-html="item.description" />
-          <div v-if="item.image" class="about__list-button">
-            <Icon name="close" :height="16" :width="16" />
+          <div
+            v-if="item.image"
+            class="about__list-button"
+          >
+            <Icon
+              name="close"
+              :height="16"
+              :width="16"
+            />
           </div>
-          <div v-if="item.image" class="about__list-accordion">
+          <div
+            v-if="item.image"
+            class="about__list-accordion"
+          >
             <Image
               :src="`${path}/about/${item.image}`"
               :height="300"

@@ -6,16 +6,28 @@
   >
     <title>Mike Tropea</title>
     <defs>
-      <clipPath id="a" clipPathUnits="userSpaceOnUse">
+      <clipPath
+        id="a"
+        clipPathUnits="userSpaceOnUse"
+      >
         <path d="M-308.005 461.222h711v-801h-711Z" />
       </clipPath>
-      <clipPath id="b" clipPathUnits="userSpaceOnUse">
+      <clipPath
+        id="b"
+        clipPathUnits="userSpaceOnUse"
+      >
         <path d="M-308.001 461.215h711v-801h-711Z" />
       </clipPath>
-      <clipPath id="c" clipPathUnits="userSpaceOnUse">
+      <clipPath
+        id="c"
+        clipPathUnits="userSpaceOnUse"
+      >
         <path d="M-36.325 461.215h711v-801h-711Z" />
       </clipPath>
-      <clipPath id="d" clipPathUnits="userSpaceOnUse">
+      <clipPath
+        id="d"
+        clipPathUnits="userSpaceOnUse"
+      >
         <path d="M-36.329 461.222h711v-801h-711Z" />
       </clipPath>
     </defs>

@@ -20,19 +20,17 @@ export const POST: APIRoute = async ({ request }) => {
   const { isValidForm } = validateForm(formData)
 
   if (!isValidForm) {
-    return new Response(
-      JSON.stringify({ message: 'Unable to send email. Invalid form.' }),
-      { status: 400 }
-    )
+    return new Response(JSON.stringify({ message: 'Unable to send email. Invalid form.' }), {
+      status: 400
+    })
   }
 
   const { valid } = await verifyRecaptcha(recaptchaToken)
 
   if (!valid) {
-    return new Response(
-      JSON.stringify({ message: 'reCAPTCHA verification failed.' }),
-      { status: 403 }
-    )
+    return new Response(JSON.stringify({ message: 'reCAPTCHA verification failed.' }), {
+      status: 403
+    })
   }
 
   const sendResponse = await sendMessage(formData)

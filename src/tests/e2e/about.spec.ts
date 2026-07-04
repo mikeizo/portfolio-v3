@@ -25,9 +25,7 @@ test.describe('about page', () => {
       await expect(description).toHaveClass(/about__list-description--open/)
     }).toPass()
 
-    const height = await accordion.evaluate(
-      (el) => (el as HTMLElement).style.height
-    )
+    const height = await accordion.evaluate((el) => (el as HTMLElement).style.height)
     expect(height).not.toBe('')
     expect(height).not.toBe('0px')
 

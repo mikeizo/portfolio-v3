@@ -16,8 +16,7 @@
   import TextField from '@/components/admin/form/TextField.vue'
 
   const { isGuest } = useCurrentUser()
-  const { presignAndPut, uploadMany, buildUniqueKey, deleteKeys } =
-    useS3Upload()
+  const { presignAndPut, uploadMany, buildUniqueKey, deleteKeys } = useS3Upload()
 
   const props = defineProps<{ data: Partial<WorkType>; id?: string }>()
 
@@ -54,9 +53,7 @@
     state.resources.splice(index, 1)
   }
 
-  async function persistWorkRecord(
-    payload: Record<string, unknown>
-  ): Promise<boolean> {
+  async function persistWorkRecord(payload: Record<string, unknown>): Promise<boolean> {
     const method = props.id ? 'PATCH' : 'POST'
     const body = props.id ? { id: props.id, ...payload } : payload
 
@@ -104,8 +101,7 @@
     status.value = 'saving'
     try {
       // Slug is immutable once set — reuse the saved one on edit, derive on create.
-      const keySlug =
-        props.id && props.data.slug ? props.data.slug : slugify(state.name)
+      const keySlug = props.id && props.data.slug ? props.data.slug : slugify(state.name)
 
       const usedKeys = new Set(state.images)
       const newPaths = await uploadMany(galleryFiles.value, (file) =>
@@ -139,9 +135,7 @@
 
       // Clean up storage once the record points elsewhere: gallery images dropped
       // during this edit, plus the previous logo if it was replaced.
-      const toDelete = lastSavedImages.value.filter(
-        (p) => !mergedImages.includes(p)
-      )
+      const toDelete = lastSavedImages.value.filter((p) => !mergedImages.includes(p))
       if (lastSavedLogo.value && lastSavedLogo.value !== logoFilename) {
         toDelete.push(`logos/${lastSavedLogo.value}`)
       }
@@ -193,7 +187,10 @@
     {{ id ? 'Edit work entry' : 'New work entry' }}
   </h1>
 
-  <form class="space-y-8" @submit.prevent="onSubmit">
+  <form
+    class="space-y-8"
+    @submit.prevent="onSubmit"
+  >
     <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_400px]">
       <!-- Main content -->
       <div class="space-y-8">
@@ -254,7 +251,10 @@
           <h2 class="text-lg font-medium text-ink">Description</h2>
           <div>
             <RichTextEditor v-model="state.description" />
-            <p v-if="errors.description" class="mt-1 text-xs text-danger">
+            <p
+              v-if="errors.description"
+              class="mt-1 text-xs text-danger"
+            >
               {{ errors.description }}
             </p>
           </div>
@@ -269,9 +269,7 @@
             dir="logos"
             label="Logo"
           />
-          <label
-            class="flex w-fit cursor-pointer items-center gap-2 text-sm text-ink"
-          >
+          <label class="flex w-fit cursor-pointer items-center gap-2 text-sm text-ink">
             <input
               v-model="state.grayscale"
               type="checkbox"
@@ -314,9 +312,7 @@
                 placeholder="Vue"
                 class="w-full min-w-0 rounded-md border bg-field px-3 py-2 text-sm text-ink outline-none transition-colors placeholder:text-faint focus:border-accent"
                 :class="
-                  errors[`resources.${index}.name`]
-                    ? 'border-danger'
-                    : 'border-hairline-input'
+                  errors[`resources.${index}.name`] ? 'border-danger' : 'border-hairline-input'
                 "
               />
               <input
@@ -325,9 +321,7 @@
                 placeholder="devicon-vue-original"
                 class="w-full min-w-0 rounded-md border bg-field px-3 py-2 text-sm text-ink outline-none transition-colors placeholder:text-faint focus:border-accent"
                 :class="
-                  errors[`resources.${index}.icon`]
-                    ? 'border-danger'
-                    : 'border-hairline-input'
+                  errors[`resources.${index}.icon`] ? 'border-danger' : 'border-hairline-input'
                 "
               />
               <button
@@ -340,16 +334,10 @@
               </button>
             </div>
             <p
-              v-if="
-                errors[`resources.${index}.name`] ||
-                errors[`resources.${index}.icon`]
-              "
+              v-if="errors[`resources.${index}.name`] || errors[`resources.${index}.icon`]"
               class="text-xs text-danger"
             >
-              {{
-                errors[`resources.${index}.name`] ||
-                errors[`resources.${index}.icon`]
-              }}
+              {{ errors[`resources.${index}.name`] || errors[`resources.${index}.icon`] }}
             </p>
           </div>
 

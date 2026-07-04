@@ -34,9 +34,7 @@
 </script>
 
 <template>
-  <header
-    class="flex h-14 shrink-0 items-center gap-3 border-b border-hairline bg-bg px-6"
-  >
+  <header class="flex h-14 shrink-0 items-center gap-3 border-b border-hairline bg-bg px-6">
     <button
       type="button"
       title="Collapse menu"
@@ -59,8 +57,14 @@
         <span
           class="absolute left-1 flex size-5 items-center justify-center rounded-full bg-accent text-white transition-transform duration-200 dark:translate-x-5"
         >
-          <Sun :size="12" class="dark:hidden" />
-          <Moon :size="12" class="hidden dark:block" />
+          <Sun
+            :size="12"
+            class="dark:hidden"
+          />
+          <Moon
+            :size="12"
+            class="hidden dark:block"
+          />
         </span>
       </button>
 
@@ -92,7 +96,10 @@
             href="/admin/settings"
             class="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
           >
-            <Settings :size="16" class="text-muted" />
+            <Settings
+              :size="16"
+              class="text-muted"
+            />
             User settings
           </a>
           <button
@@ -100,7 +107,10 @@
             class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-ink-secondary transition-colors hover:bg-row-hover hover:text-ink"
             @click="logout"
           >
-            <LogOut :size="16" class="text-muted" />
+            <LogOut
+              :size="16"
+              class="text-muted"
+            />
             Sign out
           </button>
         </div>

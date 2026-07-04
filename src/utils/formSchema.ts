@@ -7,10 +7,7 @@ export const settingsSchema = v.strictObject({
     v.nonEmpty('Please enter a title'),
     v.maxLength(25, 'Must be less than 25 characters')
   ),
-  subtitle: v.pipe(
-    v.string(),
-    v.maxLength(50, 'Must be less than 50 characters')
-  ),
+  subtitle: v.pipe(v.string(), v.maxLength(50, 'Must be less than 50 characters')),
   email: v.pipe(v.string(), v.email('Please enter a valid email')),
   git: v.pipe(v.string(), v.url('Please enter a valid url')),
   about: v.string()
@@ -19,10 +16,7 @@ export const settingsSchema = v.strictObject({
 // --- Experience (src/models/Experience.ts) ---
 export const experienceSchema = v.strictObject({
   name: v.pipe(v.string(), v.minLength(3, 'Must be more than 3 characters')),
-  icon: v.pipe(
-    v.string(),
-    v.startsWith('devicon-', 'Icon class must start with "devicon-"')
-  )
+  icon: v.pipe(v.string(), v.startsWith('devicon-', 'Icon class must start with "devicon-"'))
 })
 
 // --- About (src/models/About.ts) ---
@@ -40,10 +34,7 @@ export const loginSchema = v.strictObject({
 })
 
 // --- Work (src/models/Work.ts) ---
-const optionalUrl = v.union([
-  v.literal(''),
-  v.pipe(v.string(), v.url('Invalid URL format'))
-])
+const optionalUrl = v.union([v.literal(''), v.pipe(v.string(), v.url('Invalid URL format'))])
 
 const workResource = v.strictObject({
   name: v.pipe(v.string(), v.nonEmpty('Resource name is required')),

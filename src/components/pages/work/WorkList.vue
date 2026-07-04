@@ -37,12 +37,7 @@
     threshold: 0.75
   }
 
-  useObserver(
-    workListObserverCallback,
-    listContainer,
-    '.work__list-item',
-    workListObserverOptions
-  )
+  useObserver(workListObserverCallback, listContainer, '.work__list-item', workListObserverOptions)
 
   provide('closeModal', closeModal)
 
@@ -52,7 +47,10 @@
 </script>
 
 <template>
-  <div ref="listContainer" class="work__list">
+  <div
+    ref="listContainer"
+    class="work__list"
+  >
     <div
       v-for="(work, index) in data"
       :key="`${work.slug}-${index}`"
@@ -70,9 +68,17 @@
       </div>
       <div class="work__name">
         <span>{{ work.name }}</span>
-        <Icon class="icon" name="arrow-up-right" :height="16" :width="16" />
+        <Icon
+          class="icon"
+          name="arrow-up-right"
+          :height="16"
+          :width="16"
+        />
       </div>
     </div>
   </div>
-  <WorkItem :data="workItem" :path="path" />
+  <WorkItem
+    :data="workItem"
+    :path="path"
+  />
 </template>

@@ -63,8 +63,7 @@ export function isValidEmail(email: string): ContactErrorType {
     return response(false, message)
   }
 
-  const emailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
   return response(emailRegex.test(email.trim()), message)
 }

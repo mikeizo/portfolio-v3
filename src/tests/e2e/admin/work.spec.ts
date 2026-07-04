@@ -27,9 +27,7 @@ test.describe('admin work page (guest)', () => {
     await expect(page.getByRole('button', { name: 'Delete' })).toBeVisible()
   })
 
-  test('forbids the guest from deleting (403) and keeps the row', async ({
-    page
-  }) => {
+  test('forbids the guest from deleting (403) and keeps the row', async ({ page }) => {
     const rows = page.getByRole('button', { name: 'Actions' })
     const before = await rows.count()
 

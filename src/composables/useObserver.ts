@@ -1,10 +1,7 @@
 import { onMounted, onUnmounted, type Ref } from 'vue'
 
 export function useObserver(
-  callback: (
-    entries: IntersectionObserverEntry[],
-    observer?: IntersectionObserver | null
-  ) => void,
+  callback: (entries: IntersectionObserverEntry[], observer?: IntersectionObserver | null) => void,
   element: Ref<HTMLElement | null>,
   observeClass: string,
   observeOptions?: IntersectionObserverInit

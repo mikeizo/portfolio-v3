@@ -45,9 +45,7 @@
   // script in Admin.astro to avoid a reflow flash). Keep it in sync for live toggles.
   watchEffect(() => {
     if (typeof document !== 'undefined') {
-      document.documentElement.dataset.rail = rail.value
-        ? 'collapsed'
-        : 'expanded'
+      document.documentElement.dataset.rail = rail.value ? 'collapsed' : 'expanded'
     }
   })
 
@@ -85,9 +83,7 @@
   function labelFor(segment: string) {
     return (
       labelMap[segment] ??
-      (/^[a-f\d]{24}$/i.test(segment)
-        ? 'Edit'
-        : segment.charAt(0).toUpperCase() + segment.slice(1))
+      (/^[a-f\d]{24}$/i.test(segment) ? 'Edit' : segment.charAt(0).toUpperCase() + segment.slice(1))
     )
   }
 
@@ -104,10 +100,7 @@
   <div
     v-else
     class="h-screen overflow-hidden bg-bg lg:grid lg:grid-cols-[244px_1fr] rail:lg:grid-cols-[68px_1fr]"
-    :class="
-      transitionsReady &&
-      'lg:transition-[grid-template-columns] lg:duration-200 lg:ease-out'
-    "
+    :class="transitionsReady && 'lg:transition-[grid-template-columns] lg:duration-200 lg:ease-out'"
   >
     <!-- backdrop for mobile overlay -->
     <div
@@ -131,7 +124,10 @@
         @toggle-sidebar="toggleSidebar"
         @toggle-theme="toggleTheme"
       />
-      <Breadcrumb :segments="segments" :label-for="labelFor" />
+      <Breadcrumb
+        :segments="segments"
+        :label-for="labelFor"
+      />
       <div class="flex-1 overflow-y-auto">
         <div class="mx-auto px-6 pb-16 pt-8">
           <slot />

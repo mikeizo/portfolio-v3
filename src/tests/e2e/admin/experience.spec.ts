@@ -5,14 +5,10 @@ test.describe('admin experience page (guest)', () => {
   test.beforeEach(async ({ page }) => {
     await login(page)
     await page.goto('/admin/experience')
-    await expect(
-      page.getByRole('heading', { name: 'Experience' })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Experience' })).toBeVisible()
   })
 
-  test('renders the add form and the SSR-rendered icon grid', async ({
-    page
-  }) => {
+  test('renders the add form and the SSR-rendered icon grid', async ({ page }) => {
     // The add form starts empty.
     await expect(page.getByLabel('Icon')).toHaveValue('')
     await expect(page.getByLabel('Name')).toHaveValue('')
@@ -25,9 +21,7 @@ test.describe('admin experience page (guest)', () => {
 
     // The grid is populated from the DB-backed SSR render: every card exposes
     // an Edit control, so a visible one proves the list rendered.
-    await expect(
-      page.getByRole('button', { name: 'Edit' }).first()
-    ).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Edit' }).first()).toBeVisible()
   })
 
   test('validates the add form client-side', async ({ page }) => {
@@ -36,9 +30,7 @@ test.describe('admin experience page (guest)', () => {
     await page.getByRole('button', { name: 'Add' }).click()
 
     // valibot errors render inline under each field; the API is never reached.
-    await expect(
-      page.getByText('Icon class must start with "devicon-"')
-    ).toBeVisible()
+    await expect(page.getByText('Icon class must start with "devicon-"')).toBeVisible()
     await expect(page.getByText('Must be more than 3 characters')).toBeVisible()
   })
 

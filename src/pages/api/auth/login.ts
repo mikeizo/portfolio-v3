@@ -1,17 +1,8 @@
 import type { APIRoute } from 'astro'
 
-import {
-  buildSessionCookie,
-  findUserByEmail,
-  signToken,
-  verifyPassword
-} from '@/utils/auth'
+import { buildSessionCookie, findUserByEmail, signToken, verifyPassword } from '@/utils/auth'
 
-const json = (
-  status: number,
-  body: Record<string, unknown>,
-  extra?: HeadersInit
-) =>
+const json = (status: number, body: Record<string, unknown>, extra?: HeadersInit) =>
   new Response(JSON.stringify(body), {
     status,
     headers: { 'Content-Type': 'application/json', ...extra }

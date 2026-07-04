@@ -27,9 +27,7 @@ test.describe('admin about page (guest)', () => {
     await expect(page.getByRole('button', { name: 'Delete' })).toBeVisible()
   })
 
-  test('forbids the guest from deleting (403) and keeps the row', async ({
-    page
-  }) => {
+  test('forbids the guest from deleting (403) and keeps the row', async ({ page }) => {
     const rows = page.getByRole('button', { name: 'Actions' })
     const before = await rows.count()
 
@@ -74,9 +72,7 @@ test.describe('admin about page (guest)', () => {
     // it starts empty. A submit before hydration is a no-op, so retry the click
     // until the inline valibot error appears; the API is never reached.
     await page.goto('/admin/about/new')
-    await expect(
-      page.getByRole('heading', { name: 'New about entry' })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'New about entry' })).toBeVisible()
 
     await expect(async () => {
       await page.getByRole('button', { name: 'Add' }).click()

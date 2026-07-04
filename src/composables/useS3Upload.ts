@@ -19,9 +19,7 @@ export function useS3Upload(options: UploadOptions = {}) {
 
   function assertFile(file: File) {
     if (file.size > maxSize) {
-      throw new Error(
-        `File "${file.name}" is too large (max ${maxSize / 1024 / 1024}MB).`
-      )
+      throw new Error(`File "${file.name}" is too large (max ${maxSize / 1024 / 1024}MB).`)
     }
     if (!accept.test(file.type)) {
       throw new Error(`"${file.name}" is not an accepted file type.`)

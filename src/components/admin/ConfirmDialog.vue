@@ -13,8 +13,7 @@
     {
       loading: false,
       title: 'Delete item?',
-      message:
-        'Are you sure you want to delete this item? This action cannot be undone.',
+      message: 'Are you sure you want to delete this item? This action cannot be undone.',
       confirmLabel: 'Delete'
     }
   )
@@ -65,7 +64,10 @@
 </script>
 
 <template>
-  <Teleport v-if="mounted" to="body">
+  <Teleport
+    v-if="mounted"
+    to="body"
+  >
     <Transition name="confirm">
       <div
         v-if="open"
@@ -79,10 +81,16 @@
           :aria-describedby="`${uid}-message`"
           class="confirm__panel w-full max-w-md rounded-lg border border-hairline bg-surface p-6 shadow-pop"
         >
-          <h2 :id="`${uid}-title`" class="text-lg font-medium text-ink">
+          <h2
+            :id="`${uid}-title`"
+            class="text-lg font-medium text-ink"
+          >
             {{ title }}
           </h2>
-          <p :id="`${uid}-message`" class="mt-2 text-sm text-muted">
+          <p
+            :id="`${uid}-message`"
+            class="mt-2 text-sm text-muted"
+          >
             {{ message }}
           </p>
 
@@ -102,7 +110,11 @@
               class="inline-flex items-center gap-2 rounded-md bg-danger px-4 py-2 text-sm text-on-accent transition-colors hover:bg-danger-deep disabled:cursor-not-allowed disabled:opacity-50"
               @click="emit('confirm')"
             >
-              <LoaderCircle v-if="loading" :size="14" class="animate-spin" />
+              <LoaderCircle
+                v-if="loading"
+                :size="14"
+                class="animate-spin"
+              />
               {{ confirmLabel }}
             </button>
           </div>

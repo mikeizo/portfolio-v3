@@ -23,11 +23,7 @@
     const year = String(currentYear - i)
     return { label: year, value: year }
   })
-  const yearToOptions = [
-    { label: '—', value: '' },
-    { label: 'Now', value: 'Now' },
-    ...yearOptions
-  ]
+  const yearToOptions = [{ label: '—', value: '' }, { label: 'Now', value: 'Now' }, ...yearOptions]
 
   const state = reactive({
     yearFrom: props.data.yearFrom ?? '',
@@ -41,9 +37,7 @@
   const errors = reactive<Record<string, string>>({})
   const status = ref<'idle' | 'saving'>('idle')
 
-  async function persistAboutRecord(
-    payload: Record<string, unknown>
-  ): Promise<boolean> {
+  async function persistAboutRecord(payload: Record<string, unknown>): Promise<boolean> {
     const method = props.id ? 'PATCH' : 'POST'
     const body = props.id ? { id: props.id, ...payload } : payload
 
@@ -154,7 +148,10 @@
     {{ id ? 'Edit about entry' : 'New about entry' }}
   </h1>
 
-  <form class="max-w-2xl space-y-4" @submit.prevent="onSubmit">
+  <form
+    class="max-w-2xl space-y-4"
+    @submit.prevent="onSubmit"
+  >
     <div class="flex flex-wrap items-start gap-4">
       <SelectField
         v-model="state.yearFrom"
@@ -178,7 +175,10 @@
     <div>
       <label class="mb-2 block text-sm text-muted">Description</label>
       <RichTextEditor v-model="state.description" />
-      <p v-if="errors.description" class="mt-1 text-xs text-danger">
+      <p
+        v-if="errors.description"
+        class="mt-1 text-xs text-danger"
+      >
         {{ errors.description }}
       </p>
     </div>

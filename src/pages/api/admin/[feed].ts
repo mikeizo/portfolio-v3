@@ -29,11 +29,7 @@ type MongooseError = {
   errors?: unknown
 }
 
-const VALIDATION_ERROR_NAMES = new Set([
-  'ValidationError',
-  'StrictModeError',
-  'CastError'
-])
+const VALIDATION_ERROR_NAMES = new Set(['ValidationError', 'StrictModeError', 'CastError'])
 
 const mapWriteError = (error: unknown, fallback: string) => {
   const err = error as MongooseError

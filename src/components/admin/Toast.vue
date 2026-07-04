@@ -10,10 +10,7 @@
   const toasts = useStore($toasts)
 
   // Per-type icon + the color utilities for the icon and countdown bar.
-  const variants: Record<
-    ToastType,
-    { icon: Component; icon_class: string; bar_class: string }
-  > = {
+  const variants: Record<ToastType, { icon: Component; icon_class: string; bar_class: string }> = {
     success: {
       icon: CheckCircle2,
       icon_class: 'text-success',
@@ -44,7 +41,10 @@
         />
         <div class="min-w-0 flex-1">
           <p class="text-sm font-medium text-ink">{{ toast.title }}</p>
-          <p v-if="toast.description" class="mt-1 text-sm text-muted">
+          <p
+            v-if="toast.description"
+            class="mt-1 text-sm text-muted"
+          >
             {{ toast.description }}
           </p>
         </div>

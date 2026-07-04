@@ -33,14 +33,13 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const key = typeof body.key === 'string' ? body.key : ''
-    const contentType =
-      typeof body.contentType === 'string' ? body.contentType : ''
+    const contentType = typeof body.contentType === 'string' ? body.contentType : ''
 
     if (!isAllowedS3ObjectKey(key) || !IMAGE_CONTENT.test(contentType)) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid key or content type' }),
-        { status: 400, headers: jsonHeaders }
-      )
+      return new Response(JSON.stringify({ error: 'Invalid key or content type' }), {
+        status: 400,
+        headers: jsonHeaders
+      })
     }
 
     const region = import.meta.env.AWS_REGION_APP as string | undefined
@@ -49,10 +48,10 @@ export const POST: APIRoute = async ({ request }) => {
     const secretAccessKey = import.meta.env.AWS_SECRET as string | undefined
 
     if (!region || !bucket || !accessKeyId || !secretAccessKey) {
-      return new Response(
-        JSON.stringify({ error: 'Upload is not configured' }),
-        { status: 500, headers: jsonHeaders }
-      )
+      return new Response(JSON.stringify({ error: 'Upload is not configured' }), {
+        status: 500,
+        headers: jsonHeaders
+      })
     }
 
     const client = new S3Client({

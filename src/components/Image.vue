@@ -38,7 +38,10 @@
     @load="onLoad()"
     @error="onLoad()"
   />
-  <div v-if="!isLoading" class="image__placeholder">
+  <div
+    v-if="!isLoading"
+    class="image__placeholder"
+  >
     <span>.</span>
     <span style="animation-delay: 0.3s">.</span>
     <span style="animation-delay: 0.5s">.</span>

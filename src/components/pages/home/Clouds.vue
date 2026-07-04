@@ -77,14 +77,7 @@
       const by = centerY + bump.y * size
       const br = bump.r * size
 
-      const gradient = ctx.createRadialGradient(
-        bx - br * 0.2,
-        by - br * 0.2,
-        0,
-        bx,
-        by,
-        br
-      )
+      const gradient = ctx.createRadialGradient(bx - br * 0.2, by - br * 0.2, 0, bx, by, br)
       gradient.addColorStop(0, 'rgba(220, 230, 240, 0.6)')
       gradient.addColorStop(0.5, 'rgba(200, 215, 230, 0.3)')
       gradient.addColorStop(1, 'rgba(180, 195, 210, 0)')
@@ -136,22 +129,15 @@
       const i3 = i * 3
       cloudPositions[i3] = (Math.random() - 0.5) * CLOUD_SPREAD
       cloudPositions[i3 + 1] = (Math.random() - 0.5) * CLOUD_SPREAD * 0.5
-      cloudPositions[i3 + 2] =
-        -(i / CLOUD_COUNT) * CLOUD_DEPTH + (Math.random() - 0.5) * 200
+      cloudPositions[i3 + 2] = -(i / CLOUD_COUNT) * CLOUD_DEPTH + (Math.random() - 0.5) * 200
       cloudSizes[i] = Math.random() * 150 + 100
       cloudSpeeds[i] = CLOUD_SPEED * (0.5 + Math.random() * 0.5)
       cloudOpacities[i] = Math.random() * 0.2 + 0.8
     }
 
-    cloudGeometry.setAttribute(
-      'position',
-      new THREE.BufferAttribute(cloudPositions, 3)
-    )
+    cloudGeometry.setAttribute('position', new THREE.BufferAttribute(cloudPositions, 3))
     cloudGeometry.setAttribute('size', new THREE.BufferAttribute(cloudSizes, 1))
-    cloudGeometry.setAttribute(
-      'opacity',
-      new THREE.BufferAttribute(cloudOpacities, 1)
-    )
+    cloudGeometry.setAttribute('opacity', new THREE.BufferAttribute(cloudOpacities, 1))
 
     const cloudMaterial = new THREE.ShaderMaterial({
       uniforms: {
@@ -301,5 +287,8 @@
 </script>
 
 <template>
-  <canvas ref="canvasRef" class="home__background"></canvas>
+  <canvas
+    ref="canvasRef"
+    class="home__background"
+  ></canvas>
 </template>

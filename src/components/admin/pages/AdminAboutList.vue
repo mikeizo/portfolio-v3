@@ -118,9 +118,7 @@
     </a>
   </div>
 
-  <div
-    class="overflow-x-auto rounded-lg border border-hairline bg-surface shadow-card"
-  >
+  <div class="overflow-x-auto rounded-lg border border-hairline bg-surface shadow-card">
     <table class="w-full min-w-170 text-left text-sm">
       <thead>
         <tr class="border-b border-hairline text-sm text-muted">
@@ -133,7 +131,10 @@
       </thead>
       <tbody>
         <tr v-if="!aboutData.length">
-          <td colspan="5" class="px-4 py-8 text-center text-muted">
+          <td
+            colspan="5"
+            class="px-4 py-8 text-center text-muted"
+          >
             No about records yet.
           </td>
         </tr>
@@ -151,7 +152,10 @@
           </td>
           <td class="px-4 py-3 text-muted">{{ row.image || '—' }}</td>
           <td class="px-4 py-3 text-right">
-            <DropdownMenu :items="rowItems(row)" align="end" />
+            <DropdownMenu
+              :items="rowItems(row)"
+              align="end"
+            />
           </td>
         </tr>
       </tbody>

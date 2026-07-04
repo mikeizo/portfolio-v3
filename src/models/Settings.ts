@@ -31,5 +31,4 @@ settingsSchema.pre('findOneAndUpdate', function () {
 })
 
 export const Settings: Model<SettingsType> =
-  (models.Settings as Model<SettingsType>) ||
-  model<SettingsType>('Settings', settingsSchema)
+  (models.Settings as Model<SettingsType>) || model<SettingsType>('Settings', settingsSchema)

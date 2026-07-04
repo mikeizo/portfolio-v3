@@ -23,8 +23,7 @@
   // on submit so the uploads run inside the save flow.
   const { assertFile } = useS3Upload()
 
-  const assetsBase =
-    (import.meta.env.PUBLIC_ASSETS_PATH as string | undefined) ?? ''
+  const assetsBase = (import.meta.env.PUBLIC_ASSETS_PATH as string | undefined) ?? ''
 
   const dragOver = ref(false)
   const inputEl = ref<HTMLInputElement | null>(null)
@@ -131,9 +130,7 @@
       <label class="block text-sm text-muted">{{ label }}</label>
       <span
         class="tnum text-xs"
-        :class="
-          images.length + files.length >= max ? 'text-danger' : 'text-faint'
-        "
+        :class="images.length + files.length >= max ? 'text-danger' : 'text-faint'"
       >
         {{ images.length + files.length }} / {{ max }}
       </span>
@@ -174,7 +171,10 @@
     </ul>
 
     <!-- Pending selections -->
-    <div v-if="previews.length" class="mb-3">
+    <div
+      v-if="previews.length"
+      class="mb-3"
+    >
       <ul class="grid list-none grid-cols-2 gap-3 p-0 sm:grid-cols-3">
         <li
           v-for="(preview, index) in previews"
@@ -209,16 +209,17 @@
     <div
       class="flex w-full max-w-md flex-col items-center justify-center gap-3 rounded-lg border border-dashed px-6 py-8 text-center transition-colors"
       :class="[
-        dragOver
-          ? 'border-accent bg-accent-soft'
-          : 'border-hairline-input bg-field',
+        dragOver ? 'border-accent bg-accent-soft' : 'border-hairline-input bg-field',
         images.length + files.length >= max && 'pointer-events-none opacity-50'
       ]"
       @dragover.prevent="dragOver = true"
       @dragleave.prevent="dragOver = false"
       @drop.prevent="onDrop"
     >
-      <ImagesIcon :size="22" class="text-faint" />
+      <ImagesIcon
+        :size="22"
+        class="text-faint"
+      />
       <div>
         <span class="text-sm font-medium text-ink">Drop images here</span>
         <p class="mt-1 text-xs text-faint">

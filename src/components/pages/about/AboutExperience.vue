@@ -19,9 +19,7 @@
           class="experience__item"
         >
           <template v-if="experience.icon">
-            <i
-              :class="['experience__item-icon', experience.icon.toLowerCase()]"
-            />
+            <i :class="['experience__item-icon', experience.icon.toLowerCase()]" />
             <div class="experience__item-name">
               <small>{{ experience.name }}</small>
             </div>
@@ -29,16 +27,17 @@
         </div>
       </div>
 
-      <div class="experience__items" aria-hidden="true">
+      <div
+        class="experience__items"
+        aria-hidden="true"
+      >
         <div
           v-for="experience in data"
           :index="experience.icon"
           class="experience__item"
         >
           <template v-if="experience.icon">
-            <i
-              :class="['experience__item-icon', experience.icon.toLowerCase()]"
-            />
+            <i :class="['experience__item-icon', experience.icon.toLowerCase()]" />
             <div class="experience__item-name">
               <small>{{ experience.name }}</small>
             </div>

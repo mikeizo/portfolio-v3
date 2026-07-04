@@ -102,7 +102,10 @@
     }"
     @click.stop
   >
-    <template v-for="(item, index) in items" :key="index">
+    <template
+      v-for="(item, index) in items"
+      :key="index"
+    >
       <div
         v-if="item.type === 'label'"
         class="px-3 py-2 text-sm text-left text-muted"
@@ -110,7 +113,10 @@
         {{ item.label }}
       </div>
 
-      <hr v-else-if="item.type === 'separator'" class="my-1 border-hairline" />
+      <hr
+        v-else-if="item.type === 'separator'"
+        class="my-1 border-hairline"
+      />
 
       <a
         v-else-if="item.type === 'link'"

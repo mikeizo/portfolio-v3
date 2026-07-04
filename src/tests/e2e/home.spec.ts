@@ -23,17 +23,13 @@ test.describe('home page', () => {
   })
 
   test('exposes About link in primary navigation', async ({ page }) => {
-    const link = page
-      .getByRole('navigation')
-      .getByRole('link', { name: 'About' })
+    const link = page.getByRole('navigation').getByRole('link', { name: 'About' })
     await expect(link).toBeVisible()
     await expect(link).toHaveAttribute('href', /\/about$/)
   })
 
   test('exposes Work link in primary navigation', async ({ page }) => {
-    const link = page
-      .getByRole('navigation')
-      .getByRole('link', { name: 'Work' })
+    const link = page.getByRole('navigation').getByRole('link', { name: 'Work' })
     await expect(link).toBeVisible()
     await expect(link).toHaveAttribute('href', /\/work$/)
   })

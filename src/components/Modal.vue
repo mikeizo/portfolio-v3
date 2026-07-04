@@ -28,21 +28,36 @@
 
 <template>
   <Transition name="modal">
-    <Teleport v-if="isOpen" to="modal">
-      <div class="modal" :class="[classes]">
-        <div class="modal__container" :style="containerStyle">
+    <Teleport
+      v-if="isOpen"
+      to="modal"
+    >
+      <div
+        class="modal"
+        :class="[classes]"
+      >
+        <div
+          class="modal__container"
+          :style="containerStyle"
+        >
           <button
             class="modal__close-btn btn"
             aria-label="Close"
             @click="close"
           >
-            <Icon class="modal__close-icon" name="close" />
+            <Icon
+              class="modal__close-icon"
+              name="close"
+            />
           </button>
           <div class="modal__content">
             <slot />
           </div>
         </div>
-        <div class="modal__overlay" @click="close"></div>
+        <div
+          class="modal__overlay"
+          @click="close"
+        ></div>
       </div>
     </Teleport>
   </Transition>

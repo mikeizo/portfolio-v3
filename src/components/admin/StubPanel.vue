@@ -14,7 +14,12 @@
       <h1 class="m-0 text-4xl font-light tracking-tight text-ink">
         {{ title }}
       </h1>
-      <p v-if="sub" class="mt-2 text-base text-muted">{{ sub }}</p>
+      <p
+        v-if="sub"
+        class="mt-2 text-base text-muted"
+      >
+        {{ sub }}
+      </p>
     </div>
     <button
       v-if="actionLabel"
@@ -30,8 +35,6 @@
     class="flex min-h-65 flex-col items-center justify-center gap-2 rounded-xl border border-hairline bg-surface p-10 text-center shadow-card"
   >
     <p class="text-base text-ink-secondary">{{ title }} screen</p>
-    <p class="text-sm text-muted">
-      Layout shell only — this screen is ported in a later phase.
-    </p>
+    <p class="text-sm text-muted">Layout shell only — this screen is ported in a later phase.</p>
   </div>
 </template>

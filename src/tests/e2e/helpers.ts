@@ -74,9 +74,7 @@ export async function expectAdminWrite(
 ) {
   const { feed, method, trigger, status, toast } = options
   const response = page.waitForResponse(
-    (res) =>
-      res.url().includes(`/api/admin/${feed}`) &&
-      res.request().method() === method
+    (res) => res.url().includes(`/api/admin/${feed}`) && res.request().method() === method
   )
   await trigger.click()
   expect((await response).status()).toBe(status)
@@ -112,8 +110,6 @@ export async function openFirstRowEdit(page: Page, feed: string) {
   await openFirstRowMenu(page)
   await page.getByRole('link', { name: 'Edit' }).first().click()
   await expect(page).toHaveURL(editUrlRe(feed))
-  await expect(
-    page.getByRole('heading', { name: `Edit ${feed} entry` })
-  ).toBeVisible()
+  await expect(page.getByRole('heading', { name: `Edit ${feed} entry` })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Bold' })).toBeVisible()
 }

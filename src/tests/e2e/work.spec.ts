@@ -14,10 +14,7 @@ const openModal = async (page: Page): Promise<Locator> => {
   return modal
 }
 
-const getSlideshowOrSkip = async (
-  page: Page,
-  minSlides = 1
-): Promise<Locator> => {
+const getSlideshowOrSkip = async (page: Page, minSlides = 1): Promise<Locator> => {
   const slideshow = page.locator('.slideshow')
   const dotCount = await slideshow.locator('.slideshow__dot').count()
   if ((await slideshow.count()) === 0 || dotCount < minSlides) {

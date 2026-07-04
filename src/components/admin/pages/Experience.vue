@@ -3,13 +3,7 @@
 
   import 'devicon'
   import * as v from 'valibot'
-  import {
-    ArrowUpRight,
-    CirclePlus,
-    CircleX,
-    Pencil,
-    Save
-  } from 'lucide-vue-next'
+  import { ArrowUpRight, CirclePlus, CircleX, Pencil, Save } from 'lucide-vue-next'
   import { reactive, ref } from 'vue'
   import { addToast } from '@/stores/toasts'
   import { experienceSchema } from '@/utils/formSchema'
@@ -35,12 +29,9 @@
     request: requestDelete,
     confirm: confirmDelete,
     cancel: cancelDelete
-  } = useConfirmDelete<{ id: string; name: string }>((t) =>
-    deleteIcon(t.id, t.name)
-  )
+  } = useConfirmDelete<{ id: string; name: string }>((t) => deleteIcon(t.id, t.name))
 
-  const sortByName = () =>
-    experiences.value.sort((a, b) => a.name.localeCompare(b.name))
+  const sortByName = () => experiences.value.sort((a, b) => a.name.localeCompare(b.name))
 
   // Add a new experience icon
   async function addIcon() {
@@ -166,11 +157,12 @@
 
 <template>
   <h1 class="text-4xl font-light text-ink">Experience</h1>
-  <p class="mt-2 mb-7 text-base text-muted">
-    Manage the technologies shown on your profile.
-  </p>
+  <p class="mt-2 mb-7 text-base text-muted">Manage the technologies shown on your profile.</p>
 
-  <form class="max-w-2xl space-y-4" @submit.prevent="addIcon">
+  <form
+    class="max-w-2xl space-y-4"
+    @submit.prevent="addIcon"
+  >
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-7 sm:items-start">
       <TextField
         v-model="state.icon"
@@ -217,16 +209,27 @@
       :key="`${experience.icon}-${index}`"
       class="flex flex-col justify-between gap-4 rounded-lg border border-hairline bg-surface p-6 text-center shadow-card"
     >
-      <i :class="experience.icon.toLowerCase()" class="text-6xl text-ink" />
+      <i
+        :class="experience.icon.toLowerCase()"
+        class="text-6xl text-ink"
+      />
 
       <input
         v-if="editIndex === index"
         v-model="experience.name"
         class="w-full rounded-md border border-hairline-input bg-field px-3 py-2 text-center text-base text-ink outline-none transition-colors focus:border-accent"
       />
-      <p v-else class="text-base text-ink">{{ experience.name }}</p>
+      <p
+        v-else
+        class="text-base text-ink"
+      >
+        {{ experience.name }}
+      </p>
 
-      <div v-if="!isGuest" class="flex justify-center gap-6">
+      <div
+        v-if="!isGuest"
+        class="flex justify-center gap-6"
+      >
         <button
           v-if="editIndex === index"
           type="button"
@@ -249,9 +252,7 @@
           type="button"
           title="Delete"
           class="text-danger transition-opacity hover:opacity-70"
-          @click="
-            requestDelete({ id: experience._id ?? '', name: experience.name })
-          "
+          @click="requestDelete({ id: experience._id ?? '', name: experience.name })"
         >
           <CircleX :size="18" />
         </button>

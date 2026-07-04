@@ -42,10 +42,7 @@ export async function connectToDatabase() {
  * Should be one of the keys in schemaMap.
  * @returns An array of documents retrieved from the specified collection.
  */
-export async function fetchData(
-  collectionName: string | undefined,
-  sortOptions?: SortOptionsType
-) {
+export async function fetchData(collectionName: string | undefined, sortOptions?: SortOptionsType) {
   if (!collectionName) {
     return null
   }
@@ -71,10 +68,7 @@ export async function fetchData(
  * @returns The document if found, or null if not found or parameters are missing.
  * @throws Will throw an error if the database query fails.
  */
-export async function fetchDataById(
-  collectionName: string | undefined,
-  id: string | undefined
-) {
+export async function fetchDataById(collectionName: string | undefined, id: string | undefined) {
   if (!collectionName || !id) return null
 
   await connectToDatabase()
@@ -124,10 +118,7 @@ export async function updateData(
   })
 }
 
-export async function insertData(
-  collectionName: string,
-  data: Record<string, unknown>
-) {
+export async function insertData(collectionName: string, data: Record<string, unknown>) {
   const Model = getModel(collectionName)
   if (!Model || !data) return null
 

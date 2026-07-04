@@ -56,12 +56,7 @@
       instance.chain().focus().extendMarkRange('link').unsetLink().run()
       return
     }
-    instance
-      .chain()
-      .focus()
-      .extendMarkRange('link')
-      .setLink({ href: url })
-      .run()
+    instance.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
   }
 </script>
 

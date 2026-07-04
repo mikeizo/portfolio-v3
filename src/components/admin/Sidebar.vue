@@ -1,12 +1,5 @@
 <script setup lang="ts">
-  import {
-    ArrowUpRight,
-    ChevronDown,
-    CodeXml,
-    FileText,
-    Globe,
-    Settings
-  } from 'lucide-vue-next'
+  import { ArrowUpRight, ChevronDown, CodeXml, FileText, Globe, Settings } from 'lucide-vue-next'
   import type { NavGroup, NavItem } from '@/types/admin'
   import { reactive } from 'vue'
 
@@ -41,9 +34,7 @@
   // Open/closed state per group, keyed by label and seeded from defaultOpen.
   const openGroups = reactive<Record<string, boolean>>(
     Object.fromEntries(
-      navItems
-        .filter(isGroup)
-        .map((group) => [group.label, group.defaultOpen ?? false])
+      navItems.filter(isGroup).map((group) => [group.label, group.defaultOpen ?? false])
     )
   )
 
@@ -74,12 +65,8 @@
     :class="mobileOpen ? 'translate-x-0' : '-translate-x-full'"
   >
     <!-- wordmark -->
-    <div
-      class="flex h-14 shrink-0 items-center gap-2 px-5 border-b border-hairline"
-    >
-      <span
-        class="whitespace-nowrap text-2xl font-light text-ink rail:lg:hidden"
-      >
+    <div class="flex h-14 shrink-0 items-center gap-2 px-5 border-b border-hairline">
+      <span class="whitespace-nowrap text-2xl font-light text-ink rail:lg:hidden">
         MikeTropea<span class="text-accent">.</span>
       </span>
       <span class="hidden text-2xl font-light text-ink rail:lg:inline-block">
@@ -89,7 +76,10 @@
 
     <!-- nav -->
     <nav class="flex flex-1 flex-col gap-1 overflow-y-auto p-3">
-      <template v-for="item in navItems" :key="item.label">
+      <template
+        v-for="item in navItems"
+        :key="item.label"
+      >
         <!-- group with children -->
         <template v-if="isGroup(item)">
           <button
@@ -124,9 +114,7 @@
               :key="child.to"
               :href="child.to"
               class="rounded-md py-2 pl-10 pr-3 text-sm transition-colors hover:bg-row-hover hover:text-ink"
-              :class="
-                isActive(child.to) ? 'font-normal text-accent' : 'text-muted'
-              "
+              :class="isActive(child.to) ? 'font-normal text-accent' : 'text-muted'"
             >
               {{ child.label }}
             </a>
@@ -139,9 +127,7 @@
           :href="item.to"
           class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-light transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
           :class="
-            isActive(item.to)
-              ? 'bg-accent-soft font-normal text-accent'
-              : 'text-ink-secondary'
+            isActive(item.to) ? 'bg-accent-soft font-normal text-accent' : 'text-ink-secondary'
           "
           :title="item.label"
           @click="$emit('navigate')"
@@ -165,9 +151,15 @@
         class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-light text-muted transition-colors hover:bg-row-hover hover:text-ink rail:lg:justify-center"
         title="Site"
       >
-        <Globe :size="18" class="shrink-0 text-muted" />
+        <Globe
+          :size="18"
+          class="shrink-0 text-muted"
+        />
         <span class="whitespace-nowrap rail:lg:hidden">Site</span>
-        <ArrowUpRight :size="14" class="ml-auto rail:lg:hidden" />
+        <ArrowUpRight
+          :size="14"
+          class="ml-auto rail:lg:hidden"
+        />
       </a>
     </div>
   </aside>

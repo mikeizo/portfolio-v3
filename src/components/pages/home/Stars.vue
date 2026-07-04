@@ -33,14 +33,7 @@
     canvas.height = size
     const ctx = canvas.getContext('2d')!
 
-    const gradient = ctx.createRadialGradient(
-      size / 2,
-      size / 2,
-      0,
-      size / 2,
-      size / 2,
-      size / 2
-    )
+    const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2)
     gradient.addColorStop(0, 'rgba(255, 255, 255, 1)')
     gradient.addColorStop(0.1, 'rgba(255, 255, 255, 0.8)')
     gradient.addColorStop(0.25, 'rgba(200, 220, 255, 0.4)')
@@ -65,16 +58,12 @@
       const i3 = i * 3
       starPositions[i3] = (Math.random() - 0.5) * STAR_SPREAD
       starPositions[i3 + 1] = (Math.random() - 0.5) * STAR_SPREAD
-      starPositions[i3 + 2] =
-        -(i / STAR_COUNT) * STAR_DEPTH + (Math.random() - 0.5) * 100
+      starPositions[i3 + 2] = -(i / STAR_COUNT) * STAR_DEPTH + (Math.random() - 0.5) * 100
       starSizes[i] = Math.random() * 2 + 1
       starSpeeds[i] = STAR_SPEED * (0.5 + Math.random())
     }
 
-    starGeometry.setAttribute(
-      'position',
-      new THREE.BufferAttribute(starPositions, 3)
-    )
+    starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3))
     starGeometry.setAttribute('size', new THREE.BufferAttribute(starSizes, 1))
 
     const starMaterial = new THREE.ShaderMaterial({
@@ -213,5 +202,8 @@
 </script>
 
 <template>
-  <canvas ref="canvasRef" class="home__background"></canvas>
+  <canvas
+    ref="canvasRef"
+    class="home__background"
+  ></canvas>
 </template>

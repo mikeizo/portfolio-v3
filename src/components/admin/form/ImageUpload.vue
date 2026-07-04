@@ -23,8 +23,7 @@
   // on submit so the upload runs inside the save flow.
   const { assertFile } = useS3Upload()
 
-  const assetsBase =
-    (import.meta.env.PUBLIC_ASSETS_PATH as string | undefined) ?? ''
+  const assetsBase = (import.meta.env.PUBLIC_ASSETS_PATH as string | undefined) ?? ''
 
   const imageObjectUrl = ref<string | null>(null)
   const dragOver = ref(false)
@@ -76,7 +75,10 @@
   <div>
     <label class="mb-2 block text-sm text-muted">{{ label }}</label>
 
-    <div v-if="imageObjectUrl || image" class="mb-3">
+    <div
+      v-if="imageObjectUrl || image"
+      class="mb-3"
+    >
       <div
         class="relative flex size-32 items-center justify-center overflow-hidden rounded-lg border border-hairline bg-bg-soft"
       >
@@ -93,7 +95,10 @@
           class="max-h-full max-w-full object-contain"
           loading="lazy"
         />
-        <span v-else class="px-2 text-center text-xs break-all text-faint">
+        <span
+          v-else
+          class="px-2 text-center text-xs break-all text-faint"
+        >
           {{ image }}
         </span>
 
@@ -120,16 +125,15 @@
 
     <div
       class="flex w-full max-w-md flex-col items-center justify-center gap-3 rounded-lg border border-dashed px-6 py-8 text-center transition-colors"
-      :class="
-        dragOver
-          ? 'border-accent bg-accent-soft'
-          : 'border-hairline-input bg-field'
-      "
+      :class="dragOver ? 'border-accent bg-accent-soft' : 'border-hairline-input bg-field'"
       @dragover.prevent="dragOver = true"
       @dragleave.prevent="dragOver = false"
       @drop.prevent="onDrop"
     >
-      <ImageIcon :size="22" class="text-faint" />
+      <ImageIcon
+        :size="22"
+        class="text-faint"
+      />
       <div>
         <span class="text-sm font-medium text-ink">Drop image here</span>
         <p class="mt-1 text-xs text-faint">WebP, SVG, PNG, or JPG (max. 2MB)</p>

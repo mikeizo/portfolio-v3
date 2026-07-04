@@ -73,11 +73,12 @@
 
 <template>
   <h1 class="text-4xl font-light text-ink">Settings</h1>
-  <p class="mt-2 mb-7 text-base text-muted">
-    Manage your profile and workspace details.
-  </p>
+  <p class="mt-2 mb-7 text-base text-muted">Manage your profile and workspace details.</p>
 
-  <form class="max-w-2xl space-y-4" @submit.prevent="onSubmit">
+  <form
+    class="max-w-2xl space-y-4"
+    @submit.prevent="onSubmit"
+  >
     <TextField
       v-model="state.title"
       class="sm:w-1/2"

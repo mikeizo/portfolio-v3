@@ -15,7 +15,10 @@
 
 <template>
   <div>
-    <label :for="name" class="mb-2 block text-sm text-muted">
+    <label
+      :for="name"
+      class="mb-2 block text-sm text-muted"
+    >
       {{ label }}
     </label>
     <select
@@ -24,9 +27,7 @@
       :value="modelValue"
       class="w-full rounded-md border bg-field px-3 py-2 text-base text-ink outline-none transition-colors focus:border-accent"
       :class="error ? 'border-danger' : 'border-hairline-input'"
-      @change="
-        $emit('update:modelValue', ($event.target as HTMLSelectElement).value)
-      "
+      @change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)"
     >
       <option
         v-if="placeholder"
@@ -45,6 +46,11 @@
         {{ option.label }}
       </option>
     </select>
-    <p v-if="error" class="mt-1 text-xs text-danger">{{ error }}</p>
+    <p
+      v-if="error"
+      class="mt-1 text-xs text-danger"
+    >
+      {{ error }}
+    </p>
   </div>
 </template>
