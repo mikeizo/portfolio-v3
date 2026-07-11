@@ -1,12 +1,14 @@
 import type { SortOptionsType } from '@/types/portfolio'
 
-import mongoose, { type ConnectOptions } from 'mongoose'
+import mongoose, { type ConnectOptions, type Model } from 'mongoose'
 import { type WritableCollection, writeModels } from '@/models'
 import { ObjectId } from 'mongodb'
 
-function getModel(collectionName: string | undefined) {
+function getModel(collectionName: string | undefined): Model<Record<string, unknown>> | null {
   if (!collectionName || !(collectionName in writeModels)) return null
-  return writeModels[collectionName as WritableCollection]
+  return writeModels[collectionName as WritableCollection] as unknown as Model<
+    Record<string, unknown>
+  >
 }
 
 const { MONGODB_URI, MONGODB_DB } = import.meta.env
@@ -52,10 +54,10 @@ export async function fetchData(collectionName: string | undefined, sortOptions?
   await connectToDatabase()
   const data =
     sortOptions?.sort && sortOptions?.order
-      ? await Collection.find().sort({
+      ? Collection.find().sort({
           [sortOptions.sort]: sortOptions.order
         })
-      : await Collection.find()
+      : Collection.find()
 
   return JSON.parse(JSON.stringify(await data.toArray()))
 }
@@ -118,6 +120,17 @@ export async function updateData(
   })
 }
 
+/**
+ * Inserts new data into a MongoDB collection via the per-collection Mongoose Model.
+ *
+ * The inserted data is validated against the Model's schema (`strict: 'throw'`), which
+ * enforces field requirements, type checks, and sanitization via schema hooks.
+ * Accepts either a single data object or an array of data objects.
+ *
+ * @param collectionName - The name of the collection to insert data into.
+ * @param data - The data object or array of objects to insert. Validated against the Model's schema.
+ * @returns The created document(s), or null if the collection is unknown.
+ */
 export async function insertData(collectionName: string, data: Record<string, unknown>) {
   const Model = getModel(collectionName)
   if (!Model || !data) return null
@@ -127,6 +140,16 @@ export async function insertData(collectionName: string, data: Record<string, un
   return Array.isArray(data) ? Model.insertMany(data) : Model.create(data)
 }
 
+/**
+ * Deletes a single document by ID from a MongoDB collection using the per-collection Mongoose Model.
+ *
+ * The operation is performed only if a valid Model exists for the given collection and an ID is provided.
+ * The function connects to the database, and attempts to delete the document with the matching ID.
+ *
+ * @param collectionName - The name of the collection from which to delete the document.
+ * @param id - The unique identifier (_id) of the document to delete.
+ * @returns The deleted document if found, or null if not found or if the collection is unknown.
+ */
 export async function deleteData(collectionName: string, id: string) {
   const Model = getModel(collectionName)
   if (!Model || !id) return null

@@ -7,13 +7,17 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "check": "astro check",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.9",
     "@astrojs/vercel": "^11.0.2",
     "@astrojs/vue": "^7.0.1",
     "@aws-sdk/client-s3": "^3.1029.0",
@@ -37,6 +41,7 @@
     "sass": "^1.89.2",
     "tailwindcss": "^4.1.18",
     "three": "^0.182.0",
+    "typescript": "^6.0.3",
     "valibot": "^1.2.0",
     "vue": "^3.5.17"
   },
@@ -47,6 +52,7 @@
     "@types/sanitize-html": "^2.16.0",
     "@types/three": "^0.182.0",
     "oxfmt": "^0.56.0",
-    "oxlint": "^1.71.0"
+    "oxlint": "^1.71.0",
+    "vitest": "^4.1.9"
   }
 }

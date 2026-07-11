@@ -9,12 +9,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run preview` — preview the production build
 - `npm run lint` / `npm run lint:fix` — oxlint (config in `.oxlintrc.json`; lints `.vue`/`.astro` script blocks, plus Vue-plugin rules — no Astro-specific rules)
 - `npm run format` / `npm run format:check` — oxfmt (config in `.oxfmtrc.json`; formats `.vue`/`.ts`/`.js`/CSS/SCSS/JSON/MD but **not** `.astro` yet)
+- `npm test` — Vitest unit tests (`src/tests/unit/`); `npm run test:watch` for watch mode
+  - Single file: `npx vitest run src/tests/unit/utils/slug.test.ts`
 - `npm run test:e2e` — Playwright e2e tests (`src/tests/e2e/`)
   - Single file: `npx playwright test src/tests/e2e/work.spec.ts`
   - Single test: `npx playwright test --grep "test name"`
   - HTML report/artifacts land in `.playwright/` (gitignored)
 
-No unit test runner is configured (`src/tests/unit/` is empty).
+### Unit test setup
+
+`vitest.config.ts` wraps Astro's `getViteConfig()` (so the `@` alias and TS resolution match the app) and injects test-only env vars (`AUTH_JWT_SECRET`, dummy `MONGODB_*`). The suite is **infrastructure-free**: no database, no network. Conventions:
+
+- Layout mirrors `src/`: `src/tests/unit/utils/`, `models/`, `api/`, plus `middleware.test.ts`.
+- Model hook tests use `await doc.validate()`, **not** `validateSync()` — only `validate()` runs `pre('validate')` middleware (timestamps, sanitize). Both work offline.
+- Mocking boundaries: API handler tests `vi.mock('@/utils/mongodb')`; `mail.ts` tests also `vi.stubGlobal('fetch', ...)`; middleware tests `vi.mock('astro:middleware')` with an identity `defineMiddleware` and use real JWTs from `signToken`.
+- Auth tests use real jose/bcrypt crypto; the test secret in tests must match `vitest.config.ts`.
+- Intentional pins: empty contact-form `message` and `phone` are **valid** (optional fields). Accepted gaps: query-path hooks (`pre('findOneAndUpdate')` timestamp/immutability), `mongodb.ts` CRUD wrappers, `presign.ts`/`s3-delete.ts` — covered by e2e or accepted as thin wrappers.
 
 ### Playwright setup
 

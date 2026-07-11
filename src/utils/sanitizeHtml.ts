@@ -13,12 +13,12 @@ const DESCRIPTION_OPTIONS: sanitizeHtml.IOptions = {
 export const sanitizeDescription = (html: string): string =>
   sanitizeHtml(html ?? '', DESCRIPTION_OPTIONS)
 
-export const sanitizeDocFields = <T extends Record<string, unknown>>(
+export const sanitizeDocFields = <T extends object>(
   doc: T,
   fields: readonly (keyof T & string)[]
 ) => {
   for (const field of fields) {
-    const value = doc[field]
+    const value = doc[field as keyof T]
 
     if (typeof value === 'string') {
       ;(doc as Record<string, unknown>)[field] = sanitizeDescription(value)
