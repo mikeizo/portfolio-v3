@@ -12,28 +12,39 @@ function getModel(collectionName: string | undefined): Model<Record<string, unkn
 }
 
 const { MONGODB_URI, MONGODB_DB } = import.meta.env
-const options = {
-  dbName: MONGODB_DB
+const options: ConnectOptions = {
+  dbName: MONGODB_DB,
+  maxPoolSize: 5, // per-instance cap; each Vercel instance has its own pool
+  minPoolSize: 0, // don't hold idle connections in dormant instances
+  maxIdleTimeMS: 15_000, // release connections quickly after a burst
+  serverSelectionTimeoutMS: 5_000 // fail fast instead of hanging a serverless function
 }
-let isConnected = false
 
 if (!MONGODB_URI || !MONGODB_DB) {
   console.error('Missing required MongoDB env variables')
 }
 
+// Cached on globalThis so the promise survives module re-evaluation (dev HMR)
+// and is shared across concurrent requests within a warm serverless instance.
+const globalCache = globalThis as typeof globalThis & {
+  __mongooseConn?: Promise<typeof mongoose> | null
+}
+
 /**
- * Fetches documents from a MongoDB collection in the current database.
+ * Connects to MongoDB, reusing a single in-flight or established connection
+ * per process. A failed connect clears the cache so the next call retries.
  *
- * @param collectionName The name of the collection to fetch data from.
- * @returns The documents from the collection as an array or null if failed.
+ * @returns The shared Mongoose connection.
  */
 export async function connectToDatabase() {
-  if (isConnected) {
-    return mongoose.connection
+  if (!globalCache.__mongooseConn) {
+    globalCache.__mongooseConn = mongoose.connect(MONGODB_URI, options).catch((error) => {
+      globalCache.__mongooseConn = null
+      throw error
+    })
   }
 
-  await mongoose.connect(MONGODB_URI, options as ConnectOptions)
-  isConnected = true
+  await globalCache.__mongooseConn
   return mongoose.connection
 }
 
@@ -49,9 +60,9 @@ export async function fetchData(collectionName: string | undefined, sortOptions?
     return null
   }
 
-  const Collection = mongoose.connection.collection(collectionName)
-
   await connectToDatabase()
+
+  const Collection = mongoose.connection.collection(collectionName)
   const data =
     sortOptions?.sort && sortOptions?.order
       ? Collection.find().sort({
