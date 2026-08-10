@@ -42,6 +42,58 @@
   ></div>
   <header class="header wrapper sticky">
     <div class="header__content">
+      <svg
+        class="photon"
+        aria-hidden="true"
+      >
+        <defs>
+          <filter id="photon-soft">
+            <feGaussianBlur stdDeviation="12" />
+          </filter>
+          <mask
+            id="photon-mask"
+            maskUnits="userSpaceOnUse"
+          >
+            <rect
+              class="photon__spot"
+              width="100%"
+              height="100%"
+              rx="16"
+              pathLength="100"
+              filter="url(#photon-soft)"
+            />
+          </mask>
+          <mask
+            id="photon-mask-offset"
+            maskUnits="userSpaceOnUse"
+          >
+            <rect
+              class="photon__spot photon__spot--offset"
+              width="100%"
+              height="100%"
+              rx="16"
+              pathLength="100"
+              filter="url(#photon-soft)"
+            />
+          </mask>
+        </defs>
+        <rect
+          class="photon__beam"
+          width="100%"
+          height="100%"
+          rx="16"
+          pathLength="100"
+          mask="url(#photon-mask)"
+        />
+        <rect
+          class="photon__beam"
+          width="100%"
+          height="100%"
+          rx="16"
+          pathLength="100"
+          mask="url(#photon-mask-offset)"
+        />
+      </svg>
       <div class="header__logo logo">
         <a
           href="/"

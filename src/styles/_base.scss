@@ -115,6 +115,7 @@ img {
   z-index: 50;
 
   &__content {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -216,6 +217,43 @@ img {
       visibility: visible;
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+}
+
+// Photon
+.photon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0.2;
+
+  // Visible ring: static full-border stroke, revealed by the traveling mask spot
+  &__beam {
+    fill: none;
+    rx: var(--border-radius);
+    stroke: var(--color-primary);
+    stroke-width: 1;
+    filter: drop-shadow(0 0 6px var(--color-primary))
+      drop-shadow(0 0 16px hsla(from var(--color-primary) h s l / 0.4));
+  }
+
+  // Mask spot: short fat white dash, blurred into a soft radial glow that
+  // sweeps the ring. White = mask luminance, not a theme color.
+  &__spot {
+    fill: none;
+    rx: var(--border-radius);
+    stroke: #fff;
+    stroke-width: 40;
+    stroke-linecap: round;
+    stroke-dasharray: 6 94;
+    animation: light-travel 5s linear infinite;
+
+    &--offset {
+      animation-delay: -2.5s; // half a lap behind the lead photon
     }
   }
 }
@@ -578,6 +616,10 @@ img {
     padding: 0.5rem 1rem;
     font-size: 0.75rem;
     text-decoration: none;
+  }
+
+  .icon--github {
+    margin-right: 0.5rem;
   }
 
   &__git {

@@ -96,3 +96,12 @@
     transform: translateY(0);
   }
 }
+
+@keyframes light-travel {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -100;
+  }
+}
