@@ -26,6 +26,7 @@ const menuItems = (await fetchData('menu', { sort: 'sort', order: 1 })) ?? []
       name="description"
       content={meataDescription ?? 'Personal website portfolio of Mike Tropea'}
     />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
 
     <link
       rel="preload"
