@@ -73,8 +73,8 @@ Astro 6 SSR site (`output: 'server'`, Vercel adapter) with Vue 3 islands, Tailwi
   - `useInputRotation.ts` — mouse/touch/gyroscope input tracking with lerp smoothing, used for visual effects.
   - `useObserver.ts` — `IntersectionObserver` wrapper for mount/unmount visibility tracking.
   - `useS3Upload.ts` — file validation + presigned-URL S3 upload with progress tracking.
-- `src/utils/` holds shared helpers: `auth.ts` (JWT sign/verify, cookie helpers), `mongodb.ts`, `sanitizeHtml.ts`, `formSchema.ts` (valibot), `validation.ts` (contact-form validators), `slug.ts`, `animation.ts` (GSAP).
-- Animations use GSAP; there is also a Three.js dependency for visual elements.
+- `src/utils/` holds shared helpers: `auth.ts` (JWT sign/verify, cookie helpers), `mongodb.ts`, `sanitizeHtml.ts`, `formSchema.ts` (valibot), `validation.ts` (contact-form validators), `slug.ts`, `animation.ts` (CSS `splitText` blur-in).
+- The header theme toggle morphs Lucide `Sun`/`Moon` icon data (`lucide`, not `lucide-vue-next`) with `morphicons/vue`; other animations are CSS. There is also a Three.js dependency for visual elements.
 - Coding conventions (TypeScript strict, Vue 3 Composition API, Astro patterns, BEM naming, accessibility) are documented in `.cursorrules`.
 
 ### Styling
