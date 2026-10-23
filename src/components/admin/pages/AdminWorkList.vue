@@ -2,7 +2,7 @@
   import type { DropdownItem } from '@/types/admin'
   import type { WorkType } from '@/types/portfolio'
 
-  import { CirclePlus, Eye, Pencil, Trash } from 'lucide-vue-next'
+  import { CirclePlus, Eye, Pencil, Trash } from '@lucide/vue'
   import { onMounted, ref } from 'vue'
   import { addToast } from '@/stores/toasts'
   import { useConfirmDelete } from '@/composables/useConfirmDelete'

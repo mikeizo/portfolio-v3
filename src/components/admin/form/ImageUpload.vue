@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Image as ImageIcon, Trash2, Upload, X } from 'lucide-vue-next'
+  import { Image as ImageIcon, Trash2, Upload, X } from '@lucide/vue'
   import { onUnmounted, ref, watch } from 'vue'
   import { addToast } from '@/stores/toasts'
   import { useS3Upload } from '@/composables/useS3Upload'

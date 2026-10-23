@@ -8,7 +8,7 @@
   import type { DropdownItem } from '@/types/admin'
 
   import { onBeforeUnmount, onMounted, ref } from 'vue'
-  import { EllipsisVertical } from 'lucide-vue-next'
+  import { EllipsisVertical } from '@lucide/vue'
 
   const props = withDefaults(
     defineProps<{

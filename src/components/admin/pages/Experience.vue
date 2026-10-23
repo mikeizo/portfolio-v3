@@ -3,7 +3,7 @@
 
   import 'devicon'
   import * as v from 'valibot'
-  import { ArrowUpRight, CirclePlus, CircleX, Pencil, Save } from 'lucide-vue-next'
+  import { ArrowUpRight, CirclePlus, CircleX, Pencil, Save } from '@lucide/vue'
   import { reactive, ref } from 'vue'
   import { addToast } from '@/stores/toasts'
   import { experienceSchema } from '@/utils/formSchema'

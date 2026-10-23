@@ -60,7 +60,7 @@ Astro 6 SSR site (`output: 'server'`, Vercel adapter) with Vue 3 islands, Tailwi
 
 ### Admin area
 - Routes under `src/pages/admin/*.astro` use `src/layouts/Admin.astro`, which mounts the `AdminLayout.vue` shell (`client:load`) around page components from `src/components/admin/pages/`.
-- The admin UI is **hand-built** (no component library): shell pieces in `src/components/admin/` (`Sidebar`, `Topbar`, `Breadcrumb`, `DropdownMenu`, `ConfirmDialog`, `Toast`, `StubPanel`) and form primitives in `src/components/admin/form/` (`TextField`, `RichTextEditor` (Tiptap), `ImageUpload`, `GalleryUpload`). Icons via `lucide-vue-next` (admin chrome) and `devicon` (experience tech icons).
+- The admin UI is **hand-built** (no component library): shell pieces in `src/components/admin/` (`Sidebar`, `Topbar`, `Breadcrumb`, `DropdownMenu`, `ConfirmDialog`, `Toast`, `StubPanel`) and form primitives in `src/components/admin/form/` (`TextField`, `RichTextEditor` (Tiptap), `ImageUpload`, `GalleryUpload`). Icons via `@lucide/vue` (admin chrome) and `devicon` (experience tech icons).
 - Forms validate with valibot (`v.safeParse` against `src/utils/formSchema.ts`) then `fetch()` directly to `/api/admin/<feed>`; success/failure surfaces through the toast store. Deletes go through `useConfirmDelete` + `ConfirmDialog`.
 - Theming: `src/styles/admin.css` is the admin Tailwind entry, defining semantic tokens (`--bg`, `--surface`, `--accent`, `--danger`, …) that all admin markup reads. Dark mode is a custom variant keyed on `[data-theme="dark"]` on `<html>` — **not** Tailwind's `.dark` class; the collapsed sidebar is `[data-rail="collapsed"]`. Both are persisted in localStorage (`admin-new-color-scheme` via `useColorMode` in `AdminLayout.vue`, `admin-new-rail` via `useStorage`) and pre-painted by an inline script in `Admin.astro` to avoid FOUC. Keep the vueuse `storageKey` custom — the default key collides with the public site's theme handling.
 - Style admin work with Tailwind utilities on these tokens; don't add hand-written CSS.
@@ -74,7 +74,7 @@ Astro 6 SSR site (`output: 'server'`, Vercel adapter) with Vue 3 islands, Tailwi
   - `useObserver.ts` — `IntersectionObserver` wrapper for mount/unmount visibility tracking.
   - `useS3Upload.ts` — file validation + presigned-URL S3 upload with progress tracking.
 - `src/utils/` holds shared helpers: `auth.ts` (JWT sign/verify, cookie helpers), `mongodb.ts`, `sanitizeHtml.ts`, `formSchema.ts` (valibot), `validation.ts` (contact-form validators), `slug.ts`, `animation.ts` (CSS `splitText` blur-in).
-- The header theme toggle morphs Lucide `Sun`/`Moon` icon data (`lucide`, not `lucide-vue-next`) with `morphicons/vue`; other animations are CSS. There is also a Three.js dependency for visual elements.
+- The header theme toggle morphs Lucide `Sun`/`Moon` icon data (`lucide`, not `@lucide/vue`) with `morphicons/vue`; other animations are CSS. There is also a Three.js dependency for visual elements.
 - Coding conventions (TypeScript strict, Vue 3 Composition API, Astro patterns, BEM naming, accessibility) are documented in `.cursorrules`.
 
 ### Styling

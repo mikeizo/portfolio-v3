@@ -12,7 +12,7 @@
     Link as LinkIcon,
     List,
     ListOrdered
-  } from 'lucide-vue-next'
+  } from '@lucide/vue'
   import { EditorContent, useEditor } from '@tiptap/vue-3'
   import StarterKit from '@tiptap/starter-kit'
   import { TextAlign } from '@tiptap/extension-text-align'

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { CirclePlus } from 'lucide-vue-next'
+  import { CirclePlus } from '@lucide/vue'
 
   defineProps<{
     title: string

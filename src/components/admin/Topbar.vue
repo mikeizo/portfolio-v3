@@ -2,7 +2,7 @@
   import type { AuthUser } from '@/types/portfolio'
 
   import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
-  import { LogOut, Moon, PanelLeft, Settings, Sun } from 'lucide-vue-next'
+  import { LogOut, Moon, PanelLeft, Settings, Sun } from '@lucide/vue'
 
   const props = defineProps<{
     title: string

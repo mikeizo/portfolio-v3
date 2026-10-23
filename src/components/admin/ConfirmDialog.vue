@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { nextTick, onMounted, onUnmounted, ref, useId, watch } from 'vue'
-  import { LoaderCircle } from 'lucide-vue-next'
+  import { LoaderCircle } from '@lucide/vue'
 
   const props = withDefaults(
     defineProps<{

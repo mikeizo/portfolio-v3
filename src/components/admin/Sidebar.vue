@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ArrowUpRight, ChevronDown, CodeXml, FileText, Globe, Settings } from 'lucide-vue-next'
+  import { ArrowUpRight, ChevronDown, CodeXml, FileText, Globe, Settings } from '@lucide/vue'
   import type { NavGroup, NavItem } from '@/types/admin'
   import { reactive } from 'vue'
 

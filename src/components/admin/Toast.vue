@@ -2,7 +2,7 @@
   import type { Component } from 'vue'
   import type { ToastType } from '@/stores/toasts'
 
-  import { Bell, CheckCircle2, X, XCircle } from 'lucide-vue-next'
+  import { Bell, CheckCircle2, X, XCircle } from '@lucide/vue'
   import { useStore } from '@nanostores/vue'
 
   import { $toasts, removeToast } from '@/stores/toasts'

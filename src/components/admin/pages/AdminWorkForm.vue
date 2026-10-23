@@ -2,7 +2,7 @@
   import type { WorkType } from '@/types/portfolio'
 
   import * as v from 'valibot'
-  import { ArrowUpRight, CirclePlus, CircleX } from 'lucide-vue-next'
+  import { ArrowUpRight, CirclePlus, CircleX } from '@lucide/vue'
   import { fileExtension, slugify } from '@/utils/slug'
   import { reactive, ref } from 'vue'
   import { addToast } from '@/stores/toasts'
