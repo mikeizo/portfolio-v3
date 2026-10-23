@@ -39,6 +39,19 @@ export default defineConfig({
         '@': '/src'
       }
     },
-    plugins: [tailwindcss()]
+    plugins: [
+      tailwindcss(),
+      // sanitize-html is CJS but requires the ESM-only htmlparser2@12. Vercel runs
+      // functions with --no-experimental-require-module, so bundle both into the
+      // server build. Build-only: dev's module runner can't execute CJS, and Node
+      // handles require(esm) natively there. Remove once either side changes.
+      {
+        name: 'bundle-sanitize-html',
+        apply: 'build',
+        config: () => ({
+          ssr: { noExternal: ['sanitize-html', 'htmlparser2'] }
+        })
+      }
+    ]
   }
 })
